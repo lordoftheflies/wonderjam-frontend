@@ -1,37 +1,6 @@
 {
   "meta": {
-    "todo": [
-      {
-        "op": "add",
-        "path": "/headerPanelMain:div_1:iron-pages:section_2:paper-material:h2",
-        "value": "User: {{params.name}}"
-      },
-      {
-        "op": "add",
-        "path": "/headerPanelMain:div_1:iron-pages:section_2:paper-material:div_1",
-        "value": "This is {{params.name}}'s section"
-      },
-      {
-        "op": "replace",
-        "path": "/headerPanelMain:div_1:iron-pages:section_2:paper-material:h2/0",
-        "value": "User: {1}"
-      },
-      {
-        "op": "replace",
-        "path": "/headerPanelMain:div_1:iron-pages:section_2:paper-material:h2/1",
-        "value": "{{params.name}}"
-      },
-      {
-        "op": "replace",
-        "path": "/headerPanelMain:div_1:iron-pages:section_2:paper-material:div_1/0",
-        "value": "This is {1}'s section"
-      },
-      {
-        "op": "replace",
-        "path": "/headerPanelMain:div_1:iron-pages:section_2:paper-material:div_1/1",
-        "value": "{{params.name}}"
-      }
-    ]
+    "todo": []
   },
   "model": {},
   "drawerToolbar:span": "メニュー",
@@ -62,11 +31,11 @@
   "headerPanelMain:div_1:iron-pages:section_1:paper-material:a_6": "チャック",
   "headerPanelMain:div_1:iron-pages:section_1:paper-material:a_8": "サム",
   "headerPanelMain:div_1:iron-pages:section_2:paper-material:h2": [
-    "User: {1}",
+    "ユーザー: {1}",
     "{{params.name}}"
   ],
   "headerPanelMain:div_1:iron-pages:section_2:paper-material:div_1": [
-    "This is {1}'s section",
+    "{1} のセクションです。",
     "{{params.name}}"
   ],
   "headerPanelMain:div_1:iron-pages:section_3:paper-material:h2": "コンタクト",
