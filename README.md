@@ -1,7 +1,22 @@
 ![](https://cloud.githubusercontent.com/assets/110953/7877439/6a69d03e-0590-11e5-9fac-c614246606de.png)
-## Polymer Starter Kit
+## Polymer Starter Kit + I18N support with [i18n-behavior](https://github.com/t2ym/i18n-behavior)
 
-> A starting point for building web applications with Polymer 1.0
+> A starting point for building I18N-ready web applications with Polymer 1.0
+
+### Additional Features from the original [Polymer Starter Kit](https://github.com/PolymerElements/polymer-starter-kit)
+
+* Automatic run-time extraction of UI strings from HTML by [I18nBehavior](https://github.com/t2ym/i18n-behavior)
+* Support run-time locale changes via `<html lang="locale name">`
+* Dynamic loading of localized UI strings from JSON at the server
+  - Modular (per element) - /elements/my-greeting/locales/my-greeting.{locale name}.json
+  - Bundled (per app) - /locales/bundle.{locale name}.json
+* Fully integrated with the gulp build system
+* Automatic build-time extraction of UI string from HTML by [gulp-i18n-preprocess](https://github.com/t2ym/gulp-i18n-preprocess)
+* Automatic merging of changes in HTML into localized JSON files by [gulp-i18n-leverage](https://github.com/t2ym/gulp-i18n-leverage)
+* CLDR Pluralization and Gender support by [i18n-format](https://github.com/t2ym/i18n-format)
+* Number I18N support by [i18n-number](https://github.com/t2ym/i18n-number)
+
+## Original README follows:
 
 ### Included out of the box:
 
