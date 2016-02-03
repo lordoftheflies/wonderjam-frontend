@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "todo": [
+      {
+        "op": "add",
+        "path": "/items/0",
+        "value": "Responsive Web App boilerplate"
+      },
+      {
+        "op": "add",
+        "path": "/items/1",
+        "value": "Iron Elements and Paper Elements"
+      },
+      {
+        "op": "add",
+        "path": "/items/2",
+        "value": "End-to-end Build Tooling (including Vulcanize)"
+      },
+      {
+        "op": "add",
+        "path": "/items/3",
+        "value": "Unit testing with Web Component Tester"
+      },
+      {
+        "op": "add",
+        "path": "/items/4",
+        "value": "Routing with Page.js"
+      },
+      {
+        "op": "add",
+        "path": "/items/5",
+        "value": "Offline support with the Platinum Service Worker Elements"
+      }
+    ]
+  },
+  "model": {},
+  "items": [
+    "Responsive Web App boilerplate",
+    "Iron Elements and Paper Elements",
+    "End-to-end Build Tooling (including Vulcanize)",
+    "Unit testing with Web Component Tester",
+    "Routing with Page.js",
+    "Offline support with the Platinum Service Worker Elements"
+  ]
+}
