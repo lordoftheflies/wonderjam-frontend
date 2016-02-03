@@ -170,7 +170,11 @@ gulp.task('leverage', function () {
 // Generate bundles.{lang}.json
 gulp.task('bundles', function (callback) {
   var localesPath = dist('locales');
-  fs.mkdirSync(localesPath);
+  try {
+    fs.mkdirSync(localesPath);
+  }
+  catch (e) {
+  }
   for (var lang in bundles) {
     bundles[lang].bundle = true;
     if (lang) { // localized bundle
