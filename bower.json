@@ -1,6 +1,17 @@
 {
-  "name": "polymer-starter-kit",
-  "private": true,
+  "name": "polymer-starter-kit-i18n",
+  "description": "Polymer Starter Kit with I18N support with i18n-behavior",
+  "keywords": [
+    "polymer",
+    "web-component",
+    "web-components",
+    "i18n",
+    "internationalization",
+    "l10n",
+    "localization",
+    "format"
+  ],
+  "private": false,
   "dependencies": {
     "iron-elements": "PolymerElements/iron-elements#^1.0.0",
     "neon-elements": "PolymerElements/neon-elements#^1.0.0",
