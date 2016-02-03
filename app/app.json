@@ -28,8 +28,14 @@
   "headerPanelMain:div_1:iron-pages:section_1:paper-material:a_4": "Rob",
   "headerPanelMain:div_1:iron-pages:section_1:paper-material:a_6": "Chuck",
   "headerPanelMain:div_1:iron-pages:section_1:paper-material:a_8": "Sam",
-  "headerPanelMain:div_1:iron-pages:section_2:paper-material:h2": "User: {{params.name}}",
-  "headerPanelMain:div_1:iron-pages:section_2:paper-material:div_1": "This is {{params.name}}'s section",
+  "headerPanelMain:div_1:iron-pages:section_2:paper-material:h2": [
+    "User: {1}",
+    "{{params.name}}"
+  ],
+  "headerPanelMain:div_1:iron-pages:section_2:paper-material:div_1": [
+    "This is {1}'s section",
+    "{{params.name}}"
+  ],
   "headerPanelMain:div_1:iron-pages:section_3:paper-material:h2": "Contact",
   "headerPanelMain:div_1:iron-pages:section_3:paper-material:p_1": "This is the contact section",
   "toast:span": "Ok"
