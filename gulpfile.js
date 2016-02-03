@@ -24,6 +24,7 @@ var historyApiFallback = require('connect-history-api-fallback');
 var packageJson = require('./package.json');
 var crypto = require('crypto');
 var ensureFiles = require('./tasks/ensure-files.js');
+var JSONstringify = require('json-stringify-safe');
 
 // var ghPages = require('gulp-gh-pages');
 
@@ -38,6 +39,16 @@ var AUTOPREFIXER_BROWSERS = [
   'android >= 4.4',
   'bb >= 10'
 ];
+
+// Build options
+var config = {
+  dev: !!$.util.env.dev, // --dev for development build
+};
+
+// Localizable attributes repository for gulp-i18n-preprocess
+var attributesRepository = {};
+// Locale bundles for gulp-i18n-leverage
+var bundles = {};
 
 var DIST = 'dist';
 
@@ -96,6 +107,126 @@ var optimizeHtmlTask = function(src, dest) {
     }));
 };
 
+// Scan HTMLs and construct localizable attributes repository.
+gulp.task('scan', function () {
+  return gulp.src([ 'app/elements/**/*.html' ])
+    .pipe($.i18nPreprocess({
+      constructAttributesRepository: true,
+      attributesRepository: attributesRepository,
+      srcPath: 'app',
+      attributesRepositoryPath: 'app/bower_components/i18n-behavior/i18n-attr-repo.html',
+      dropHtml: true
+    }))
+    .pipe(gulp.dest(dist('elements')))
+    .pipe($.size({
+      title: 'scan'
+    }));
+});
+
+// Preprocess HTML for I18N.
+gulp.task('preprocess', function () {
+  var elements = gulp.src(['app/elements/**/*'])
+    .pipe($.if('*.html', $.i18nPreprocess({
+      replacingText: true,
+      jsonSpace: (config.dev ? 2 : 0),
+      srcPath: 'app',
+      attributesRepository: attributesRepository
+    })))
+    .pipe(gulp.dest('.tmp/elements'));
+
+  var stylesHTML = gulp.src(['app/styles/**/*.html'])
+    .pipe(gulp.dest('.tmp/styles'));
+
+  var bower = gulp.src(['app/bower_components/**/*'])
+    .pipe(gulp.dest('.tmp/bower_components'));
+
+  var scripts = gulp.src(['app/scripts/**/*'])
+    .pipe(gulp.dest(dist('scripts')));
+
+  return merge(elements, stylesHTML, bower, scripts)
+    .pipe($.size({
+      title: 'preprocess'
+    }));
+});
+
+// Merge changes in default JSON into localized JSON
+gulp.task('leverage', function () {
+  return gulp.src([
+      'app/**/locales/*.json',
+      '!app/bower_components/**/locales/*.json'
+    ]) // input localized JSON files in source
+    .pipe($.i18nLeverage({
+      jsonSpace: (config.dev ? 2 : 0), // JSON format
+      srcPath: 'app', // path to source root
+      distPath: '.tmp', // path to dist root to fetch next default JSON files
+      bundles: bundles // output bundles object
+    }))
+    .pipe(gulp.dest(dist())) // path to output next localized JSON files
+    .pipe($.size({
+      title: 'leverage'
+    }));
+});
+
+// Generate bundles.{lang}.json
+gulp.task('bundles', function (callback) {
+  var localesPath = dist('locales');
+  fs.mkdirSync(localesPath);
+  for (var lang in bundles) {
+    bundles[lang].bundle = true;
+    if (lang) { // localized bundle
+      fs.writeFileSync(localesPath + '/bundle.' + lang + '.json', 
+                        JSONstringify(bundles[lang], null, config.dev ? 2 : 0));
+    }
+    else { // default bundle
+      fs.writeFileSync(dist('bundle.json'),
+                        JSONstringify(bundles[lang], null, config.dev ? 2 : 0));
+    }
+  }
+  callback();
+});
+
+// Feedback sources with updated JSON
+gulp.task('feedback', function () {
+  // Copy from dist
+  var locales = gulp.src(config.dev ? [
+      'dist/**/locales/*.json',
+      '!dist/locales/bundle.*.json',
+      '!dist/bower_components/**/*'
+    ] : [])
+    .pipe(gulp.dest('app'));
+
+  // Regenerate default JSON files
+  var elementDefault = gulp.src(config.dev ? [ 'app/elements/**/*.html' ] : [])
+    .pipe($.i18nPreprocess({
+      replacingText: false,
+      jsonSpace: 2,
+      srcPath: 'app',
+      dropHtml: true,
+      attributesRepository: attributesRepository
+    }))
+    .pipe(gulp.dest('app/elements'));
+
+  // Regenerate default JSON files for non-custom-element HTMLs, i.e., i18n-dom-bind
+  var appDefault = gulp.src(config.dev ? [
+      'app/**/*.html',
+      '!app/{elements,styles,test,bower_components}/**/*.html'
+    ] : [])
+    .pipe($.i18nPreprocess({
+      replacingText: false,
+      jsonSpace: 2,
+      srcPath: 'app',
+      force: true,
+      dropHtml: true,
+      attributesRepository: attributesRepository
+    }))
+    .pipe(gulp.dest('app'));
+
+  return merge(locales, elementDefault, appDefault)
+    .pipe($.size({
+      title: 'feedback'
+    }));
+});
+
 // Compile and automatically prefix stylesheets
 gulp.task('styles', function() {
   return styleTask('styles', ['**/*.css']);
@@ -132,7 +263,16 @@ gulp.task('copy', function() {
     '!**/.DS_Store'
   ], {
     dot: true
-  }).pipe(gulp.dest(dist()));
+  })
+  .pipe($.if('*.html', $.i18nPreprocess({
+    force: true,
+    replacingText: true,
+    jsonSpace: (config.dev ? 2 : 0),
+    srcPath: 'app',
+    attributesRepository: attributesRepository
+  })))
+  .pipe(gulp.dest('.tmp'))
+  .pipe(gulp.dest(dist()));
 
   // Copy over only the bower_components we need
   // These are things which cannot be vulcanized
@@ -158,13 +298,13 @@ gulp.task('fonts', function() {
 // Scan your HTML for assets & optimize them
 gulp.task('html', function() {
   return optimizeHtmlTask(
-    ['app/**/*.html', '!app/{elements,test,bower_components}/**/*.html'],
+    ['.tmp/**/*.html', '!.tmp/{elements,test,bower_components}/**/*.html'],
     dist());
 });
 
 // Vulcanize granular configuration
 gulp.task('vulcanize', function() {
-  return gulp.src('app/elements/elements.html')
+  return gulp.src('.tmp/elements/elements.html')
     .pipe($.vulcanize({
       stripComments: true,
       inlineCss: true,
@@ -272,10 +412,13 @@ gulp.task('serve:dist', ['default'], function() {
 gulp.task('default', ['clean'], function(cb) {
   // Uncomment 'cache-config' if you are going to use service workers.
   runSequence(
+    'scan', 'preprocess',
     ['ensureFiles', 'copy', 'styles'],
     'elements',
     ['images', 'fonts', 'html'],
+    'leverage', 'bundles',
     'vulcanize', // 'cache-config',
+    'feedback',
     cb);
 });
 

@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/i18n-behavior/i18n-behavior.html">
 
 <dom-module id="my-greeting">
   <template>
@@ -28,6 +29,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <span>Update text to change the greeting.</span>
     <!-- Listens for "input" event and sets greeting to <input>.value -->
     <input value="{{greeting::input}}">
+    <template>
+      <span id="welcome">Welcome!</span>
+    </template>
   </template>
 
   <script>
@@ -37,12 +41,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       Polymer({
         is: 'my-greeting',
 
+        behaviors: [
+          BehaviorsStore.I18nBehavior
+        ],
+
         properties: {
           greeting: {
             type: String,
-            value: 'Welcome!',
             notify: true
           }
+        },
+
+        listeners: {
+          'lang-updated': 'langUpdated'
+        },
+
+        langUpdated: function () {
+          this.greeting = this.text.welcome;
         }
       });
     })();
