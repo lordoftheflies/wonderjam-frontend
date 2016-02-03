@@ -1,19 +1,8 @@
 {
   "meta": {
-    "todo": [
-      {
-        "op": "add",
-        "path": "/span_2",
-        "value": "Update text to change the greeting."
-      },
-      {
-        "op": "add",
-        "path": "/welcome",
-        "value": "Welcome!"
-      }
-    ]
+    "todo": []
   },
   "model": {},
-  "span_2": "Update text to change the greeting.",
-  "welcome": "Welcome!"
+  "span_2": "テキストを更新して挨拶を変更できます。",
+  "welcome": "ようこそ！"
 }
