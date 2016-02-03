@@ -3,6 +3,8 @@
 
 > A starting point for building I18N-ready web applications with Polymer 1.0
 
+## Running on Github Pages https://t2ym.github.io/polymer-starter-kit-i18n
+
 ### Additional Features from the original [Polymer Starter Kit](https://github.com/PolymerElements/polymer-starter-kit)
 
 * Automatic run-time extraction of UI strings from HTML by [I18nBehavior](https://github.com/t2ym/i18n-behavior)
