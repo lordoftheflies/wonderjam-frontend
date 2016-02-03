@@ -15,6 +15,7 @@
 * Fully integrated with the gulp build system
 * Automatic build-time extraction of UI string from HTML by [gulp-i18n-preprocess](https://github.com/t2ym/gulp-i18n-preprocess)
 * Automatic merging of changes in HTML into localized JSON files by [gulp-i18n-leverage](https://github.com/t2ym/gulp-i18n-leverage)
+  - `gulp --dev` to get merged changes into source ('app/') folder
 * CLDR Pluralization and Gender support by [i18n-format](https://github.com/t2ym/i18n-format)
 * Number I18N support by [i18n-number](https://github.com/t2ym/i18n-number)
 
