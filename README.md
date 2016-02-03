@@ -8,6 +8,7 @@
 ### Additional Features to the original [Polymer Starter Kit](https://github.com/PolymerElements/polymer-starter-kit)
 
 * [Main I18N changes](https://github.com/t2ym/polymer-starter-kit-i18n/commit/5c94986f4763951bee4e8adbde2a259ae202acb5)
+  - `git diff StartI18N..HEAD` to show the whole I18N changes to [Polymer Starter Kit](https://github.com/PolymerElements/polymer-starter-kit)
 * Automatic run-time extraction of UI strings from HTML by [I18nBehavior](https://github.com/t2ym/i18n-behavior)
 * Support run-time locale changes via `<html lang="locale name">`
   - `document.querySelector('html').lang = 'locale name'` to change the current locale manually
