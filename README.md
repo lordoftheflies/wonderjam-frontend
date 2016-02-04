@@ -25,7 +25,7 @@
 
 ### Add New Languages
 
-#### 1. Add placeholder JSON files for target locales
+#### 1. Add placeholder JSON files for target locales with [gulp-i18n-add-locales](https://github.com/t2ym/gulp-i18n-add-locales)
 
 ```
     # list of target locales in --targets="{space delimited list of target locales}"
