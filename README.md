@@ -23,6 +23,23 @@
 * CLDR Pluralization and Gender support by [i18n-format](https://github.com/t2ym/i18n-format)
 * Number I18N support by [i18n-number](https://github.com/t2ym/i18n-number)
 
+### Add New Languages
+
+#### 1. Add placeholder JSON files for target locales
+
+```
+    # list of target locales in --targets="{space delimited list of target locales}"
+    gulp locales --targets="de es fr ja zh-Hans"
+```
+
+#### 2. Merge default UI texts into the JSON files for translation
+
+```
+    gulp --dev
+```
+
+#### 3. Translate the JSON files and remove meta.todo entries (manually for now)
+
 ## Original README follows:
 
 ### Included out of the box:

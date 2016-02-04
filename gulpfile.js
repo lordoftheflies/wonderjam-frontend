@@ -25,6 +25,8 @@ var packageJson = require('./package.json');
 var crypto = require('crypto');
 var ensureFiles = require('./tasks/ensure-files.js');
 var JSONstringify = require('json-stringify-safe');
+var through = require('through2');
+var dom5 = require('dom5');
 
 // var ghPages = require('gulp-gh-pages');
 
@@ -43,6 +45,7 @@ var AUTOPREFIXER_BROWSERS = [
 // Build options
 var config = {
   dev: !!$.util.env.dev, // --dev for development build
+  locales: $.util.env.targets ? $.util.env.targets.split(/ /) : [] // list of target locales
 };
 
 // Localizable attributes repository for gulp-i18n-preprocess
@@ -228,6 +231,107 @@ gulp.task('feedback', function () {
   return merge(locales, elementDefault, appDefault)
     .pipe($.size({
       title: 'feedback'
+    }));
+});
+
+// Add locales to I18N-ready elements and pages
+gulp.task('locales', function() {
+  var addLocales = function (locales) {
+    var localesFolder = 'locales';
+    return through.obj(function (file, enc, callback) {
+      if (file.isNull()) {
+        return callback(null, file);
+      }
+      if (!file.isBuffer()) {
+        return callback(null, file);
+      }
+
+      var dirname = path.dirname(file.path);
+      var basenames = [];
+
+      var contents = String(file.contents);
+      var document = dom5.parse(contents);
+      var templates = [];
+      var i, j;
+
+      dom5.nodeWalkAll(document, function (node) {
+        if (dom5.predicates.hasTagName('template')(node)) {
+          var is = dom5.getAttribute(node, 'is');
+          var parent = node.parentNode;
+          var parentTagName = parent && parent.tagName ? 
+                                parent.tagName.toLowerCase() : null;
+          if (is === 'i18n-dom-bind') {
+            return true;
+          }
+          switch (parentTagName) {
+          case 'dom-module':
+          case 'body':
+          case 'head':
+          case 'html':
+            return true;
+          default:
+            return false;
+          }
+        }
+        else {
+          return false;
+        }
+      }, templates);
+
+      for (i = 0; i < templates.length; i++) {
+        var moduleId = dom5.getAttribute(templates[i], 'id') ||
+                        dom5.getAttribute(templates[i].parentNode, 'id');          
+        //console.log('module id = ' + moduleId);
+        basenames.push(moduleId);
+      }
+
+      for (j in basenames) {
+        var basename = basenames[j];      
+        var targetDir = dirname + '/' + localesFolder;
+        try {
+          fs.mkdirSync(targetDir);
+        }
+        catch (e) {}
+        for (i in locales) {
+          var target = targetDir + '/' + basename + '.' + locales[i] + '.json';
+          var stats;
+          try {
+            stats = undefined;
+            stats = fs.statSync(target);
+          }
+          catch (e) {}
+          if (stats) {
+            //console.log('addLocales: existing ' + target);
+          }
+          else {
+            // create an empty placeholder file
+            fs.writeFileSync(target, '');
+            //console.log('addLocales: creating ' + target);
+          }
+        }
+      }
+
+      callback(null, file);
+    });
+  };
+
+  var elements = gulp.src([ 'app/elements/**/*.html' ])
+    .pipe($.grepContents(/i18n-behavior.html/))
+    .pipe($.grepContents(/<dom-module /))
+    .pipe($.debug());
+
+  var pages = gulp.src([
+      'app/**/*.html',
+      '!app/{bower_components,styles,scripts,images,fonts}/**/*'
+    ])
+    .pipe($.grepContents(/is=['"]i18n-dom-bind['"]/))
+    .pipe($.debug());
+
+  return merge(elements, pages)
+    .pipe(addLocales(config.locales))
+    .pipe(gulp.dest('.tmp'))
+    .pipe($.size({
+      title: 'locales'
     }));
 });
 
