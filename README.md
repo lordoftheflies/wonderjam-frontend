@@ -23,6 +23,58 @@
 * CLDR Pluralization and Gender support by [i18n-format](https://github.com/t2ym/i18n-format)
 * Number I18N support by [i18n-number](https://github.com/t2ym/i18n-number)
 
+### Quick Tour
+
+### Deployment
+
+```
+    git clone https://github.com/t2ym/polymer-starter-kit-i18n.git
+    cd polymer-starter-kit-i18n
+    npm install -g gulp bower # if missing
+    npm install && bower install
+    # Development build with scan/preprocess/leverage/bundle/feedback tasks
+    gulp --dev
+    # Run-time I18N on http://localhost:5000
+    gulp serve
+    # Build-time I18N on http://localhost:5001
+    gulp serve:dist --dev
+```
+
+### Change language at run time
+
+##### 1. Press F12 to open debugger console on the browser
+
+##### 2. Navigate to the elements or DOM tab in the debugger
+
+##### 3. Change `lang` attribute of `html` element from "en" to "ja" or "fr"
+
+```
+    <html lang="ja">
+```
+
+### Update UI strings
+
+##### 1. Change any UI strings in the following HTMLs
+
+```
+    polymer-starter-kit-i18n/app/index.html
+                                /elements/my-greeting/my-greeting.html
+                                /elements/my-list/my-list.html
+```
+
+##### 2. Merge changes into JSON files
+
+```
+    cd polymer-starter-kit-i18n
+    gulp --dev
+```
+
+##### 3. Check diffs
+
+```
+    git diff app
+```
+
 ### Add New Languages
 
 #### 1. Add placeholder JSON files for target locales with [gulp-i18n-add-locales](https://github.com/t2ym/gulp-i18n-add-locales)
