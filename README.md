@@ -23,7 +23,7 @@
 * CLDR Pluralization and Gender support by [i18n-format](https://github.com/t2ym/i18n-format)
 * Number I18N support by [i18n-number](https://github.com/t2ym/i18n-number)
 
-### Quick Tour
+## Quick Tour
 
 ### Deployment
 
