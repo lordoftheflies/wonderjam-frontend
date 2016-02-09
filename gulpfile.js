@@ -179,7 +179,7 @@ gulp.task('bundles', function (callback) {
   for (var lang in bundles) {
     bundles[lang].bundle = true;
     if (lang) { // localized bundle
-      fs.writeFileSync(localesPath + '/bundle.' + lang + '.json', 
+      fs.writeFileSync(path.join(localesPath, 'bundle.' + lang + '.json'), 
                         JSONstringify(bundles[lang], null, config.dev ? 2 : 0));
     }
     else { // default bundle
