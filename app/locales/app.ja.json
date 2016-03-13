@@ -24,13 +24,13 @@
   "headerPanelMain:div_1:iron-pages:section:paper-material_2:ul_4:li_1": "Redistributions in binary form must reproduce the above\n                copyright notice, this list of conditions and the following disclaimer\n                in the documentation and/or other materials provided with the\n                distribution.",
   "headerPanelMain:div_1:iron-pages:section:paper-material_2:ul_4:li_2": "Neither the name of Google Inc. nor the names of its\n                contributors may be used to endorse or promote products derived from\n                this software without specific prior written permission.",
   "headerPanelMain:div_1:iron-pages:section:paper-material_2:p_5": "THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.",
-  "headerPanelMain:div_1:iron-pages:section_1:paper-material:h2": "ユーザー",
+  "headerPanelMain:div_1:iron-pages:section_1:paper-material:h1": "ユーザー",
   "headerPanelMain:div_1:iron-pages:section_1:paper-material:p_1": "ユーザーセクションです",
   "headerPanelMain:div_1:iron-pages:section_1:paper-material:a_2": "アディ",
   "headerPanelMain:div_1:iron-pages:section_1:paper-material:a_4": "ロブ",
   "headerPanelMain:div_1:iron-pages:section_1:paper-material:a_6": "チャック",
   "headerPanelMain:div_1:iron-pages:section_1:paper-material:a_8": "サム",
-  "headerPanelMain:div_1:iron-pages:section_2:paper-material:h2": [
+  "headerPanelMain:div_1:iron-pages:section_2:paper-material:h1": [
     "ユーザー: {1}",
     "{{params.name}}"
   ],
@@ -38,7 +38,7 @@
     "{1} のセクションです。",
     "{{params.name}}"
   ],
-  "headerPanelMain:div_1:iron-pages:section_3:paper-material:h2": "コンタクト",
+  "headerPanelMain:div_1:iron-pages:section_3:paper-material:h1": "コンタクト",
   "headerPanelMain:div_1:iron-pages:section_3:paper-material:p_1": "コンタクトセクションです。",
   "toast:span": "Ok"
 }
