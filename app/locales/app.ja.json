@@ -7,8 +7,8 @@
   "paperDrawerPanel:paper-scroll-header-panel:paper-menu_1:a:span_1": "ホーム",
   "paperDrawerPanel:paper-scroll-header-panel:paper-menu_1:a_1:span_1": "ユーザー",
   "paperDrawerPanel:paper-scroll-header-panel:paper-menu_1:a_2:span_1": "コンタクト",
-  "mainToolbar:div_4:div": "Polymer スターターキット",
-  "mainToolbar:div_5:div": "ウェブの未来を、今すぐ",
+  "mainToolbar:div_2:div": "Polymer スターターキット",
+  "mainToolbar:div_3:div": "ウェブの未来を、今すぐ",
   "headerPanelMain:div_1:iron-pages:section:paper-material:p_1": "以下の機能が使用可能です:",
   "headerPanelMain:div_1:iron-pages:section:paper-material:p_3": [
     "ウェブアプリのレイアウトをもっとお探しですか？ {1}コレクションをご参照ください。 ライブ{2}もできます。",

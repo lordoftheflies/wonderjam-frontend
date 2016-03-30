@@ -7,8 +7,8 @@
   "paperDrawerPanel:paper-scroll-header-panel:paper-menu_1:a:span_1": "fr Home",
   "paperDrawerPanel:paper-scroll-header-panel:paper-menu_1:a_1:span_1": "fr Users",
   "paperDrawerPanel:paper-scroll-header-panel:paper-menu_1:a_2:span_1": "fr Contact",
-  "mainToolbar:div_4:div": "fr Polymer Starter Kit",
-  "mainToolbar:div_5:div": "fr The future of the web today",
+  "mainToolbar:div_2:div": "fr Polymer Starter Kit",
+  "mainToolbar:div_3:div": "fr The future of the web today",
   "headerPanelMain:div_1:iron-pages:section:paper-material:p_1": "fr You now have:",
   "headerPanelMain:div_1:iron-pages:section:paper-material:p_3": [
     "fr Looking for more Web App layouts? Check out our {1} collection. You can also {2} them live.",
