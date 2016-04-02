@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="ja" datatype="plaintext" original="messages" date="2012-03-05T14:54:29Z" product-name="messages">
+  <header/>
+    <body>
+      <trans-unit id="app.drawerToolbar:span">
+        <source>Menu</source>
+        <target>メニュー</target>
+      </trans-unit>
+      <trans-unit id="app.paperDrawerPanel:paper-scroll-header-panel:paper-menu_1:a:span_1">
+        <source>Home</source>
+        <target>ホーム</target>
+      </trans-unit>
+      <trans-unit id="app.paperDrawerPanel:paper-scroll-header-panel:paper-menu_1:a_1:span_1">
+        <source>Users</source>
+        <target>ユーザー</target>
+      </trans-unit>
+      <trans-unit id="app.paperDrawerPanel:paper-scroll-header-panel:paper-menu_1:a_2:span_1">
+        <source>Contact</source>
+        <target>コンタクト</target>
+      </trans-unit>
+      <trans-unit id="app.mainToolbar:div_2:div">
+        <source>Polymer Starter Kit</source>
+        <target>Polymer スターターキット</target>
+      </trans-unit>
+      <trans-unit id="app.mainToolbar:div_3:div">
+        <source>The future of the web today</source>
+        <target>ウェブの未来を、今すぐ</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section:paper-material:p_1">
+        <source>You now have:</source>
+        <target>以下の機能が使用可能です:</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section:paper-material:p_3.0">
+        <source>Looking for more Web App layouts? Check out our {1} collection. You can also {2} them live.</source>
+        <target>ウェブアプリのレイアウトをもっとお探しですか？ {1}コレクションをご参照ください。 ライブ{2}もできます。</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section:paper-material:p_3.1">
+        <source>layouts</source>
+        <target>レイアウト</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section:paper-material:p_3.2">
+        <source>preview</source>
+        <target>プレビュー</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section:paper-material_1:p">
+        <source>This is another card.</source>
+        <target>これはもう一つのカードです。</target>
+      </trans-unit>
+      <trans-unit id="app.license">
+        <source>License</source>
+        <target>ライセンス</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section:paper-material_2:p_1">
+        <source>Everything in this repo is BSD style license unless otherwise specified.</source>
+        <target>Everything in this repo is BSD style license unless otherwise specified.</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section:paper-material_2:p_2">
+        <source>Copyright (c) 2015 The Polymer Authors. All rights reserved.</source>
+        <target>Copyright (c) 2015 The Polymer Authors. All rights reserved.</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section:paper-material_2:p_3">
+        <source>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</source>
+        <target>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section:paper-material_2:ul_4:li">
+        <source>Redistributions of source code must retain the above copyright
+                notice, this list of conditions and the following disclaimer.</source>
+        <target>Redistributions of source code must retain the above copyright
+                notice, this list of conditions and the following disclaimer.</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section:paper-material_2:ul_4:li_1">
+        <source>Redistributions in binary form must reproduce the above
+                copyright notice, this list of conditions and the following disclaimer
+                in the documentation and/or other materials provided with the
+                distribution.</source>
+        <target>Redistributions in binary form must reproduce the above
+                copyright notice, this list of conditions and the following disclaimer
+                in the documentation and/or other materials provided with the
+                distribution.</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section:paper-material_2:ul_4:li_2">
+        <source>Neither the name of Google Inc. nor the names of its
+                contributors may be used to endorse or promote products derived from
+                this software without specific prior written permission.</source>
+        <target>Neither the name of Google Inc. nor the names of its
+                contributors may be used to endorse or promote products derived from
+                this software without specific prior written permission.</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section:paper-material_2:p_5">
+        <source>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</source>
+        <target>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section_1:paper-material:h1">
+        <source>Users</source>
+        <target>ユーザー</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section_1:paper-material:p_1">
+        <source>This is the users section</source>
+        <target>ユーザーセクションです</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section_1:paper-material:a_2">
+        <source>Addy</source>
+        <target>アディ</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section_1:paper-material:a_4">
+        <source>Rob</source>
+        <target>ロブ</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section_1:paper-material:a_6">
+        <source>Chuck</source>
+        <target>チャック</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section_1:paper-material:a_8">
+        <source>Sam</source>
+        <target>サム</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section_2:paper-material:h1.0">
+        <source>User: {1}</source>
+        <target>ユーザー: {1}</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section_2:paper-material:h1.1">
+        <source>{{params.name}}</source>
+        <target>{{params.name}}</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section_2:paper-material:div_1.0">
+        <source>This is {1}'s section</source>
+        <target>{1} のセクションです。</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section_2:paper-material:div_1.1">
+        <source>{{params.name}}</source>
+        <target>{{params.name}}</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section_3:paper-material:h1">
+        <source>Contact</source>
+        <target>コンタクト</target>
+      </trans-unit>
+      <trans-unit id="app.headerPanelMain:div_1:iron-pages:section_3:paper-material:p_1">
+        <source>This is the contact section</source>
+        <target>コンタクトセクションです。</target>
+      </trans-unit>
+      <trans-unit id="app.toast:span">
+        <source>Ok</source>
+        <target>Ok</target>
+      </trans-unit>
+      <trans-unit id="my-greeting.label_2">
+        <source>Update text to change the greeting.</source>
+        <target>テキストを更新して挨拶を変更できます。</target>
+      </trans-unit>
+      <trans-unit id="my-greeting.welcome">
+        <source>Welcome!</source>
+        <target>ようこそ！</target>
+      </trans-unit>
+      <trans-unit id="my-list.items.0">
+        <source>Responsive Web App boilerplate</source>
+        <target>レスポンシブウェブアプリのボイラプレート</target>
+      </trans-unit>
+      <trans-unit id="my-list.items.1">
+        <source>Iron Elements and Paper Elements</source>
+        <target>Iron カスタム要素 と Paper カスタム要素</target>
+      </trans-unit>
+      <trans-unit id="my-list.items.2">
+        <source>End-to-end Build Tooling (including Vulcanize)</source>
+        <target>エンド・ツー・エンド 構築ツール群 (Vulcanize を含む)</target>
+      </trans-unit>
+      <trans-unit id="my-list.items.3">
+        <source>Unit testing with Web Component Tester</source>
+        <target>Web Component Tester によるユニット・テスト</target>
+      </trans-unit>
+      <trans-unit id="my-list.items.4">
+        <source>Routing with Page.js</source>
+        <target>Page.js によるルーティング</target>
+      </trans-unit>
+      <trans-unit id="my-list.items.5">
+        <source>Offline support with the Platinum Service Worker Elements</source>
+        <target>Platinum サービスワーカー要素によるオフライン環境のサポート</target>
+      </trans-unit>
+      <trans-unit id="bundle">
+        <source>true</source>
+        <target>true</target>
+      </trans-unit>
+      
+    </body>
+  </file>
+</xliff>
