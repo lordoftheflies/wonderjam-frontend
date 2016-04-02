@@ -29,7 +29,9 @@ var packageJson = require('./package.json');
 var crypto = require('crypto');
 var ensureFiles = require('./tasks/ensure-files.js');
 var JSONstringify = require('json-stringify-safe');
-
+var through = require('through2');
+var stripBom = require('strip-bom');
+var xliff2bundlejson = require('xliff2bundlejson');
 // var ghPages = require('gulp-gh-pages');
 
 var AUTOPREFIXER_BROWSERS = [
@@ -154,12 +156,65 @@ gulp.task('preprocess', function () {
     }));
 });
 
+// Import bundles.{lang}.xlf
+gulp.task('import-xliff', function () {
+  var xliffPath = path.join('app', 'xliff');
+  var x2j = new xliff2bundlejson({
+    cleanJSON: true,
+    decorateJSON: true,
+    polymer: true
+  });
+  return gulp.src([
+      'app/**/xliff/bundle.*.xlf'
+    ])
+    .pipe(through.obj(function (file, enc, callback) {
+      var bundle, bundlePath;
+      var base = path.basename(file.path, '.xlf').match(/^(.*)[.]([^.]*)$/);
+      var xliff = String(file.contents);
+      if (base) {
+        try {
+          bundlePath = path.join(file.base, 'locales', 'bundle.' + base[2] + '.json');
+          bundle = JSON.parse(stripBom(fs.readFileSync(bundlePath, 'utf8')));
+          x2j.parseXliff(xliff, { bundle: bundle }, function (output) {
+            file.contents = new Buffer(JSONstringify(output, null, 2));
+            file.path = bundlePath;
+            callback(null, file);
+          });
+        }
+        catch (ex) {
+          callback(null, file);
+        }
+      }
+      else {
+        callback(null, file);
+      }
+    }))
+    .pipe(gulp.dest('app'))
+    .pipe($.size({
+      title: 'import-xliff'
+    }));
+});
+
 // Merge changes in default JSON into localized JSON
 gulp.task('leverage', function () {
   return gulp.src([
       'app/**/locales/*.json',
+      '!app/**/locales/bundle.*.json',
       '!app/bower_components/**/locales/*.json'
     ]) // input localized JSON files in source
+    .pipe(through.obj(function (file, enc, callback) {
+      var bundle, base = path.basename(file.path, '.json').match(/^(.*)[.]([^.]*)$/);
+      if (base) {
+        try {
+          bundle = JSON.parse(stripBom(fs.readFileSync(path.join(file.base, 'locales', 'bundle.' + base[2] + '.json'), 'utf8')));
+          if (bundle[base[1]]) {
+            file.contents = new Buffer(JSONstringify(bundle[base[1]], null, 2));
+          }
+        }
+        catch (ex) {}
+      }
+      callback(null, file);
+    }))
     .pipe($.i18nLeverage({
       jsonSpace: (config.dev ? 2 : 0), // JSON format
       srcPath: 'app', // path to source root
@@ -192,6 +247,41 @@ gulp.task('bundles', function (callback) {
     }
   }
   callback();
+});
+
+// Generate bundles.{lang}.xlf
+gulp.task('export-xliff', function (callback) {
+  var srcLanguage = 'en';
+  var xliffPath = dist('xliff');
+  var x2j = new xliff2bundlejson({
+    cleanJSON: true,
+    decorateJSON: true,
+    polymer: true
+  });
+  var promises = [];
+  try {
+    fs.mkdirSync(xliffPath);
+  }
+  catch (e) {
+  }
+  for (var lang in bundles) {
+    if (lang) {
+      (function (destLanguage) {
+        promises.push(new Promise(function (resolve, reject) {
+          x2j.parseJSON(bundles, {
+            srcLanguage: srcLanguage,
+            destLanguage: destLanguage,
+            maxDepth: 32
+          }, function (output) {
+            fs.writeFile(path.join(xliffPath, 'bundle.' + destLanguage + '.xlf'), output, resolve);
+          });
+        }));
+      })(lang);
+    }
+  }
+  Promise.all(promises).then(function (outputs) {
+    callback();
+  });
 });
 
 // Feedback sources with updated JSON
@@ -439,7 +529,9 @@ gulp.task('default', ['clean'], function(cb) {
     'scan', 'preprocess',
     ['ensureFiles', 'copy', 'styles'],
     ['images', 'fonts', 'html'],
+    'import-xliff',
     'leverage', 'bundles',
+    'export-xliff',
     'vulcanize', // 'cache-config',
     'feedback',
     cb);
