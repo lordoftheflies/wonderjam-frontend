@@ -65,5 +65,5 @@
       "fr Offline support with the Platinum Service Worker Elements"
     ]
   },
-  "bundle": "true"
+  "bundle": true
 }

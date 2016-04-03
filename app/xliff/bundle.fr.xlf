@@ -176,10 +176,6 @@
         <source>Offline support with the Platinum Service Worker Elements</source>
         <target>fr Offline support with the Platinum Service Worker Elements</target>
       </trans-unit>
-      <trans-unit id="bundle">
-        <source>true</source>
-        <target>true</target>
-      </trans-unit>
       
     </body>
   </file>
