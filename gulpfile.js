@@ -289,7 +289,8 @@ gulp.task('feedback', function () {
   // Copy from dist
   var locales = gulp.src(config.dev ? [
       'dist/**/locales/*.json',
-      '!dist/locales/bundle.*.json',
+      'dist/**/xliff/*.xlf',
+      //'!dist/locales/bundle.*.json',
       '!dist/bower_components/**/*'
     ] : [])
     .pipe(gulp.dest('app'));
