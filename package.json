@@ -36,7 +36,7 @@
     "through2": "^2.0.1",
     "vulcanize": ">= 1.4.2",
     "web-component-tester": "^4.0.0",
-    "xliff2bundlejson": "^0.0.7"
+    "xliff2bundlejson": "^0.0.8"
   },
   "scripts": {
     "test": "gulp test:local",
