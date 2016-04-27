@@ -132,13 +132,13 @@ gulp.task('scan', function () {
 
 // Preprocess HTML for I18N.
 gulp.task('preprocess', function () {
-  var elements = gulp.src(['app/elements/**/*'])
-    .pipe($.if('*.html', $.i18nPreprocess({
+  var elements = gulp.src(['app/elements/**/*.html'])
+    .pipe($.i18nPreprocess({
       replacingText: true,
       jsonSpace: (config.dev ? 2 : 0),
       srcPath: 'app',
       attributesRepository: attributesRepository
-    })))
+    }))
     .pipe(gulp.dest('.tmp/elements'));
 
   var stylesHTML = gulp.src(['app/styles/**/*.html'])
