@@ -256,7 +256,8 @@ gulp.task('export-xliff', function (callback) {
   var x2j = new xliff2bundlejson({
     cleanJSON: true,
     decorateJSON: true,
-    polymer: true
+    polymer: true,
+    date: new Date()
   });
   var promises = [];
   try {
