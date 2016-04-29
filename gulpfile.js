@@ -159,11 +159,7 @@ gulp.task('preprocess', function () {
 // Import bundles.{lang}.xlf
 gulp.task('import-xliff', function () {
   var xliffPath = path.join('app', 'xliff');
-  var x2j = new xliff2bundlejson({
-    cleanJSON: true,
-    decorateJSON: true,
-    polymer: true
-  });
+  var x2j = new xliff2bundlejson({});
   return gulp.src([
       'app/**/xliff/bundle.*.xlf'
     ])
@@ -254,9 +250,6 @@ gulp.task('export-xliff', function (callback) {
   var srcLanguage = 'en';
   var xliffPath = dist('xliff');
   var x2j = new xliff2bundlejson({
-    cleanJSON: true,
-    decorateJSON: true,
-    polymer: true,
     date: new Date()
   });
   var promises = [];
