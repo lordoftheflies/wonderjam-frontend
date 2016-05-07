@@ -31,7 +31,8 @@ var ensureFiles = require('./tasks/ensure-files.js');
 var JSONstringify = require('json-stringify-safe');
 var through = require('through2');
 var stripBom = require('strip-bom');
-var xliff2bundlejson = require('xliff2bundlejson');
+//var xliff2bundlejson = require('xliff2bundlejson');
+var XliffConv = require('xliff-conv');
 // var ghPages = require('gulp-gh-pages');
 
 var AUTOPREFIXER_BROWSERS = [
@@ -159,7 +160,7 @@ gulp.task('preprocess', function () {
 // Import bundles.{lang}.xlf
 gulp.task('import-xliff', function () {
   var xliffPath = path.join('app', 'xliff');
-  var x2j = new xliff2bundlejson({});
+  var xliffConv = new XliffConv();
   return gulp.src([
       'app/**/xliff/bundle.*.xlf'
     ])
@@ -171,7 +172,7 @@ gulp.task('import-xliff', function () {
         try {
           bundlePath = path.join(file.base, 'locales', 'bundle.' + base[2] + '.json');
           bundle = JSON.parse(stripBom(fs.readFileSync(bundlePath, 'utf8')));
-          x2j.parseXliff(xliff, { bundle: bundle }, function (output) {
+          xliffConv.parseXliff(xliff, { bundle: bundle }, function (output) {
             file.contents = new Buffer(JSONstringify(output, null, 2));
             file.path = bundlePath;
             callback(null, file);
@@ -249,9 +250,7 @@ gulp.task('bundles', function (callback) {
 gulp.task('export-xliff', function (callback) {
   var srcLanguage = 'en';
   var xliffPath = dist('xliff');
-  var x2j = new xliff2bundlejson({
-    date: new Date()
-  });
+  var xliffConv = new XliffConv();
   var promises = [];
   try {
     fs.mkdirSync(xliffPath);
@@ -262,10 +261,9 @@ gulp.task('export-xliff', function (callback) {
     if (lang) {
       (function (destLanguage) {
         promises.push(new Promise(function (resolve, reject) {
-          x2j.parseJSON(bundles, {
+          xliffConv.parseJSON(bundles, {
             srcLanguage: srcLanguage,
-            destLanguage: destLanguage,
-            maxDepth: 32
+            destLanguage: destLanguage
           }, function (output) {
             fs.writeFile(path.join(xliffPath, 'bundle.' + destLanguage + '.xlf'), output, resolve);
           });
@@ -483,7 +481,7 @@ gulp.task('serve', ['styles'], function() {
     //       will present a certificate warning in the browser.
     // https: true,
     server: {
-      baseDir: ['.tmp', 'app'],
+      baseDir: ['app', '.tmp'],
       middleware: [historyApiFallback()]
     }
   });
