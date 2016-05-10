@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file xml:space="default" source-language="en" target-language="ja" datatype="plaintext" original="messages" date="2016-05-07T06:03:44Z" product-name="messages">
-  <header/>
+  <file xml:space="default" source-language="en" target-language="ja" datatype="plaintext" original="messages" date="2016-05-10T09:42:35Z" product-name="messages">
+    <header>
+      <tool tool-id="xliff-conv" tool-name="xliff-conv" tool-version="0.0.4"/>
+    </header>
     <body>
       <trans-unit id="app.drawerToolbar:span" approved="yes">
         <source>Menu</source>
