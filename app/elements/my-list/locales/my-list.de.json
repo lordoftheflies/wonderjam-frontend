@@ -1,0 +1,22 @@
+{
+  "meta": {
+    "todo": [
+      {
+        "op": "add",
+        "path": "/items/-",
+        "value": "abc"
+      }
+    ]
+  },
+  "model": {},
+  "items": [
+    "de Responsive Web App boilerplate",
+    "de Iron Elements and Paper Elements",
+    "de End-to-end Build Tooling (including Vulcanize)",
+    "de Unit testing with Web Component Tester",
+    "de Routing with Page.js",
+    "de Offline support with the Platinum Service Worker Elements",
+    "ABC",
+    "abc"
+  ]
+}

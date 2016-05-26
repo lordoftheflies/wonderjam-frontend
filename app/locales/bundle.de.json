@@ -1,0 +1,128 @@
+{
+  "app": {
+    "meta": {
+      "todo": [
+        {
+          "op": "replace",
+          "path": "/headerPanelMain:div_1:iron-pages:section:paper-material_2:p_2",
+          "value": "Copyright (c) 2015 The Polymer Authors. All rights reserved."
+        },
+        {
+          "op": "replace",
+          "path": "/headerPanelMain:div_1:iron-pages:section_1:paper-material:a_2",
+          "value": "Addy"
+        },
+        {
+          "op": "replace",
+          "path": "/headerPanelMain:div_1:iron-pages:section_1:paper-material:a_4",
+          "value": "Rob"
+        },
+        {
+          "op": "replace",
+          "path": "/headerPanelMain:div_1:iron-pages:section_1:paper-material:a_6",
+          "value": "Chuck"
+        },
+        {
+          "op": "replace",
+          "path": "/headerPanelMain:div_1:iron-pages:section_1:paper-material:a_8",
+          "value": "Sam"
+        },
+        {
+          "op": "replace",
+          "path": "/headerPanelMain:div_1:iron-pages:section_2:paper-material:h1/1",
+          "value": "{{params.name}}"
+        },
+        {
+          "op": "replace",
+          "path": "/headerPanelMain:div_1:iron-pages:section_2:paper-material:div_1/1",
+          "value": "{{params.name}}"
+        },
+        {
+          "op": "replace",
+          "path": "/drawerToolbar:span",
+          "value": "Menu"
+        },
+        {
+          "op": "review",
+          "path": "/paperDrawerPanel:paper-scroll-header-panel:paper-menu_1:a:span_1",
+          "value": "Home"
+        },
+        {
+          "op": "replace",
+          "path": "/paperDrawerPanel:paper-scroll-header-panel:paper-menu_1:a_2:span_1",
+          "value": "Contact"
+        }
+      ]
+    },
+    "model": {},
+    "drawerToolbar:span": "Menu",
+    "paperDrawerPanel:paper-scroll-header-panel:paper-menu_1:a:span_1": "de Home",
+    "paperDrawerPanel:paper-scroll-header-panel:paper-menu_1:a_1:span_1": "de Users",
+    "paperDrawerPanel:paper-scroll-header-panel:paper-menu_1:a_2:span_1": "Contact",
+    "mainToolbar:div_2:div": "de Polymer Starter Kit",
+    "mainToolbar:div_3:div": "de The future of the web today",
+    "headerPanelMain:div_1:iron-pages:section:paper-material:p_1": "de You now have:",
+    "headerPanelMain:div_1:iron-pages:section:paper-material:p_3": [
+      "de Looking for more Web App layouts? Check out our {1} collection. You can also {2} them live.",
+      "de layouts",
+      "de preview"
+    ],
+    "headerPanelMain:div_1:iron-pages:section:paper-material_1:p": "de This is another card.",
+    "license": "de License",
+    "headerPanelMain:div_1:iron-pages:section:paper-material_2:p_1": "de Everything in this repo is <b>\"BSD\"</b> style license unless otherwise specified.",
+    "headerPanelMain:div_1:iron-pages:section:paper-material_2:p_2": "Copyright (c) 2015 The Polymer Authors. All rights reserved.",
+    "headerPanelMain:div_1:iron-pages:section:paper-material_2:p_3": "de Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:",
+    "headerPanelMain:div_1:iron-pages:section:paper-material_2:ul_4:li": "de Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.",
+    "headerPanelMain:div_1:iron-pages:section:paper-material_2:ul_4:li_1": "de Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.",
+    "headerPanelMain:div_1:iron-pages:section:paper-material_2:ul_4:li_2": "de Neither the name of Google Inc. nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.",
+    "headerPanelMain:div_1:iron-pages:section:paper-material_2:p_5": "de THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.",
+    "headerPanelMain:div_1:iron-pages:section_1:paper-material:h1": "de Users",
+    "headerPanelMain:div_1:iron-pages:section_1:paper-material:p_1": "de This is the users section ",
+    "headerPanelMain:div_1:iron-pages:section_1:paper-material:a_2": "Addy",
+    "headerPanelMain:div_1:iron-pages:section_1:paper-material:a_4": "Rob",
+    "headerPanelMain:div_1:iron-pages:section_1:paper-material:a_6": "Chuck",
+    "headerPanelMain:div_1:iron-pages:section_1:paper-material:a_8": "Sam",
+    "headerPanelMain:div_1:iron-pages:section_2:paper-material:h1": [
+      "de User: {1}",
+      "{{params.name}}"
+    ],
+    "headerPanelMain:div_1:iron-pages:section_2:paper-material:div_1": [
+      "de This is {1}'s section",
+      "{{params.name}}"
+    ],
+    "headerPanelMain:div_1:iron-pages:section_3:paper-material:h1": "de Contact",
+    "headerPanelMain:div_1:iron-pages:section_3:paper-material:p_1": "de This is the contact section",
+    "toast:span": "de Ok"
+  },
+  "my-greeting": {
+    "meta": {
+      "todo": []
+    },
+    "model": {},
+    "label_2": "de Update text to change the greeting.",
+    "welcome": "de Welcome!"
+  },
+  "my-list": {
+    "meta": {
+      "todo": [
+        {
+          "op": "add",
+          "path": "/items/-",
+          "value": "abc"
+        }
+      ]
+    },
+    "model": {},
+    "items": [
+      "de Responsive Web App boilerplate",
+      "de Iron Elements and Paper Elements",
+      "de End-to-end Build Tooling (including Vulcanize)",
+      "de Unit testing with Web Component Tester",
+      "de Routing with Page.js",
+      "de Offline support with the Platinum Service Worker Elements",
+      "ABC",
+      "abc"
+    ]
+  },
+  "bundle": true
+}
