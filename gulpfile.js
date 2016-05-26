@@ -86,35 +86,6 @@ var imageOptimizeTask = function(src, dest) {
     .pipe($.size({title: 'images'}));
 };
 
-var optimizeHtmlTask = function(src, dest) {
-  var assets = $.useref.assets({
-    searchPath: ['.tmp', 'app']
-  });
-
-  return gulp.src(src)
-    .pipe(assets)
-    // Concatenate and minify JavaScript
-    .pipe($.if('*.js', $.uglify({
-      preserveComments: 'some'
-    })))
-    // Concatenate and minify styles
-    // In case you are still using useref build blocks
-    .pipe($.if('*.css', $.minifyCss()))
-    .pipe(assets.restore())
-    .pipe($.useref())
-    // Minify any HTML
-    .pipe($.if('*.html', $.minifyHtml({
-      quotes: true,
-      empty: true,
-      spare: true
-    })))
-    // Output files
-    .pipe(gulp.dest(dest))
-    .pipe($.size({
-      title: 'html'
-    }));
-};
-
 // Scan HTMLs and construct localizable attributes repository.
 gulp.task('scan', function () {
   return gulp.src([ 'app/elements/**/*.html' ])
@@ -404,10 +375,19 @@ gulp.task('fonts', function() {
 });
 
 // Scan your HTML for assets & optimize them
-gulp.task('html', function() {
-  return optimizeHtmlTask(
-    ['.tmp/**/*.html', '!.tmp/{elements,test,bower_components}/**/*.html'],
-    dist());
+gulp.task('build', ['images', 'fonts'], function() {
+  return gulp.src(['.tmp/**/*.html', '!.tmp/{elements,test,bower_components}/**/*.html'])
+    .pipe($.useref())
+    .pipe($.if('*.js', $.uglify({
+      preserveComments: 'some'
+    })))
+    .pipe($.if('*.css', $.minifyCss()))
+    .pipe($.if('*.html', $.minifyHtml({
+      quotes: true,
+      empty: true,
+      spare: true
+    })))
+    .pipe(gulp.dest(dist()))
 });
 
 // Vulcanize granular configuration
@@ -521,7 +501,7 @@ gulp.task('default', ['clean'], function(cb) {
   runSequence(
     'scan', 'preprocess',
     ['ensureFiles', 'copy', 'styles'],
-    ['images', 'fonts', 'html'],
+    'build',
     'import-xliff',
     'leverage', 'bundles',
     'export-xliff',
@@ -544,7 +524,7 @@ gulp.task('deploy-gh-pages', function() {
     // Check if running task from Travis CI, if so run using GH_TOKEN
     // otherwise run using ghPages defaults.
     .pipe($.if(process.env.TRAVIS === 'true', $.ghPages({
-      remoteUrl: 'https://$GH_TOKEN@github.com/polymerelements/polymer-starter-kit.git',
+      remoteUrl: 'https://$GH_TOKEN@github.com/PolymerElements/polymer-starter-kit.git',
       silent: true,
       branch: 'gh-pages'
     }), $.ghPages()));
