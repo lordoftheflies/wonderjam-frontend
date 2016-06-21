@@ -22,6 +22,7 @@
   - `gulp --dev` to get merged changes into source ('app/') folder
 * CLDR Pluralization and Gender support by [i18n-format](https://github.com/t2ym/i18n-format)
 * Number I18N support by [i18n-number](https://github.com/t2ym/i18n-number)
+* XLIFF import/export support by [xliff-conv](https://github.com/t2ym/xliff-conv)
 
 ## Quick Tour
 
@@ -90,7 +91,13 @@
     gulp --dev
 ```
 
-#### 3. Translate the JSON files and remove meta.todo entries (manually for now)
+#### 3. Translate the XLIFF files
+
+#### 4. Import translations from the XLIFF files into the JSON files
+
+```
+    gulp --dev
+```
 
 ## Original README follows:
 
