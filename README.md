@@ -1,7 +1,5 @@
 # Polymer App Toolbox - Starter Kit + I18N support with [i18n-behavior](https://github.com/t2ym/i18n-behavior)
 
-[![Build Status](https://travis-ci.org/PolymerElements/polymer-starter-kit.svg?branch=master)](https://travis-ci.org/PolymerElements/polymer-starter-kit)
-
 This template is a starting point for building apps using a drawer-based
 layout. The layout is provided by `app-layout` elements.
 
