@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/i18n-behavior/i18n-behavior.html">
 
 <dom-module id="my-view404">
   <template>
@@ -25,7 +26,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script>
     Polymer({
-      is: 'my-view404'
+      is: 'my-view404',
+
+      behaviors: [
+        BehaviorsStore.I18nBehavior
+      ]
     });
   </script>
 </dom-module>
