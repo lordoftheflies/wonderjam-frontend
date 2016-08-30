@@ -31,7 +31,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="wonderjam-icons.html">
 
 <link rel="import" href="plutonium-app-routing-behavior.html">
-<link rel="import" href="wonderjam-article-app-behavior.html">
+<link rel="import" href="plutonium-widget-bound-beavior.html">
+<link rel="import" href="wonderjam-article-controller-behavior.html">
 
 <dom-module id="wonderjam-app">
     <template>
@@ -87,12 +88,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                    handle-as="json" auto></iron-ajax>
         <!--Publish content-->
         <iron-ajax id="publisherAjax" url="[[apiUrl]]/content-management/publish" 
-                   body="{{publisherModel}}" on-response="onPublishResponse" on-error="onPublishError"
+                   body="{{publisherModel}}" on-response="onPublisherAjaxResponse" on-error="onPublisherAjaxError"
                    method="POST" handle-as="json" content-type="application/json">
         </iron-ajax>
         <!--Unpublish content-->
         <iron-ajax id="unpublisherAjax" url="[[apiUrl]]/content-management/unpublish" 
-                   body="{{publisherModel}}" on-response="onUnpublishResponse" on-error="onUnpublishError"
+                   body="{{publisherModel}}" on-response="onUnpublisherAjaxResponse" on-error="onUnpublisherAjaxError"
                    method="POST" handle-as="json" content-type="application/json"></iron-ajax>
         <!--Get mailbox folder-->
         <iron-ajax id="mailBoxAjax" url="[[apiUrl]]/mailbox/[[session.token]]/[[selectedMailBoxFolder]]" 
@@ -119,8 +120,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                    method="POST"  handle-as="json"content-type="application/json"></iron-ajax>
         <!--Get token-->
         <iron-ajax id="sessionAjax" url="[[apiUrl]]/authentication/session?token=[[accountId]]" 
-            last-response="{{session}}" 
-            auto></iron-ajax>
+                   last-response="{{session}}" 
+                   auto></iron-ajax>
         <!--Routing-->
         <app-location route="{{route}}" query-params="{{queryParams}}"></app-location>
         <app-route route="{{route}}" pattern="/registrate" data="{{activationData}}"></app-route>
@@ -250,21 +251,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             is: 'wonderjam-app',
             behaviors: [
                 BehaviorsStore.I18nBehavior,
-                WonderjamAppBehaviors.ArticleBehavior,
-                PlutoniumBehaviors.AppRoutingBehavior
+                PlutoniumBehaviors.AppRoutingBehavior,
+                WonderjamAppBehaviors.ArticleControllerBehavior
             ],
             properties: {
-                /**
-                 * Account ID of the currently signed user.
-                 *
-                 * @type {String}
-                 */
-                accountId: {
-                    type: String,
-//                    reflectToAttribute: true,
-                    notify: true,
-                    value: '12fe2f70-6cbb-499a-b0b7-991ee6545aaa'
-                },
                 /**
                  * Selected folder on the mailbox.
                  *
@@ -282,7 +272,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 memberSubrouteData: {
                     type: Object,
                     notify: true
-                },
+                }
             }
         });
     </script>
