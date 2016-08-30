@@ -71,18 +71,8 @@
                 }
             },
             observers: [
-                'observeMemberSubrouteData(memberSubrouteData)',
                 'observeContentSubrouteData(contentSubrouteData, selectedContentFolder)'
             ],
-            /**
-             * Member page sub routing observer.
-             * @param {type} subroute
-             * @returns {undefined}
-             */
-            observeMemberSubrouteData: function (subroute) {
-                console.log(this.is, 'observe route', subroute);
-
-            },
             /**
              * Content page sub routing observer.
              * @param {{contentId: String}} contentSubrouteData

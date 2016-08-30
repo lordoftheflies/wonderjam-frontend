@@ -31,6 +31,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="wonderjam-icons.html">
 
 <link rel="import" href="plutonium-app-routing-behavior.html">
+<link rel="import" href="plutonium-app-toasting-behavior.html">
 <link rel="import" href="plutonium-widget-bound-beavior.html">
 <link rel="import" href="wonderjam-controller-article-behavior.html">
 <link rel="import" href="wonderjam-controller-publisher-behavior.html">
@@ -77,6 +78,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 font-weight: bold;
             }
         </style>
+        <!--Get all members.-->
+        <iron-ajax id="possibleParentsIronAjax" url="[[apiUrl]]/addressbook/all" 
+                   last-response="{{possibleParents}}" 
+                   auto></iron-ajax>
+        <!--Get network members.-->
+        <iron-ajax id="contactsAjax" url="[[apiUrl]]/addressbook/[[accountId]]/contacts" 
+                   last-response="{{contacts}}" 
+                   auto></iron-ajax>
+        <!--Get member parents.-->
+        <iron-ajax id="genocideIronAjax" url="[[apiUrl]]/addressbook/genocide" 
+                   params="[[genocideRequestParams]]" last-response="{{parents}}" 
+                   auto></iron-ajax>
+        <!--Get member children.-->
+        <iron-ajax id="childrenIronAjax" url="[[apiUrl]]/addressbook/children" 
+                   params="[[childrenRequestParams]]" last-response="{{children}}" 
+                   auto></iron-ajax>
         <!--Get article info-->
         <iron-ajax id="rootModelAjax" url="[[apiUrl]]/content-management/toc/info" 
                    params="[[infoRequestParams]]" last-response="{{rootModel}}" 
@@ -99,11 +116,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                    body="{{publisherModel}}" on-response="onUnpublisherAjaxResponse" on-error="onUnpublisherAjaxError"
                    method="POST" handle-as="json" content-type="application/json"></iron-ajax>
         <!--Get mailbox folder-->
-        <iron-ajax id="mailBoxAjax" url="[[apiUrl]]/mailbox/[[session.token]]/[[selectedMailBoxFolder]]" 
+        <iron-ajax id="mailBoxAjax" url="[[apiUrl]]/mailbox/[[accountId]]/[[selectedMailBoxFolder]]" 
                    last-response="{{mailBoxModel}}"
                    ></iron-ajax>
         <!--Get profile-->
-        <iron-ajax id="profileAjax" url="[[apiUrl]]/addressbook/[[session.token]]/profile" 
+        <iron-ajax id="profileAjax" url="[[apiUrl]]/addressbook/[[accountId]]/profile" 
                    last-response="{{profile}}" 
                    auto="[[accountId]]"></iron-ajax>
         <!--Change language-->
@@ -114,11 +131,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                    last-response="{{parentCandidates}}" 
                    auto></iron-ajax>
         <!--Share content-->
-        <iron-ajax id="shareAjax" url="[[apiUrl]]/content-management/[[session.token]]/save"
+        <iron-ajax id="shareAjax" url="[[apiUrl]]/content-management/[[accountId]]/save"
                    body="{{editedContentModel}}"
                    method="POST" handle-as="json" content-type="application/json"></iron-ajax>
         <!--Send message-->
-        <iron-ajax id="messageSendAjax" url="[[apiUrl]]/mailbox/[[session.token]]/send"
+        <iron-ajax id="messageSendAjax" url="[[apiUrl]]/mailbox/[[accountId]]/send"
                    body="{{shareModel}}" on-response="onMessageSendResponse" on-error="onMessageSendError"
                    method="POST"  handle-as="json"content-type="application/json"></iron-ajax>
         <!--Get token-->
@@ -255,6 +272,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             behaviors: [
                 BehaviorsStore.I18nBehavior,
                 PlutoniumBehaviors.AppRoutingBehavior,
+                PlutoniumBehaviors.AppToastingBehavior,
                 WonderjamAppBehaviors.ControllerArticleBehavior,
                 WonderjamAppBehaviors.ControllerPublicherBehavior,
                 WonderjamAppBehaviors.ControllerMemberBehavior,
@@ -271,14 +289,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     notify: true,
                     value: 'inbox'
                 },
-                /**
-                 * Sub-route parameters for members page.
-                 * @type {{elements: Array<HTMLElement>, level: number}}
-                 */
-                memberSubrouteData: {
-                    type: Object,
-                    notify: true
-                }
+                
             }
         });
     </script>

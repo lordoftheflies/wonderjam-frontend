@@ -14,65 +14,48 @@
         WonderjamAppBehaviors.ControllerMemberBehaviorImpl = {
             properties: {
                 /**
-                 * Root article.
+                 * Request parameter for member parents.
                  * @type {{elements: Array<HTMLElement>, level: number}}
                  */
-                rootModel: {
+                genocideRequestParams: {
                     type: Object,
                     notify: true
                 },
                 /**
-                 * Array for parent articles path.
+                 * Request parameters for member children.
                  * @type {{elements: Array<HTMLElement>, level: number}}
                  */
-                parentModel: {
+                childrenRequestParams: {
                     type: Object,
                     notify: true
-                },
-                /**
-                 * Array for article content chidren.
-                 * @type {{elements: Array<HTMLElement>, level: number}}
-                 */
-                contentChildrenModel: {
-                    type: Object,
-                    notify: true
-                },
-                /**
-                 * Model publisher.
-                 * @type {{}}
-                 */
-                publisherModel: {
-                },
-                /**
-                 * Table of contents request parameters.
-                 * @type {{pageId: String, tag: String, owner: String}}
-                 */
-                tocRequestParams: {
-                    type: Object,
-                    notify: true,
-                    value: {}
-                },
-                /**
-                 * Article information request parameters.
-                 * @type {{pageId: String}}
-                 */
-                infoRequestParams: {
-                    type: Object,
-                    notify: true,
-                    value: {}
                 },
                 /**
                  * Sub-route parameters for members page.
                  * @type {{elements: Array<HTMLElement>, level: number}}
                  */
-                contentSubrouteData: {
+                memberSubrouteData: {
+                    type: Object,
+                    notify: true
+                },
+                /**
+                 * Array of selected member parents.
+                 * @type {{elements: Array<HTMLElement>, level: number}}
+                 */
+                parents: {
+                    type: Object,
+                    notify: true
+                },
+                /**
+                 * Array of selected member children.
+                 * @type {{elements: Array<HTMLElement>, level: number}}
+                 */
+                children: {
                     type: Object,
                     notify: true
                 }
             },
             observers: [
-                'observeMemberSubrouteData(memberSubrouteData)',
-                'observeContentSubrouteData(contentSubrouteData, selectedContentFolder)'
+                'observeMemberSubrouteData(memberSubrouteData)'
             ],
             /**
              * Member page sub routing observer.
@@ -81,44 +64,6 @@
              */
             observeMemberSubrouteData: function (subroute) {
                 console.log(this.is, 'observe route', subroute);
-
-            },
-            /**
-             * Content page sub routing observer.
-             * @param {{contentId: String}} contentSubrouteData
-             * @param {String} selectedContentFolder
-             * @returns {undefined}
-             */
-            observeContentSubrouteData: function (contentSubrouteData, selectedContentFolder) {
-                console.log(this.is, 'observe route', this.contentSubrouteData);
-                this.tocRequestParams.pageId = contentSubrouteData.contentId;
-                this.tocRequestParams.tag = selectedContentFolder;
-                this.tocRequestParams.owner = this.accountId;
-            },
-            /**
-             * Ajax response handler for `childTocAjax` element.
-             */
-            onChildTocAjaxResponse: function (event, detail) {
-                console.log(this.is, 'fetched article child contents for', this.contentSubrouteData.contentId);
-            },
-            /**
-             * Ajax error handler for `childTocAjax` element.
-             */
-            onChildTocAjaxError: function (event, detail) {
-                console.error(this.is, 'article child contents fetching failed for', this.contentSubrouteData.contentId);
-            },
-            /**
-             * Ajax response handler for `parentTocAjax` element.
-             */
-            onParentTocAjaxResponse: function (event, detail) {
-                console.log(this.is, 'fetched article parent path for', this.contentSubrouteData.contentId);
-            },
-            /**
-             * Ajax error handler for `parentTocAjax` element.
-             */
-            onParentTocAjaxError: function (event, detail) {
-                console.error(this.is, 'article parent path fetching failed for', this.contentSubrouteData.contentId);
-                this.selectedContentFolder = 'public';
             }
 
         };

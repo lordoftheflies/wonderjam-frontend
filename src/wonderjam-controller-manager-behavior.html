@@ -75,50 +75,112 @@
                 'observeContentSubrouteData(contentSubrouteData, selectedContentFolder)'
             ],
             /**
-             * Member page sub routing observer.
-             * @param {type} subroute
-             * @returns {undefined}
+             * Open member creation dialog.
              */
-            observeMemberSubrouteData: function (subroute) {
-                console.log(this.is, 'observe route', subroute);
-
+            onOpenCreateMember: function (event, detail) {
+                this.$.memberEditor.show();
             },
             /**
-             * Content page sub routing observer.
-             * @param {{contentId: String}} contentSubrouteData
-             * @param {String} selectedContentFolder
-             * @returns {undefined}
+             * Ajax response handler for `createMemberAjax` element.
              */
-            observeContentSubrouteData: function (contentSubrouteData, selectedContentFolder) {
-                console.log(this.is, 'observe route', this.contentSubrouteData);
-                this.tocRequestParams.pageId = contentSubrouteData.contentId;
-                this.tocRequestParams.tag = selectedContentFolder;
-                this.tocRequestParams.owner = this.accountId;
+            onCreateMemberAjaxResponse: function (event, details) {
+                console.log(this.is, 'member created successfully:', JSON.stringify(details.response));
+                // TODO: move to this
+                this.$.childrenIronAjax.generateRequest();
+                this.$.possibleParentsIronAjax.generateRequest();
+                this.fire('feedback', {
+                    message: 'Member created successfully'
+                });
             },
             /**
-             * Ajax response handler for `childTocAjax` element.
+             * Ajax error handler for `createMemberAjax` element.
              */
-            onChildTocAjaxResponse: function (event, detail) {
-                console.log(this.is, 'fetched article child contents for', this.contentSubrouteData.contentId);
+            onCreateMemberError: function (event, details) {
+                console.error(this.is, 'create-member error:', JSON.stringify(details.response));
+                this.fire('feedback', {
+                    message: 'Member creation failed.'
+                });
             },
             /**
-             * Ajax error handler for `childTocAjax` element.
+             * Open member delete dialog.
              */
-            onChildTocAjaxError: function (event, detail) {
-                console.error(this.is, 'article child contents fetching failed for', this.contentSubrouteData.contentId);
+            onOpenDeleteMember: function (event, detail) {
+                this.$.deleteMemberDialog.show();
             },
             /**
-             * Ajax response handler for `parentTocAjax` element.
+             * Ajax response handler for `deleteMemberAjax` element.
              */
-            onParentTocAjaxResponse: function (event, detail) {
-                console.log(this.is, 'fetched article parent path for', this.contentSubrouteData.contentId);
+            onDeleteMemberAjaxResponse: function (event, details) {
+                console.log(this.si, 'member removed successfully:', JSON.stringify(details.response));
+                this.$.networkPage.selectedAccountId = this.session.token;
+                this.$.childrenIronAjax.generateRequest();
+                this.$.genocideIronAjax.generateRequest();
+                this.fire('feedback', {
+                    message: 'Member removed successfully.'
+                });
             },
             /**
-             * Ajax error handler for `parentTocAjax` element.
+             * Ajax error handler for `deleteMemberAjax` element.
              */
-            onParentTocAjaxError: function (event, detail) {
-                console.error(this.is, 'article parent path fetching failed for', this.contentSubrouteData.contentId);
-                this.selectedContentFolder = 'public';
+            onDeleteMemberAjaxError: function (event, details) {
+                console.error(this.is, 'remove-member error:', JSON.stringify(details.response));
+                this.fire('feedback', {
+                    message: 'Member removing failed.'
+                });
+            },
+            /**
+             * Open member promote dialog.
+             */
+            onOpenPromoteMember: function (event, detail) {
+                this.$.promotionDialog.show();
+            },
+            /**
+             * Ajax response handler for `promoteMemberAjax` element.
+             */
+            onPromoteMemberAjaxResponse: function (event, details) {
+                console.log(this.is, 'member promoted successfully:', JSON.stringify(details.response));
+                this.$.childrenIronAjax.generateRequest();
+                this.$.genocideIronAjax.generateRequest();
+                this.selectedRole = 'ADMIN';
+                this.fire('feedback', {
+                    message: 'Member promoted successfully'
+                });
+            },
+            /**
+             * Ajax error handler for `promoteMemberAjax` element.
+             */
+            onPromoteMemberAjaxError: function (event, details) {
+                console.log(this.is, 'promote-member error:', JSON.stringify(details.response));
+                this.fire('feedback', {
+                    message: 'Member promoting failed.'
+                });
+            },
+            /**
+             * Open member demote dialog.
+             */
+            onOpenDemoteMember: function (event, detail) {
+                this.$.demotionDialog.show();
+            },
+            /**
+             * Ajax response handler for `demoteMemberAjax` element.
+             */
+            onDemoteMemberAjaxResponse: function (event, details) {
+                console.log(this.is, 'member demoted successfully:', JSON.stringify(details.response));
+                this.$.childrenIronAjax.generateRequest();
+                this.$.genocideIronAjax.generateRequest();
+                this.selectedRole = 'USER';
+                this.fire('feedback', {
+                    message: 'Member demoted successfully'
+                });
+            },
+            /**
+             * Ajax error handler for `demoteMemberAjax` element.
+             */
+            onDemoteMemberError: function (event, details) {
+                console.log(this.is, 'demote-member error:', JSON.stringify(details.response));
+                this.fire('feedback', {
+                    message: 'Member demoting failed.'
+                });
             }
 
         };
