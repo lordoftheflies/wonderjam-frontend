@@ -1,4 +1,4 @@
-# Polymer App Toolbox - Starter Kit + I18N support with [i18n-behavior](https://github.com/t2ym/i18n-behavior)
+# wonderjam-frontend
 
 ## Quick Tour
 
