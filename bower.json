@@ -29,7 +29,9 @@
     "i18n-behavior": "^1.1.7",
     "rest-api": "^0.0.1",
     "plutonium-language-picker": "lordoftheflies/plutonium-language-picker#^0.0.2",
-    "plutonium-avatar-button": "lordoftheflies/plutonium-avatar-button#^0.0.10"
+    "plutonium-avatar-button": "lordoftheflies/plutonium-avatar-button#^0.0.10",
+    "paper-card": "polymerelements/paper-card#^1.1.2",
+    "paper-item": "polymerelements/paper-item#^1.2.1"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
