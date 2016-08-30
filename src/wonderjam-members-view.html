@@ -11,6 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/i18n-behavior/i18n-behavior.html">
 <link rel="import" href="../bower_components/neon-animation/neon-animations.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../bower_components/iron-overlay-behavior/iron-overlay-behavior.html">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
@@ -19,10 +20,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-list/iron-list.html">
 
 <link rel="import" href="wonderjam-shared-styles.html">
+<link rel="import" href="wonderjam-icons.html">
 
 <dom-module id="wonderjam-members-view">
     <template>
-        <style include="wonderjam-shared-styles">
+        <style include="wonderjam-shared-styles iron-flex">
             :host {
                 display: block;
                 @apply(--layout-vertical);
@@ -30,12 +32,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
         </style>
 
-        <iron-list id="childrenIronList" items="[[children]]" as="item" hidden="[[isEmpty(children)]]" class="layout vertical">
+        <iron-list id="childrenIronList" items="[[memberChildren]]" as="item" hidden="[[isEmpty(memberChildren)]]" class="layout vertical">
             <template>
                 <paper-item class="layout horizontal">
                     <paper-material class="flex layout horizontal" nodename="[[item.name]]"  nodeid="[[item.id]]" role="[[item.role]]" on-tap="onNavigateToChildren"  tabindex="[[tabIndex]]">
                         <div class="flex">
-                            <iron-icon icon="[[getIcon(item.role)]]"></iron-icon>
+                            <iron-icon icon="wonderjam-icons:[[getIcon(item.role)]]"></iron-icon>
                             <span >[[item.name]]</span>
                         </div>
                     </paper-material>
@@ -43,11 +45,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </template>
         </iron-list>
 
-        <paper-card elevation="1" hidden="[[!isEmpty(children)]]">
-            <div class="card-content">
-                <div id="emptyChildrenText">No children.</div>
-            </div>
-        </paper-card>
+        <div class="card-content" hidden="[[!isEmpty(memberChildren)]]">
+            <div id="emptyChildrenText">No children.</div>
+        </div>
 
         <div class="floating-action-bar layout horizontal wrap">
             <paper-fab icon="icons:add" on-tap="onNewMember"></paper-fab>
@@ -144,7 +144,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                  *
                  * @type {Array<Object>}
                  */
-                children: {
+                memberChildren: {
                     type: Array,
                     notify: true
                 }
@@ -165,15 +165,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 this.selectedAccountId = accountId;
             },
             observeChildRequestParams: function (selectedAccountId) {
-//                this.childrenRequestParams.parentId = selectedAccountId;
-                console.log(this.is + ' child request parameters updated: ' + JSON.stringify(this.childrenRequestParams))
+//                this.memberChildrenRequestParams.parentId = selectedAccountId;
+                console.log(this.is, 'child request parameters updated:', this.childrenRequestParams);
                 this.fire('fetch-data', {
                     ids: ['childrenIronAjax', 'genocideIronAjax']
                 });
             },
             observeGenocideRequestParams: function (selectedAccountId) {
 //                this.genocideRequestParams.childId = selectedAccountId;
-                console.log(this.is + ' genocide request parameters updated: ' + JSON.stringify(this.genocideRequestParams))
+                console.log(this.is + ' genocide request parameters updated:', this.genocideRequestParams);
                 this.fire('fetch-data', {
                     ids: ['childrenIronAjax', 'genocideIronAjax']
                 });
@@ -211,20 +211,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
              * @param {{ ids: Array<string> }}
              */
 
-            /**
-             * Handle navigate back one member.
-             * @param {type} event
-             * @param {type} details
-             * @returns {undefined}
-             */
-            onNavigateUp: function (event, details) {
-                this.accountId = this.$.parentBeadCrumbs.children[this.$.parentBeadCrumbs.children.length < 3 ? 0 : this.$.parentBeadCrumbs.children.length - 3].nodeid;
-                this.selectedAccount = this.accountId;
-                this.fire('fetch-data', {
-                    ids: ['childrenIronAjax', 'genocideIronAjax']
-                });
-                console.log('Network-view navigate to children ');
-            },
+
             onRefresh: function () {
                 this.fire('fetch-data', {
                     ids: ['childrenIronAjax', 'genocideIronAjax']
@@ -304,6 +291,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             },
             isUser: function (data) {
                 return data === 'USER';
+            },
+            getIcon: function (data) {
+                if (data === 'GROUP') {
+                    return 'group';
+                } else if (data === 'USER') {
+                    return 'person';
+                } else if (data === 'ADMIN') {
+                    return 'member';
+                }
             }
         });
     </script>

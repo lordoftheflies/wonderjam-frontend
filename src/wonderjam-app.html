@@ -32,6 +32,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="plutonium-app-routing-behavior.html">
 <link rel="import" href="plutonium-app-toasting-behavior.html">
+<link rel="import" href="plutonium-datasource-behavior.html">
 <link rel="import" href="plutonium-widget-bound-beavior.html">
 <link rel="import" href="wonderjam-controller-article-behavior.html">
 <link rel="import" href="wonderjam-controller-publisher-behavior.html">
@@ -81,31 +82,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!--Get all members.-->
         <iron-ajax id="possibleParentsIronAjax" url="[[apiUrl]]/addressbook/all" 
                    last-response="{{possibleParents}}" 
-                   auto></iron-ajax>
+                   ></iron-ajax>
         <!--Get network members.-->
         <iron-ajax id="contactsAjax" url="[[apiUrl]]/addressbook/[[accountId]]/contacts" 
                    last-response="{{contacts}}" 
-                   auto></iron-ajax>
+                   ></iron-ajax>
         <!--Get member parents.-->
         <iron-ajax id="genocideIronAjax" url="[[apiUrl]]/addressbook/genocide" 
                    params="[[genocideRequestParams]]" last-response="{{parents}}" 
-                   auto></iron-ajax>
+                   ></iron-ajax>
         <!--Get member children.-->
         <iron-ajax id="childrenIronAjax" url="[[apiUrl]]/addressbook/children" 
-                   params="[[childrenRequestParams]]" last-response="{{children}}" 
-                   auto></iron-ajax>
+                   params="[[childrenRequestParams]]" last-response="{{memberChildren}}" 
+                   ></iron-ajax>
         <!--Get article info-->
         <iron-ajax id="rootModelAjax" url="[[apiUrl]]/content-management/toc/info" 
                    params="[[infoRequestParams]]" last-response="{{rootModel}}" 
-                   handle-as="json" auto></iron-ajax>
+                   handle-as="json"></iron-ajax>
         <!--Get parent articles-->
         <iron-ajax id="parentTocAjax" url="[[apiUrl]]/content-management/toc/path" 
                    params="[[tocRequestParams]]" last-response="{{parentModel}}" on-response="onParentTocAjaxResponse" on-error="onParentTocAjaxError" 
-                   handle-as="json" auto></iron-ajax>
+                   handle-as="json"></iron-ajax>
         <!--Get child contents of an article-->
         <iron-ajax id="childTocAjax" url="[[apiUrl]]/content-management/toc" 
                    params="[[tocRequestParams]]" last-response="{{contentChildrenModel}}" on-response="onChildTocAjaxResponse" on-error="onChildTocAjaxError" 
-                   handle-as="json" auto></iron-ajax>
+                   handle-as="json"></iron-ajax>
         <!--Publish content-->
         <iron-ajax id="publisherAjax" url="[[apiUrl]]/content-management/publish" 
                    body="{{publisherModel}}" on-response="onPublisherAjaxResponse" on-error="onPublisherAjaxError"
@@ -119,10 +120,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-ajax id="mailBoxAjax" url="[[apiUrl]]/mailbox/[[accountId]]/[[selectedMailBoxFolder]]" 
                    last-response="{{mailBoxModel}}"
                    ></iron-ajax>
+        <!--Get locales-->
+        <iron-ajax id="localesAjax" url="[[apiUrl]]/localization/locales" 
+                   last-response="{{locales}}" 
+                   auto></iron-ajax>
         <!--Get profile-->
         <iron-ajax id="profileAjax" url="[[apiUrl]]/addressbook/[[accountId]]/profile" 
                    last-response="{{profile}}" 
-                   auto="[[accountId]]"></iron-ajax>
+                   auto></iron-ajax>
         <!--Change language-->
         <iron-ajax id="changeLanguageAjax" url="[[apiUrl]]/localization/change" 
                    body="{{changeLanguageModel}}" on-response="handleChangeLanguageResponse" on-error="handleChangeLanguageError"
@@ -227,7 +232,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         children-request-params="{{childrenRequestParams}}"
                         account-id="[[session.token]]" 
                         parents="[[parents]]"
-                        children="[[children]]"
+                        member-children="[[memberChildren]]"
                         selected-name="{{selectedName}}"
                         selected-role="{{selectedRole}}"
                         selected-account-id="{{memberSubrouteData.memberId}}">
@@ -271,6 +276,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             is: 'wonderjam-app',
             behaviors: [
                 BehaviorsStore.I18nBehavior,
+                PlutoniumBehaviors.DatasourceBehavior,
                 PlutoniumBehaviors.AppRoutingBehavior,
                 PlutoniumBehaviors.AppToastingBehavior,
                 WonderjamAppBehaviors.ControllerArticleBehavior,

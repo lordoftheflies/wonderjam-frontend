@@ -47,11 +47,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 </paper-item>
             </template>
         </iron-list>
-        <paper-card elevation="1" hidden="[[!isEmpty(mailBoxModel)]]">
-            <div class="card-content">
-                <div id="emptyMailBoxFolderText">No messages in the folder.</div>
-            </div>
-        </paper-card>
+        
+        <div class="card-content" hidden="[[!isEmpty(mailBoxModel)]]">
+            <div id="emptyMailBoxFolderText">No messages in the folder.</div>
+        </div>
     </template>
 
     <script>
