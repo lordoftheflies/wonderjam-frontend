@@ -22,89 +22,60 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
         </style>
 
-        <div class="card">
-            <div class="circle">3</div>
-            <h1>View Three</h1>
-            <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-            <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
-        </div>
-        <div class="card">
-            <div class="circle">3</div>
-            <h1>View Three</h1>
-            <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-            <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
-        </div>
-        <div class="card">
-            <div class="circle">3</div>
-            <h1>View Three</h1>
-            <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-            <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
-        </div>
-        <div class="card">
-            <div class="circle">3</div>
-            <h1>View Three</h1>
-            <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-            <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
-        </div>
-        <div class="card">
-            <div class="circle">3</div>
-            <h1>View Three</h1>
-            <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-            <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
-        </div>
-        <div class="card">
-            <div class="circle">3</div>
-            <h1>View Three</h1>
-            <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-            <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
-        </div>
-        <div class="card">
-            <div class="circle">3</div>
-            <h1>View Three</h1>
-            <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-            <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
-        </div>
-        <div class="card">
-            <div class="circle">3</div>
-            <h1>View Three</h1>
-            <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-            <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
-        </div>
-        <div class="card">
-            <div class="circle">3</div>
-            <h1>View Three</h1>
-            <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-            <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
-        </div>
-        <div class="card">
-            <div class="circle">3</div>
-            <h1>View Three</h1>
-            <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-            <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
-        </div>
-        <div class="card">
-            <div class="circle">3</div>
-            <h1>View Three</h1>
-            <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-            <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
-        </div>
-        <div class="card">
-            <div class="circle">3</div>
-            <h1>View Three</h1>
-            <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-            <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
-        </div>
-        <div class="card">
-            <div class="circle">3</div>
-            <h1>View Three</h1>
-            <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-            <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
-        </div>
-        <div class="card">
-            <div class="circle">3</div>
-            <h1>View Three</h1>
-            <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-            <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
+        <template is="dom-if" if="{{contentChildrenModel.hasEmbeddedFile}}">
+            File
+            <iframe src$="{{getContentFileUrl(contentChildrenModel.embeddedFileName)}}"></iframe>
+        </template>
+        <template is="dom-if" if="{{!contentChildrenModel.hasEmbeddedFile}}">
+            <div class="layout vertical flex" hidden="[[contentChildrenModel.leaf]]">
+                <iron-list items="{{contentChildrenModel.sections}}" as="section"   hidden="[[isEmpty(contentChildrenModel)]]">
+                    <template>
+                        <!--                        <a class="paper-item-link" href="{{getLink(section)}}">-->
+                        <paper-item class="layout horizontal">
+                            <paper-material elevation="1" class="flex layout horizontal" on-tap="onNavigate" name="[[section.name]]">
+                                <span class="flex">[[section.title]]</span>
+                                <div hidden="[[!isDraftSelected(selectedContentFolder)]]" class="layout horizontal">
+                                    <paper-icon-button name="[[section.name]]" icon="create" on-tap="onEditArticle"></paper-icon-button>
+                                    <paper-icon-button name="[[section.name]]" icon="delete" on-tap="onDeleteArticle"></paper-icon-button>
+                                    <paper-icon-button name="[[section.name]]" icon="file-upload" on-tap="onPublishArticle"></paper-icon-button>
+                                    <paper-icon-button name="[[section.name]]" icon="file-download" on-tap="onUnpublishArticle"></paper-icon-button>
+                                </div>
+                            </paper-material>
+
+                        </paper-item>
+                        <!--</a>-->
+                    </template>
+                </iron-list>
+
+                    <div class="card-content" hidden="[[!isEmpty(contentChildrenModel)]]">
+                        <div id="emptyChildrenText">No content in the folder.</div>
+                    </div>
+
+            </div>
+
+
+            <plutonium-article-section class="flex layout horizontal"
+                                       content-model="[[contentChildrenModel]]"
+
+                                       hidden="[[!contentChildrenModel.leaf]]">
+
+            </plutonium-article-section>
+            <!--            <paper-card heading="[[contentChildrenModel.title]]" hidden="[[!contentChildrenModel.leaf]]">
+                            <template is="dom-repeat" items="{{contentChildrenModel.sections}}" as="section">
+                                <plutonium-article-field
+                                    name="[[section.name]]" 
+                                    model="{{section}}" 
+                                    api-url="[[apiUrl]]">
+                                </plutonium-article-field>
+                                <br />
+                            </template>
+                        </paper-card>-->
+        </template>
+
+        <!--<template is="dom-if" if="{{!isEmpty(data.sections)}}">-->
+        <div class="floating-action-bar layout horizontal wrap">
+            <paper-fab icon="icons:arrow-back" on-tap="onBack"></paper-fab>
+            <paper-fab icon="icons:add" on-tap="onNewContent"></paper-fab>
         </div>
 
     </template>
@@ -143,13 +114,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 selectedContentFolder: {
                     type: String,
                     notify: true,
-                    value: 'public',
-                    //                observer: 'observeSelectedContentFolder'
+                    value: 'public'
                 },
             },
+            observers: [
+                'observeSelectedContentFolder(selectedContentFolder)',
+                'observeCurrentArticle(selectedArticleId, selectedContentFolder, ownerId)',
+                'observeContentChildrenModel(contentChildrenModel)'
+            ],
             ready: function () {
                 console.log(this.is + ' is ready.');
-            }
+            },
+            observeCurrentArticle: function (selectedArticleId, selectedContentFolder, ownerId) {
+                this.tocRequestParams.pageId = selectedArticleId;
+                this.tocRequestParams.tag = selectedContentFolder;
+                this.tocRequestParams.owner = ownerId;
+                this.infoRequestParams.pageId = selectedArticleId;
+                console.log(this.is, 'toc navigation request parameters updated:', JSON.stringify(this.tocRequestParams));
+                this.fire('fetch-data', {
+                    ids: ['rootModelAjax', 'childTocAjax', 'parentTocAjax']
+                });
+            },
+            observeContentChildrenModel: function () {
+                var list = document.querySelector('iron-list')
+                if (list)
+                    list.fire('iron-resize');
+            },
+            observeSelectedContentFolder: function (folder) {
+                if (this.tocRequestParams) {
+                    console.log(this.is + ' observe selected content folder: ' + folder);
+                    this.tocRequestParams.tag = folder;
+                    this.tocRequestParams.pageId = this.selectedArticleId = 'ROOT';
+                }
+            },
+            isEmpty: function (data) {
+                return (data === undefined || data === null || data.sections === undefined || data.sections === null || data.sections.length === 0);
+            },
         });
     </script>
 </dom-module>
