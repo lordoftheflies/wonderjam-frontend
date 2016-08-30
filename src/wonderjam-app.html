@@ -17,6 +17,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/polymer-cookie/polymer-cookie.html">
+<link rel="import" href="../bower_components/rest-api/rest-api.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
@@ -67,13 +69,49 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 font-weight: bold;
             }
         </style>
+        <rest-api url="https://www.topflavon.net:8443">
+            <rest-api-resource name="localization/locales" collection="{{locales}}" read-only></rest-api-resource>
+            <rest-api-resource name="addressbook">
+                <rest-api-resource name="all" collection="{{possibleParents}}" read-only></rest-api-resource>
+                <rest-api-resource name="genocide" params="[[genocideRequestParams]]" collection="{{parents}}" read-only></rest-api-resource>
+                <rest-api-resource name="children" params="[[childrenRequestParams]]" collection="{{children}}" read-only></rest-api-resource>
+                <rest-api-resource name="[[session.token]]">
+                    <rest-api-resource name="contacts" collection="{{contacts}}" read-only></rest-api-resource> 
+                    <rest-api-resource name="profile" collection="{{profile}}" read-only></rest-api-resource> 
+                </rest-api-resource>
+            </rest-api-resource>
+            <rest-api-resource name="content-management">
+                <rest-api-resource name="toc" params="[[tocRequestParams]]" collection="{{contentChildrenModel}}" read-only>
+                    <rest-api-resource name="info" params="[[infoRequestParams]]" collection="{{rootModel}}" read-only></rest-api-resource>
+                    <rest-api-resource name="path" params="[[tocRequestParams]]" collection="{{parentModel}}" read-only></rest-api-resource>
+                    <rest-api-resource name="candidates">
+                        <rest-api-resource name="parent" collection="{{parentCandidates}}" read-only></rest-api-resource>
+                    </rest-api-resource>
+                </rest-api-resource>
+            </rest-api-resource>
+            <rest-api-resource name="mailbox">
+                <rest-api-resource name="[[session.token]]">
+                    <rest-api-resource name="[[selectedMailBoxFolder]]" collection="{{mailBoxModel}}" read-only></rest-api-resource>
+                </rest-api-resource>
+            </rest-api-resource>
+        </rest-api>
 
-        <app-location route="{{route}}"></app-location>
-        <app-route
-            route="{{route}}"
-            pattern="/:page"
-            data="{{routeData}}"
-            tail="{{subroute}}"></app-route>
+
+        <!--        <app-location route="{{route}}"></app-location>
+                <app-route
+                    route="{{route}}"
+                    pattern="/:page"
+                    data="{{routeData}}"
+                    tail="{{subroute}}"></app-route>-->
+        <app-location route="{{route}}" query-params="{{queryParams}}"></app-location>
+
+        <app-route route="{{route}}" pattern="/registrate" data="{{activationData}}"></app-route>
+        <app-route route="{{route}}" pattern="/content-view/:contentId" data="{{contentSubrouteData}}"></app-route>
+        <app-route route="{{route}}" pattern="/network-view/:memberId" data="{{memberSubrouteData}}"></app-route>
+        <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+
+        <polymer-cookie id="rememberMeCookie" name="rememberMe" value="{{rememberMe}}" time="1" format="d"></polymer-cookie>
+        <polymer-cookie id="tokenCookie" name="token" value="{{token}}" time="1" format="d"></polymer-cookie>
 
         <app-drawer-layout fullbleed>
             <!-- Drawer content -->
@@ -121,11 +159,68 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     attr-for-selected="name"
                     fallback-selection="view404"
                     role="main">
-                    <wonderjam-article-view name="article-view"></wonderjam-article-view>
-                    <wonderjam-mailbox-view name="mailbox-view"></wonderjam-mailbox-view>
-                    <wonderjam-members-view name="members-view"></wonderjam-members-view>
-                    <wonderjam-about-view name="about-view"></wonderjam-about-view>
-                    <wonderjam-profile-view name="profile-view"></wonderjam-profile-view>
+                    <wonderjam-about-view 
+                        name="about-view"locales="[[locales]]"
+                        profile="[[profile]]"
+                        changeLanguageModel="[[changeLanguageModel]]"
+                        account-id="[[session.token]]">
+                    </wonderjam-about-view>
+                    <wonderjam-article-view 
+                        name="article-view"
+                        info-request-params="{{infoRequestParams}}"
+                        toc-request-params="{{tocRequestParams}}"
+                        root-model="[[rootModel]]"
+                        parent-model="[[parentModel]]"
+                        content-children-model="{{contentChildrenModel}}"
+                        publisher-model="[[publisherModel]]"
+                        account-id="[[session.token]]" 
+                        admin="[[session.powerUser]]" 
+                        owner-id="[[session.token]]"
+                        selected-article-id="{{contentSubrouteData.contentId}}"
+                        selected-content-folder="{{selectedContentFolder}}">
+                    </wonderjam-article-view>
+                    <wonderjam-mailbox-view 
+                        name="mailbox-view"account-id="[[session.token]]" 
+                        mail-box-model="[[mailBoxModel]]"
+                        selected-mail-box-folder="[[selectedMailBoxFolder]]">
+                    </wonderjam-mailbox-view>
+                    <wonderjam-members-view 
+                        name="members-view"
+                        genocide-request-params="{{genocideRequestParams}}"
+                        children-request-params="{{childrenRequestParams}}"
+                        account-id="[[session.token]]" 
+                        parents="[[parents]]"
+                        children="[[children]]"
+                        selected-name="{{selectedName}}"
+                        selected-role="{{selectedRole}}"
+                        selected-account-id="{{memberSubrouteData.memberId}}">
+                    </wonderjam-members-view>
+                    <wonderjam-profile-view 
+                        name="profile-view"
+                        locales="[[locales]]"
+                        profile="[[profile]]"
+                        api-url="[[apiUrl]]" 
+                        changeLanguageModel="[[changeLanguageModel]]"
+                        account-id="[[session.token]]">
+                    </wonderjam-profile-view>
+                    <wonderjam-send-view 
+                        name="send-view"
+                        items="{{contacts}}" 
+                        account-id="[[session.token]]" 
+                        selected-item-ids="{{recipients}}"
+                        parent-candidates="[[parentCandidates]]"
+                        content-model="{{editedContentModel}}" 
+                        selected-meta-action="{{selectedMetaAction}}">
+                    </wonderjam-send-view>
+                    <wonderjam-share-view 
+                        name="share-view" 
+                        items="{{contacts}}"
+                        account-id="[[session.token]]" 
+                        selected-item-ids="{{recipients}}"
+                        content-model="{{editedContentModel}}" 
+                        share-model="{{shareModel}}"
+                        selected-meta-action="{{selectedMetaAction}}">
+                    </wonderjam-share-view>
                     <wonderjam-view404 name="view404"></wonderjam-view404>
                 </iron-pages>
             </app-header-layout>

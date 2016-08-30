@@ -1,0 +1,453 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-dropdown/iron-dropdown.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-input/paper-input-container.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../file-upload/file-upload.html">
+<!--<link rel="import" href="../plutonium-field-recipient/plutonium-field-recipient.html">-->
+<link rel="import" href="../paper-chip/paper-chip.html">
+<link rel="import" href="mlm-shared-styles.html">
+<link rel="import" href="../plutonium-elements/plutonium-elements.html">
+<link rel="import" href="../plutonium-manageable-content/plutonium-manageable-content.html">
+
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-menu/paper-menu.html">
+<link rel="import" href="../paper-menu-button/paper-menu-button.html">
+
+<!--
+`<wonderjam-share-view>` Share page of the application.
+
+In typical use, just slap some `<wonderjam-share-view>` at the top of your body:
+
+    <body>
+      <wonderjam-share-view></wonderjam-share-view>
+
+Wham! It's all awesome now!
+
+    @group Mlm Elements
+    @demo demo/wonderjam-share-view-index.html
+-->
+<dom-module id="wonderjam-share-view">
+
+    <template>
+
+        <style include="mlm-shared-styles">
+
+            :host {
+                --paper-menu-background-color: none;
+            }
+
+            plutonium-article-form {
+                margin: 24px;
+            }
+            /*            .main-action-fab-container {
+                            position: relative;
+                        }
+                        paper-fab.main-action-fab {
+                            position: absolute;
+                            bottom: -45px;
+                            right: 0px;
+                        }
+                        paper-fab.minor-action-fab {
+                            position: absolute;
+                            top: -65px;
+                            right: 0px;
+                        }*/
+        </style>
+
+
+        <!--<iron-pages selected="{{selectedMetaAction}}" attr-for-selected="name">-->
+        <!--            <paper-card elevation="1" name="share" heading="Share with others" class="layout vertical main-action-fab-container">
+                        <div class="card-content layout horizontal">
+                            <div class="flex layout vertical">
+                                <div class="layout horizontal">
+                                    <paper-input-container id="recipientsInput" class="flex" always-float-label="true">
+                                        <label>Recipients</label>
+                                        <div class="paper-input-input layout horizontal wrap">
+                                            <template is="dom-repeat" items="[[selectedItemIds]]">
+                                                <paper-chip member="[[item]]" style="margin-right: 10px; background-color: white; z-index: 2000;" removable>
+                                                    TODO: #45
+                                                    <div class="icon">[[getRoleIcon(item)]]</div>
+                                                    <h1>[[getUserName(item)]]</h1>
+                                                    <h2>[[getUserEmail(item)]]</h2>
+                                                </paper-chip>
+                                            </template>
+                                        </div>
+                                    </paper-input-container>
+        
+                                    <paper-input label="Recipients" class="flex" name="recipients" value="{{_recipients}}"></paper-input>
+                                    <paper-icon-button icon="supervisor-account" title="Choose contacts." on-tap="onOpenRecipientsDialog"></paper-icon-button>
+                                    <paper-icon-button icon="clear" title="Clear recipients input." on-tap="onClearRecipients"></paper-icon-button>
+                                </div>
+                                <paper-input id="messageInput" class="bottom title" label="Message" value="{{message}}"></paper-input>
+                            </div>
+                        </div>
+        
+                    </paper-card>-->
+
+        <div name="content">
+            <paper-card id="propertiesCardTitle" elevation="1" heading="Properties"  name="props" class="layout vertical main-action-fab-container">
+
+
+                <div class="card-content layout horizontal">
+                    <div class="layout vertical flex">
+                        <paper-dropdown-menu 
+                            id="parentDdLabel"
+                            label="Parent">
+                            <paper-listbox id="parentCandidatesList"
+                                           class="dropdown-content"
+                                           attr-for-selected="{{attrForSelected}}"
+                                           items="[[parentCandidates]]"
+                                           as="parent"
+                                           selected="{{selectedParent}}">
+                                <template is="dom-repeat" items="[[parentCandidates]]">
+
+                                    <paper-item id="[[item.id]]" class="item pad">
+                                        <label>[[item.title]]</label> 
+                                    </paper-item>
+                                </template>
+                            </paper-listbox>
+                        </paper-dropdown-menu>
+                        <paper-input id="contentTitleInput" class="bottom title" label="Title" value="{{contentModel.title}}"></paper-input>
+                        <paper-checkbox id="draftIndicator" checked="{{contentModel.draft}}">Draft</paper-checkbox>
+                    </div>
+                </div>
+                <paper-toolbar>
+
+                    <paper-tabs attr-for-selected="name" selected="{{articleContentType}}" style="width: 100%;" autoselect>
+                        <paper-tab text-id="embbeddedContentTabLabel" name="embedded">Embed content</paper-tab>
+                        <paper-tab text-id="assembledContentTabLabel" name="assembled">Assembled content</paper-tab>
+                    </paper-tabs>
+                </paper-toolbar>
+            </paper-card>
+
+            <!--<paper-card id="articleContentCard" heading="{{articleContentHeading}}" elevation="1" class="layout vertical">-->
+            <div id="articleContentCard" heading="{{articleContentHeading}}" elevation="1" class="layout vertical">
+
+
+
+
+                <!--Selectexitemids: [[selectedItemIds.length]]-->
+
+
+
+                <iron-pages selected="{{articleContentType}}" attr-for-selected="name">
+
+                    <div name="assembled" class="card-content layout horizontal" style="padding-top: 10px;">
+                        <plutonium-article-form  
+                            class="flex"
+                            api-url="{{apiUrl}}"
+                            id="pcf"
+                            editable
+                            contacts="{{contacts}}" 
+                            content-model="{{contentModel}}"
+                            parent-candidates="{{parentCandidates}}"
+                            editors="[[editorMap]]">
+                        </plutonium-article-form>
+                    </div>
+
+                    <paper-card id="propertiesCardTitle" name="embedded" class="card-content layout horizontal" elevation="1" heading="Upload article">
+                        <file-upload 
+                            id="uploadFileText"
+                            drop-text="Drop any PDF file here."
+                            error-text="File upload failed."
+                            droppable="true" 
+                            raised="true" 
+                            multi="false" 
+                            method="POST"
+                            target="{{fileUploadTarget}}">Choose File</file-upload>
+                        <div class="flex"></div>
+                    </paper-card>
+
+                </iron-pages>
+            </div>
+
+        </div>
+
+
+        <!--</iron-pages>-->
+
+        <div class="floating-action-bar layout horizontal wrap">
+            <paper-menu-button
+                horizontal-align="right"
+                vertical-align="bottom">
+                <paper-fab id="addSectionButton" icon="more-vert" class="dropdown-trigger minor-action-fab" title="Add new section."></paper-fab>
+                <paper-menu class="dropdown-content">
+                    <paper-fab id="addSectionButton" on-tap="onAddSection" icon="add-circle" class="minor-action-fab" title="Embedd text to the message content."></paper-fab>
+                    <paper-fab id="addVideoButton" on-tap="onEmbedVideo" icon="theaters" class="minor-action-fab" title="Embedd video to the message content."></paper-fab>
+                    <paper-fab id="addImageButton" on-tap="onEmbedImage" icon="perm-media"  class="minor-action-fab" title="Embedd image to the message content."></paper-fab>
+                    <paper-fab id="addLinkButton" on-tap="onEmbedLink" icon="link" class="minor-action-fab" title="Embedd a link to another message to the message content."></paper-fab>
+                </paper-menu>
+            </paper-menu-button>
+
+
+            <!--<paper-fab class="minor-action-fab" icon="send" on-tap="onSendMessage" title="Publish content" id="sendMessageFab"></paper-fab>-->
+            <paper-fab icon="save" on-tap="onShare" title="Publish content" id="sendMessageFab"></paper-fab>
+            <paper-fab icon="clear" on-tap="onClear" title="Cancel all changes & create new article." id="sendNewContentFab"></paper-fab>
+
+        </div>
+
+    </template>
+
+    <script>
+
+        Polymer({
+            is: 'wonderjam-share-view',
+            behaviors: [
+                PlutoniumBehaviors.WidgetBehavior
+            ],
+            properties: {
+                shareAjaxRequest: {
+                },
+                pageDto: {
+                    type: Object,
+                    notify: true
+                },
+                contentModel: {
+                    type: Object,
+                    notify: true,
+                    value: {
+                        sections: [
+                        ]
+                    }
+                },
+                shareModel: {
+                    type: Object,
+                    notify: true,
+                    value: {
+                        recipients: []
+                    }
+                },
+                selectedItemIds: {
+                    type: Array,
+                    notify: true
+                },
+                selectedMetaAction: {
+                    type: String,
+                    notify: true,
+                    value: 'content'
+                },
+                articleContentType: {
+                    type: String,
+                    notify: true,
+                    value: 'assembled'
+                },
+                articleContentHeading: {
+                    type: String,
+                    notify: true,
+                    computed: 'computeHeader(articleContentType)'
+                },
+                recipients: {
+                    type: String,
+                    notify: true,
+                    value: ''
+                }
+            },
+            observers: [
+                'itemsAddedOrRemoved(selectedItemIds.splices)'
+            ],
+            listeners: {
+                'create': 'onSectionCreate',
+                'remove': 'onRemoveItem',
+                'share': 'onShare',
+                'shareAjax.error': 'onShareError',
+                'shareAjax.response': 'onShareResponse'
+            },
+            ready: function () {
+                console.log(this.is + ' is ready.');
+            },
+//            updateModel: function (sections) {
+//                this.pageDto = {
+//                };
+//            },
+            onClear: function () {
+
+            },
+            onSectionCreate: function (event, detail) {
+                this.$.pcf.onCreateSectionInParent(event, detail);
+            },
+            onShare: function (e, details) {
+                console.log('Save content: ' + JSON.stringify(this.contentModel));
+                this.contentModel.leaf = true;
+                this.fire('fetch-data', {
+                    ids: ['shareAjax']
+                });
+//                this.fire('share', {
+//                    content: this.contentModel,
+//                    recipients: this.selectedContactIds,
+//                    message: this.message
+//                });
+            },
+            onNewArticle: function () {
+                this.contentModel = {
+                    sections: [
+                    ]
+                };
+            },
+            onOpenRecipientsDialog: function () {
+                console.log(this.is + ' send event pick-recipients.');
+                this.fire('pick-recipients', {});
+            },
+            /**
+             * Tap clear input event handler.
+             *
+             */
+            onClearRecipients: function () {
+                this.splice('selectedItemIds', 0, this.selectedItemIds.length);
+                console.log('mlm-recipient-picker clear recipients.');
+            },
+            itemsAddedOrRemoved: function (splice) {
+                if (splice === undefined || splice === null)
+                    return;
+                console.log('mlm-recipient-picker change recipients: ' + JSON.stringify(this.selectedItemIds));
+                var recipientslabel = '';
+                if (this.items !== undefined && this.items !== null) {
+                    this.items.forEach(function (item, index) {
+                        if (this.selectedItemIds.indexOf(item.id) > -1) {
+                            recipientslabel += item.name + ' ';
+                        }
+                    }, this);
+                }
+                this.recipients = recipientslabel;
+            },
+            onRemoveItem: function (event, detail) {
+                event.stopPropagation();
+                this.splice('selectedItemIds', this.selectedItemIds.indexOf(event.currentTarget.member), 1);
+            },
+            computeHeader: function (articleContentHeading) {
+                return ('assembled' === articleContentHeading) ? 'Edit content' : 'Attach file';
+            },
+            onOnlySaveContent: function (event, detail) {
+                console.log('Save content.');
+            },
+            onSendMessage: function (event, detail) {
+                this.shareModel.recipients = this.selectedItemIds;
+                this.shareModel.message = this.message;
+                this.shareModel.contentId = this.contentModel.id;
+
+                this.fire('fetch-data', {
+                    ids: ['messageSendAjax']
+                });
+            },
+            getUserName: function (id) {
+                if (this.items !== undefined && this.items !== null) {
+                    var name = 'Unknown';
+                    this.items.forEach(function (item, index) {
+                        if (item.id === id) {
+                            name = item.name;
+                        }
+                    }, this);
+                    return name;
+                }
+            },
+            getUserEmail: function (id) {
+                if (this.items !== undefined && this.items !== null) {
+                    var name = 'Unknown';
+                    this.items.forEach(function (item, index) {
+                        if (item.id === id) {
+                            name = item.email;
+                        }
+                    }, this);
+                    return name;
+                }
+            },
+            getRoleIcon: function (id) {
+                if (this.items !== undefined && this.items !== null) {
+                    var name = 'Unknown';
+                    this.items.forEach(function (item, index) {
+                        if (item.id === id) {
+                            // TODO: remove #45
+                            // name = item.role.charAt(0).toUpperCase();
+                            name = 'M';
+                        }
+                    }, this);
+                    return name;
+                }
+            },
+            /**
+             * Fired when a section adder floating-action-button pushed.
+             *
+             * @event create
+             */
+
+            /**
+             * Add text-section handler.
+             */
+            onAddSection: function () {
+                console.log('Add section after field[' + 'section' + this.contentModel.sections.length + ']');
+                this.fire('create', {
+                    name: 'section' + this.contentModel.sections.length,
+                    type: 'plutonium-cm-editor-text',
+                    title: '',
+                    data: ''
+                });
+            },
+            /**
+             * Add video-section handler.
+             */
+            onEmbedVideo: function () {
+                console.log('Embed video to after field[' + 'section' + this.contentModel.sections.length + ']');
+                this.fire('create', {
+                    name: 'section' + this.contentModel.sections.length,
+                    type: 'plutonium-cm-editor-video',
+                    title: '',
+                    data: ''
+                });
+            },
+            /**
+             * Add image-section handler.
+             */
+            onEmbedImage: function () {
+                console.log('Embed image to after field[' + 'section' + this.contentModel.sections.length + ']');
+                this.fire('create', {
+                    name: this.name,
+                    type: 'plutonium-cm-editor-image',
+                    title: '',
+                    data: ''
+                });
+            },
+            /**
+             * Add link-section handler.
+             */
+            onEmbedLink: function () {
+                console.log('Embed link to after field[' + 'section' + this.contentModel.sections.length + ']');
+                this.fire('create', {
+                    name: 'section' + this.contentModel.sections.length,
+                    type: 'plutonium-cm-editor-link',
+                    title: '',
+                    data: ''
+                });
+            }
+//            itemsAddedOrRemoved: function (splice) {
+//                if (splice === undefined || splice === null)
+//                    return;
+//                console.log('mlm-recipient-picker change recipients: ' + JSON.stringify(this.selectedItemIds));
+//                var recipientsString = '';
+//                if (this.items !== undefined && this.items !== null) {
+//                    this.items.forEach(function (item, index) {
+//                        if (this.selectedItemIds.indexOf(item.id) > -1) {
+//                            recipientsString += item.name + ' ';
+//                        }
+//                    }, this);
+//                }
+//                this._recipients = recipientsString;
+//            }
+
+        });
+
+    </script>
+
+</dom-module>
