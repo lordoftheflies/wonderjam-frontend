@@ -11,8 +11,7 @@
          *
          * @polymerBehavior
          */
-        WonderjamAppBehaviors.ArticleControllerBehaviorImpl = {
-//        WonderjamAppBehaviors.ArticleControllerBehavior = {
+        WonderjamAppBehaviors.ControllerArticleBehaviorImpl = {
             properties: {
                 /**
                  * Root article.
@@ -37,6 +36,12 @@
                 contentChildrenModel: {
                     type: Object,
                     notify: true
+                },
+                /**
+                 * Model publisher.
+                 * @type {{}}
+                 */
+                publisherModel: {
                 },
                 /**
                  * Table of contents request parameters.
@@ -112,48 +117,16 @@
              * Ajax error handler for `parentTocAjax` element.
              */
             onParentTocAjaxError: function (event, detail) {
-                console.log(this.is, 'article parent path fetching failed for', this.contentSubrouteData.contentId);
+                console.error(this.is, 'article parent path fetching failed for', this.contentSubrouteData.contentId);
                 this.selectedContentFolder = 'public';
-            },
-            /**
-             * Ajax response handler for `publisherAjax` element.
-             */
-            onPublisherAjaxResponse: function () {
-                this.fire('feedback', {
-                    message: 'Message published succesfully.'
-                });
-            },
-            /**
-             * Ajax error handler for `publisherAjax` element.
-             */
-            onPublisherAjaxError: function () {
-                this.fire('feedback', {
-                    message: 'Message publishing failed.'
-                });
-            },
-            /**
-             * Ajax response handler for `unpublisherAjax` element.
-             */
-            onUnpublisherAjaxResponse: function () {
-                this.fire('feedback', {
-                    message: 'Message unpublished succesfully.'
-                });
-            },
-            /**
-             * Ajax error handler for `unpublisherAjax` element.
-             */
-            onUnpublisherAjaxError: function () {
-                this.fire('feedback', {
-                    message: 'Message publishing failed.'
-                });
             }
 
         };
 
 
-        WonderjamAppBehaviors.ArticleControllerBehavior = [
+        WonderjamAppBehaviors.ControllerArticleBehavior = [
             PlutoniumBehaviors.WidgetBoundBehavior,
-            WonderjamAppBehaviors.ArticleControllerBehaviorImpl
+            WonderjamAppBehaviors.ControllerArticleBehaviorImpl
         ];
 
     })();

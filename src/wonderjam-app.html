@@ -32,7 +32,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="plutonium-app-routing-behavior.html">
 <link rel="import" href="plutonium-widget-bound-beavior.html">
-<link rel="import" href="wonderjam-article-controller-behavior.html">
+<link rel="import" href="wonderjam-controller-article-behavior.html">
+<link rel="import" href="wonderjam-controller-publisher-behavior.html">
+<link rel="import" href="wonderjam-controller-member-behavior.html">
+<link rel="import" href="wonderjam-controller-manager-behavior.html">
 
 <dom-module id="wonderjam-app">
     <template>
@@ -252,7 +255,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             behaviors: [
                 BehaviorsStore.I18nBehavior,
                 PlutoniumBehaviors.AppRoutingBehavior,
-                WonderjamAppBehaviors.ArticleControllerBehavior
+                WonderjamAppBehaviors.ControllerArticleBehavior,
+                WonderjamAppBehaviors.ControllerPublicherBehavior,
+                WonderjamAppBehaviors.ControllerMemberBehavior,
+                WonderjamAppBehaviors.ControllerManagerBehavior
             ],
             properties: {
                 /**
