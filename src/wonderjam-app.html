@@ -78,12 +78,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-drawer-layout fullbleed>
             <!-- Drawer content -->
             <app-drawer>
-                <app-toolbar>Menu</app-toolbar>
+                <app-toolbar text-id="main-menu-label">Menu</app-toolbar>
                 <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-                    <a name="article-view" href="/article-view">Articles</a>
-                    <a name="mailbox-view" href="/mailbox-view">Mailbox</a>
-                    <a name="members-view" href="/members-view">Network</a>
-                    <a name="about-view" href="/about-view">About</a>
+                    <a text-id="article-menu-label" name="article-view" href="/article-view">Articles</a>
+                    <a text-id="mailbox-menu-label" name="mailbox-view" href="/mailbox-view">Mailbox</a>
+                    <a text-id="members-menu-label" name="members-view" href="/members-view">Network</a>
+                    <a text-id="about-menu-label" name="about-view" href="/about-view">About</a>
                 </iron-selector>
             </app-drawer>
 
@@ -95,21 +95,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
                         <div main-title class="flex">Topflavon</div>
                         <plutonium-language-picker>
-                            <plutonium-language-item lang="en">English</plutonium-language-item>
-                            <plutonium-language-item lang="hu">Magyar</plutonium-language-item>
-                            <plutonium-language-item lang="po">Polski</plutonium-language-item>
+                            <plutonium-language-item lang="en" text-id="english-language-label">English</plutonium-language-item>
+                            <plutonium-language-item lang="hu" text-id="hungarian-language-label">Magyar</plutonium-language-item>
+                            <plutonium-language-item lang="po" text-id="polish-language-label">Polski</plutonium-language-item>
                         </plutonium-language-picker>
                         <plutonium-avatar-button>
                             <a href="/profile-view" class="menu">
                                 <paper-item class="menu">
                                     <iron-icon icon="account-circle" item-icon></iron-icon>
-                                    <span id="profileMenuTitle">Profile</span>
+                                    <span  text-id="profile-menu-label">Profile</span>
                                 </paper-item>
                             </a>
                             <a href="#" on-tap="onLogout" class="menu">
                                 <paper-item class="menu">
                                     <iron-icon icon="markunread-mailbox" item-icon></iron-icon>
-                                    <span id="logoutButtonLabel">Logout</span>
+                                    <span  text-id="logout-label">Logout</span>
                                 </paper-item>
                             </a>
                         </plutonium-avatar-button>
