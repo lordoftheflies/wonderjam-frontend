@@ -1,0 +1,109 @@
+<script>
+    window.WonderjamAppBehaviors = window.WonderjamAppBehaviors || {};
+    WonderjamAppBehaviors.ArticleBehavior = {
+        properties: {
+            /**
+             * Root article.
+             * @type {{elements: Array<HTMLElement>, level: number}}
+             */
+            rootModel: {
+                type: Object,
+                notify: true
+            },
+            /**
+             * Array for parent articles path.
+             * @type {{elements: Array<HTMLElement>, level: number}}
+             */
+            parentModel: {
+                type: Object,
+                notify: true
+            },
+            /**
+             * Array for article content chidren.
+             * @type {{elements: Array<HTMLElement>, level: number}}
+             */
+            contentChildrenModel: {
+                type: Object,
+                notify: true
+            },
+            /**
+             * Table of contents request parameters.
+             * @type {{pageId: String, tag: String, owner: String}}
+             */
+            tocRequestParams: {
+                type: Object,
+                notify: true
+            },
+            /**
+             * Article information request parameters.
+             * @type {{pageId: String}}
+             */
+            infoRequestParams: {
+                type: Object,
+                notify: true
+            },
+            /**
+             * Sub-route parameters for members page.
+             * @type {{elements: Array<HTMLElement>, level: number}}
+             */
+            contentSubrouteData: {
+                type: Object,
+                notify: true
+            },
+            /**
+             * Sub-route parameters for members page.
+             * @type {{elements: Array<HTMLElement>, level: number}}
+             */
+            contentSubrouteData: {
+                type: Object,
+                notify: true
+            }
+        },
+        observers: [
+            'observeMemberSubrouteData(memberSubrouteData)',
+            'observeContentSubrouteData(observeContentSubrouteData)'
+        ],
+        /**
+         * Member page sub routing observer.
+         * @param {type} subroute
+         * @returns {undefined}
+         */
+        observeMemberSubrouteData: function (subroute) {
+            console.log(this.is, 'observe route', subroute);
+        },
+        /**
+         * Content page sub routing observer.
+         * @param {type} subroute
+         * @returns {undefined}
+         */
+        observeContentSubrouteData: function (subroute) {
+            console.log(this.is, 'observe route', this.contentSubrouteData);
+        },
+        /**
+         * Ajax response handler for `childTocAjax` element.
+         */
+        onChildTocAjaxResponse: function (event, detail) {
+            console.log(this.is, 'fetched article child contents for', this.contentSubrouteData.contentId);
+        },
+        /**
+         * Ajax error handler for `childTocAjax` element.
+         */
+        onChildTocAjaxError: function (event, detail) {
+            console.error(this.is, 'article child contents fetching failed for', this.contentSubrouteData.contentId);
+        },
+        /**
+         * Ajax response handler for `parentTocAjax` element.
+         */
+        onParentTocAjaxResponse: function (event, detail) {
+            console.log(this.is, 'fetched article parent path for', this.contentSubrouteData.contentId);
+        },
+        /**
+         * Ajax error handler for `parentTocAjax` element.
+         */
+        onParentTocAjaxError: function (event, detail) {
+            console.log(this.is, 'article parent path fetching failed for', this.contentSubrouteData.contentId);
+            this.selectedContentFolder = 'public';
+        }
+
+    };
+</script>

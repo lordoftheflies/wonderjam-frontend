@@ -27,7 +27,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/plutonium-avatar-button/plutonium-avatar-button.html">
 <link rel="import" href="../bower_components/plutonium-language-picker/plutonium-language-picker.html">
 <link rel="import" href="../bower_components/plutonium-language-picker/plutonium-language-item.html">
+
 <link rel="import" href="wonderjam-icons.html">
+
+<link rel="import" href="plutonium-app-routing-behavior.html">
+<link rel="import" href="wonderjam-article-app-behavior.html">
 
 <dom-module id="wonderjam-app">
     <template>
@@ -69,56 +73,71 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 font-weight: bold;
             }
         </style>
-        <rest-api url="https://www.topflavon.net:8443">
-            <rest-api-resource name="localization/locales" collection="{{locales}}" read-only></rest-api-resource>
-            <rest-api-resource name="addressbook">
-                <rest-api-resource name="all" collection="{{possibleParents}}" read-only></rest-api-resource>
-                <rest-api-resource name="genocide" params="[[genocideRequestParams]]" collection="{{parents}}" read-only></rest-api-resource>
-                <rest-api-resource name="children" params="[[childrenRequestParams]]" collection="{{children}}" read-only></rest-api-resource>
-                <rest-api-resource name="[[session.token]]">
-                    <rest-api-resource name="contacts" collection="{{contacts}}" read-only></rest-api-resource> 
-                    <rest-api-resource name="profile" collection="{{profile}}" read-only></rest-api-resource> 
-                </rest-api-resource>
-            </rest-api-resource>
-            <rest-api-resource name="content-management">
-                <rest-api-resource name="toc" params="[[tocRequestParams]]" collection="{{contentChildrenModel}}" read-only>
-                    <rest-api-resource name="info" params="[[infoRequestParams]]" collection="{{rootModel}}" read-only></rest-api-resource>
-                    <rest-api-resource name="path" params="[[tocRequestParams]]" collection="{{parentModel}}" read-only></rest-api-resource>
-                    <rest-api-resource name="candidates">
-                        <rest-api-resource name="parent" collection="{{parentCandidates}}" read-only></rest-api-resource>
-                    </rest-api-resource>
-                </rest-api-resource>
-            </rest-api-resource>
-            <rest-api-resource name="mailbox">
-                <rest-api-resource name="[[session.token]]">
-                    <rest-api-resource name="[[selectedMailBoxFolder]]" collection="{{mailBoxModel}}" read-only></rest-api-resource>
-                </rest-api-resource>
-            </rest-api-resource>
-        </rest-api>
-
-
-        <!--        <app-location route="{{route}}"></app-location>
-                <app-route
-                    route="{{route}}"
-                    pattern="/:page"
-                    data="{{routeData}}"
-                    tail="{{subroute}}"></app-route>-->
+        <!--Get article info-->
+        <iron-ajax id="rootModelAjax" url="[[apiUrl]]/content-management/toc/info" 
+                   params="[[infoRequestParams]]" last-response="{{rootModel}}" 
+                   handle-as="json" auto></iron-ajax>
+        <!--Get parent articles-->
+        <iron-ajax id="parentTocAjax" url="[[apiUrl]]/content-management/toc/path" 
+                   params="[[tocRequestParams]]" last-response="{{parentModel}}" on-response="onParentTocAjaxResponse" on-error="onParentTocAjaxError" 
+                   handle-as="json" auto></iron-ajax>
+        <!--Get child contents of an article-->
+        <iron-ajax id="childTocAjax" url="[[apiUrl]]/content-management/toc" 
+                   params="[[tocRequestParams]]" last-response="{{contentChildrenModel}}" on-response="onChildTocAjaxResponse" on-error="onChildTocAjaxError" 
+                   handle-as="json" auto></iron-ajax>
+        <!--Publish content-->
+        <iron-ajax id="publisherAjax" url="[[apiUrl]]/content-management/publish" 
+                   body="{{publisherModel}}" on-response="onPublishResponse" on-error="onPublishError"
+                   method="POST" handle-as="json" content-type="application/json">
+        </iron-ajax>
+        <!--Unpublish content-->
+        <iron-ajax id="unpublisherAjax" url="[[apiUrl]]/content-management/unpublish" 
+                   body="{{publisherModel}}" on-response="onUnpublishResponse" on-error="onUnpublishError"
+                   method="POST" handle-as="json" content-type="application/json"></iron-ajax>
+        <!--Get mailbox folder-->
+        <iron-ajax id="mailBoxAjax" url="[[apiUrl]]/mailbox/[[session.token]]/[[selectedMailBoxFolder]]" 
+                   last-response="{{mailBoxModel}}"
+                   ></iron-ajax>
+        <!--Get profile-->
+        <iron-ajax id="profileAjax" url="[[apiUrl]]/addressbook/[[session.token]]/profile" 
+                   last-response="{{profile}}" 
+                   auto="[[accountId]]"></iron-ajax>
+        <!--Change language-->
+        <iron-ajax id="changeLanguageAjax" url="[[apiUrl]]/localization/change" 
+                   body="{{changeLanguageModel}}" on-response="handleChangeLanguageResponse" on-error="handleChangeLanguageError"
+                   method="POST" handle-as="json" content-type="application/json"></iron-ajax>
+        <iron-ajax id="parentCandidatesAjax" url="[[apiUrl]]/content-management/candidates/parent" 
+                   last-response="{{parentCandidates}}" 
+                   auto></iron-ajax>
+        <!--Share content-->
+        <iron-ajax id="shareAjax" url="[[apiUrl]]/content-management/[[session.token]]/save"
+                   body="{{editedContentModel}}"
+                   method="POST" handle-as="json" content-type="application/json"></iron-ajax>
+        <!--Send message-->
+        <iron-ajax id="messageSendAjax" url="[[apiUrl]]/mailbox/[[session.token]]/send"
+                   body="{{shareModel}}" on-response="onMessageSendResponse" on-error="onMessageSendError"
+                   method="POST"  handle-as="json"content-type="application/json"></iron-ajax>
+        <!--Get token-->
+        <iron-ajax id="sessionAjax" url="[[apiUrl]]/authentication/session?token=[[accountId]]" 
+            last-response="{{session}}" 
+            auto></iron-ajax>
+        <!--Routing-->
         <app-location route="{{route}}" query-params="{{queryParams}}"></app-location>
-
         <app-route route="{{route}}" pattern="/registrate" data="{{activationData}}"></app-route>
-        <app-route route="{{route}}" pattern="/content-view/:contentId" data="{{contentSubrouteData}}"></app-route>
-        <app-route route="{{route}}" pattern="/network-view/:memberId" data="{{memberSubrouteData}}"></app-route>
+        <app-route route="{{route}}" pattern="/login"></app-route>
+        <app-route route="{{route}}" pattern="/article-view/:contentId" data="{{contentSubrouteData}}"></app-route>
+        <app-route route="{{route}}" pattern="/members-view/:memberId" data="{{memberSubrouteData}}"></app-route>
         <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
-
+        <!--Cookies-->
         <polymer-cookie id="rememberMeCookie" name="rememberMe" value="{{rememberMe}}" time="1" format="d"></polymer-cookie>
-        <polymer-cookie id="tokenCookie" name="token" value="{{token}}" time="1" format="d"></polymer-cookie>
-
+        <polymer-cookie id="tokenCookie" name="token" value="{{accountId}}" time="1" format="d" auto-set></polymer-cookie>
+        <!--Layout-->
         <app-drawer-layout fullbleed>
             <!-- Drawer content -->
             <app-drawer>
                 <app-toolbar text-id="main-menu-label">Menu</app-toolbar>
                 <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-                    <a text-id="article-menu-label" name="article-view" href="/article-view">Articles</a>
+                    <a text-id="article-menu-label" name="article-view" href="/article-view/ROOT">Articles</a>
                     <a text-id="mailbox-menu-label" name="mailbox-view" href="/mailbox-view">Mailbox</a>
                     <a text-id="members-menu-label" name="members-view" href="/members-view">Network</a>
                     <a text-id="about-menu-label" name="about-view" href="/about-view">About</a>
@@ -137,7 +156,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                             <plutonium-language-item lang="hu" text-id="hungarian-language-label">Magyar</plutonium-language-item>
                             <plutonium-language-item lang="po" text-id="polish-language-label">Polski</plutonium-language-item>
                         </plutonium-language-picker>
-                        <plutonium-avatar-button>
+                        <plutonium-avatar-button display-name-attribute="userName" display-unique-attribute="userName" user="[[session]]">
                             <a href="/profile-view" class="menu">
                                 <paper-item class="menu">
                                     <iron-icon icon="account-circle" item-icon></iron-icon>
@@ -159,11 +178,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     attr-for-selected="name"
                     fallback-selection="view404"
                     role="main">
-                    <wonderjam-about-view 
-                        name="about-view"locales="[[locales]]"
-                        profile="[[profile]]"
-                        changeLanguageModel="[[changeLanguageModel]]"
-                        account-id="[[session.token]]">
+                    <wonderjam-about-view>
                     </wonderjam-about-view>
                     <wonderjam-article-view 
                         name="article-view"
@@ -180,8 +195,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         selected-content-folder="{{selectedContentFolder}}">
                     </wonderjam-article-view>
                     <wonderjam-mailbox-view 
-                        name="mailbox-view"account-id="[[session.token]]" 
+                        name="mailbox-view"
                         mail-box-model="[[mailBoxModel]]"
+                        account-id="[[accountId]]"
                         selected-mail-box-folder="[[selectedMailBoxFolder]]">
                     </wonderjam-mailbox-view>
                     <wonderjam-members-view 
@@ -199,9 +215,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         name="profile-view"
                         locales="[[locales]]"
                         profile="[[profile]]"
-                        api-url="[[apiUrl]]" 
                         changeLanguageModel="[[changeLanguageModel]]"
-                        account-id="[[session.token]]">
+                        account-id="[[accountId]]">
                     </wonderjam-profile-view>
                     <wonderjam-send-view 
                         name="send-view"
@@ -223,6 +238,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </wonderjam-share-view>
                     <wonderjam-view404 name="view404"></wonderjam-view404>
                 </iron-pages>
+                <div class="floating-action-bar layout horizontal wrap">
+                    <paper-fab icon="icons:add" on-tap="onNewMessage"></paper-fab>
+                </div>
             </app-header-layout>
         </app-drawer-layout>
     </template>
@@ -231,28 +249,40 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         Polymer({
             is: 'wonderjam-app',
             behaviors: [
-                BehaviorsStore.I18nBehavior
+                BehaviorsStore.I18nBehavior,
+                WonderjamAppBehaviors.ArticleBehavior,
+                PlutoniumBehaviors.AppRoutingBehavior
             ],
             properties: {
-                page: {
+                /**
+                 * Account ID of the currently signed user.
+                 *
+                 * @type {String}
+                 */
+                accountId: {
                     type: String,
-                    reflectToAttribute: true,
-                    observer: '_pageChanged'
-                }
-            },
-            observers: [
-                '_routePageChanged(routeData.page)'
-            ],
-            _routePageChanged: function (page) {
-                this.page = page || 'about-view';
-            },
-            _pageChanged: function (page) {
-                // Load page import on demand. Show 404 page if fails
-                var resolvedPageUrl = this.resolveUrl('wonderjam-' + page + '.html');
-                this.importHref(resolvedPageUrl, null, this._showPage404, true);
-            },
-            _showPage404: function () {
-                this.page = 'view404';
+//                    reflectToAttribute: true,
+                    notify: true,
+                    value: '12fe2f70-6cbb-499a-b0b7-991ee6545aaa'
+                },
+                /**
+                 * Selected folder on the mailbox.
+                 *
+                 * @type {String}
+                 */
+                selectedMailBoxFolder: {
+                    type: String,
+                    notify: true,
+                    value: 'inbox'
+                },
+                /**
+                 * Sub-route parameters for members page.
+                 * @type {{elements: Array<HTMLElement>, level: number}}
+                 */
+                memberSubrouteData: {
+                    type: Object,
+                    notify: true
+                },
             }
         });
     </script>

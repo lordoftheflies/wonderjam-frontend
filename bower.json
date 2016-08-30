@@ -28,8 +28,8 @@
     "polymer": "Polymer/polymer#^1.6.0",
     "i18n-behavior": "^1.1.7",
     "rest-api": "^0.0.1",
-    "plutonium-language-picker": "lordoftheflies/plutonium-language-picker#^0.0.2",
-    "plutonium-avatar-button": "lordoftheflies/plutonium-avatar-button#^0.0.10",
+    "plutonium-language-picker": "lordoftheflies/plutonium-language-picker",
+    "plutonium-avatar-button": "lordoftheflies/plutonium-avatar-button",
     "paper-card": "polymerelements/paper-card#^1.1.2",
     "paper-item": "polymerelements/paper-item#^1.2.1",
     "polymer-cookie": "^1.1.1"

@@ -1,0 +1,42 @@
+<script>
+    window.PlutoniumBehaviors = window.PlutoniumBehaviors || {};
+    PlutoniumBehaviors.AppRoutingBehavior = {
+        properties: {
+            page: {
+                type: String,
+                reflectToAttribute: true,
+                observer: '_pageChanged'
+            }
+        },
+        observers: [
+            '_routePageChanged(routeData.page)',
+        ],
+        /**
+         * Page changed event handler.
+         * @param {String} page
+         * @returns {undefined}
+         */
+        _routePageChanged: function (page) {
+            this.page = page || 'about-view';
+        },
+        /**
+         * Page changed observer.
+         * @param {String} page
+         * @returns {undefined}
+         */
+        _pageChanged: function (page) {
+            // Load page import on demand. Show 404 page if fails
+            var resolvedPageUrl = this.resolveUrl('wonderjam-' + page + '.html');
+            this.importHref(resolvedPageUrl, null, this._showPage404, true);
+        },
+        /**
+         * Page 404.
+         * @param {String} page
+         * @returns {undefined}
+         */
+        _showPage404: function () {
+            this.page = 'view404';
+        }
+
+    };
+</script>
