@@ -2,9 +2,10 @@
   "entrypoint": "index.html",
   "shell": "src/wonderjam-app.html",
   "fragments": [
-    "src/wonderjam-view1.html",
-    "src/wonderjam-view2.html",
-    "src/wonderjam-view3.html",
+    "src/wonderjam-about-view.html",
+    "src/wonderjam-article-view.html",
+    "src/wonderjam-mailbox-view.html",
+    "src/wonderjam-members-view.html",
     "src/wonderjam-view404.html"
   ],
   "sourceGlobs": [
