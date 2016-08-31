@@ -19,20 +19,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             :host {
                 display: block;
                 @apply(--layout-vertical);
+                /*@apply(--layout-center);*/
+                padding: 10px;
             }
 
 
 
         </style>
-
-        <!--<template is="dom-if" if="{{!isEmpty(data)}}">-->
-        <iron-list items="[[mailBoxModel]]" as="message" hidden="[[isEmpty(mailBoxModel)]]" class="layout vertical">
-            <template>
-                <paper-item class="layout horizontal">
-                    <paper-material class="flex layout horizontal" tabindex="[[tabIndex]]">
+        <paper-material class="material-card">
+            <!--<template is="dom-if" if="{{!isEmpty(data)}}">-->
+            <iron-list items="[[mailBoxModel]]" as="message" hidden="[[isEmpty(mailBoxModel)]]" class="layout vertical">
+                <template>
+                    <paper-item class="card-item layout horizontal" tabindex="[[tabIndex]]">
+                        <!--<paper-material class="layout horizontal">-->
                         <div class="flex">
                             <div class="layout horizontal">
-                                <div class="layout vertical">
+                                <div class="flex">
                                     <span hidden="[[isOutbox(selectedMailBoxFolder)]]">From: [[message.fromName]]</span>
                                     <span hidden="[[isInbox(selectedMailBoxFolder)]]">To: [[message.toName]]</span>
                                 </div>
@@ -43,11 +45,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                 <span>[[message.message]]</span>
                             </div>
                         </div>
-                    </paper-material>
-                </paper-item>
-            </template>
-        </iron-list>
-        
+                        <!--</paper-material>-->
+                    </paper-item>
+                </template>
+            </iron-list>
+        </paper-material>
         <div class="card-content" hidden="[[!isEmpty(mailBoxModel)]]">
             <div id="emptyMailBoxFolderText">No messages in the folder.</div>
         </div>
