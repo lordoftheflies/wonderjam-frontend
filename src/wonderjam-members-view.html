@@ -31,8 +31,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 /*@apply(--layout-center);*/
                 padding: 10px;
             }
-
             
+
         </style>
 
         <paper-material class="material-card">
@@ -44,12 +44,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </paper-item>
                 </template>
             </iron-list>
+
+
+            <div class="card-content" hidden="[[!isEmpty(memberChildren)]]">
+                <div id="emptyChildrenText">No children.</div>
+            </div>
         </paper-material>
-
-        <div class="card-content" hidden="[[!isEmpty(memberChildren)]]">
-            <div id="emptyChildrenText">No children.</div>
-        </div>
-
         <div class="floating-action-bar layout horizontal wrap">
             <paper-fab icon="icons:add" on-tap="onNewMember"></paper-fab>
             <template is="dom-if" if$="[[!isMeIndicator]]">

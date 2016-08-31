@@ -27,7 +27,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <iframe src$="{{getContentFileUrl(contentChildrenModel.embeddedFileName)}}"></iframe>
         </template>
         <template is="dom-if" if="{{!contentChildrenModel.hasEmbeddedFile}}">
-            <div class="layout vertical flex" hidden="[[contentChildrenModel.leaf]]">
+            <paper-material class="layout vertical flex material-card" hidden="[[contentChildrenModel.leaf]]">
                 <iron-list items="{{contentChildrenModel.sections}}" as="section"   hidden="[[isEmpty(contentChildrenModel)]]">
                     <template>
                         <!--                        <a class="paper-item-link" href="{{getLink(section)}}">-->
@@ -51,7 +51,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <div id="emptyChildrenText">No content in the folder.</div>
                 </div>
 
-            </div>
+            </paper-material>
 
 
             <plutonium-article-section class="flex layout horizontal"
