@@ -44,7 +44,9 @@
     "paper-button": "PolymerElements/paper-button#^1.0.13",
     "paper-checkbox": "PolymerElements/paper-checkbox#^1.4.0",
     "paper-menu": "PolymerElements/paper-menu#^1.2.2",
-    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.3.5"
+    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.3.5",
+    "paper-dialog-scrollable": "polymerelements/paper-dialog-scrollable#^1.1.5",
+    "plutonium-manageable-content": "lordoftheflies/plutonium-manageable-content#^1.0.11"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

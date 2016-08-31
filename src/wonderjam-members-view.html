@@ -50,21 +50,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <div id="emptyChildrenText">No children.</div>
             </div>
         </paper-material>
-        <div class="floating-action-bar layout horizontal wrap">
-            <paper-fab icon="icons:add" on-tap="onNewMember"></paper-fab>
-            <template is="dom-if" if$="[[!isMeIndicator]]">
-                      <paper-fab icon="icons:remove" on-tap="onDeleteMember"></paper-fab>
-
-                <paper-fab icon="icons:send" on-tap="onSendToMember"></paper-fab>
-                <template is="dom-if" if$="[[isUserIndicator]]">
-                          <paper-fab icon="icons:star" on-tap="onPromoteMember"></paper-fab>
-                </template>
-                <template is="dom-if" if$="[[isAdminIndicator]]">
-                          <paper-fab icon="icons:star-border" on-tap="onDemoteMember"></paper-fab>
-                </template>
-            </template>
-
-        </div>
     </template>
 
     <script>

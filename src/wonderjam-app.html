@@ -79,6 +79,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                 font-weight: bold;
             }
+
+            .floating-action-bar {
+                position: absolute;
+                display: inline-block !important;
+                /*bottom: 0px;*/
+                right: 0px;
+                bottom: 0px;
+                /*margin-top: -24px;*/
+                /*left: -56px;*/
+            }
+
+            /*            paper-fab {
+                            position: absolute;
+                            bottom: 0px;
+                            right: 0px;
+                        }*/
         </style>
         <!--Get all members.-->
         <iron-ajax id="possibleParentsIronAjax" url="[[apiUrl]]/addressbook/all" 
@@ -150,8 +166,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                    auto></iron-ajax>
         <!--Routing-->
         <app-location route="{{route}}" use-hash-as-path query-params="{{queryParams}}"></app-location>
-<!--        <app-route route="{{route}}" pattern="/registrate" data="{{activationData}}"></app-route>
-        <app-route route="{{route}}" pattern="/login"></app-route>-->
+        <!--        <app-route route="{{route}}" pattern="/registrate" data="{{activationData}}"></app-route>
+                <app-route route="{{route}}" pattern="/login"></app-route>-->
         <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
         <app-route route="{{route}}" pattern="/article-view/:contentId" data="{{contentSubrouteData}}"></app-route>
         <app-route route="{{route}}" pattern="/members-view/:memberId" data="{{memberSubrouteData}}"></app-route>
@@ -208,63 +224,113 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <wonderjam-about-view name="about-view">
                     </wonderjam-about-view>
                     <wonderjam-article-view name="article-view"
-                        info-request-params="{{infoRequestParams}}"
-                        toc-request-params="{{tocRequestParams}}"
-                        root-model="[[rootModel]]"
-                        parent-model="[[parentModel]]"
-                        content-children-model="{{contentChildrenModel}}"
-                        publisher-model="[[publisherModel]]"
-                        account-id="[[session.token]]" 
-                        admin="[[session.powerUser]]" 
-                        owner-id="[[session.token]]"
-                        selected-article-id="{{contentSubrouteData.contentId}}"
-                        selected-content-folder="{{selectedContentFolder}}">
+                                            info-request-params="{{infoRequestParams}}"
+                                            toc-request-params="{{tocRequestParams}}"
+                                            root-model="[[rootModel]]"
+                                            parent-model="[[parentModel]]"
+                                            content-children-model="{{contentChildrenModel}}"
+                                            publisher-model="[[publisherModel]]"
+                                            account-id="[[session.token]]" 
+                                            admin="[[session.powerUser]]" 
+                                            owner-id="[[session.token]]"
+                                            selected-article-id="{{contentSubrouteData.contentId}}"
+                                            selected-content-folder="{{selectedContentFolder}}">
                     </wonderjam-article-view>
                     <wonderjam-mailbox-view name="mailbox-view"
-                        mail-box-model="[[mailBoxModel]]"
-                        account-id="[[accountId]]"
-                        selected-mail-box-folder="[[selectedMailBoxFolder]]">
+                                            mail-box-model="[[mailBoxModel]]"
+                                            account-id="[[accountId]]"
+                                            selected-mail-box-folder="[[selectedMailBoxFolder]]">
                     </wonderjam-mailbox-view>
                     <wonderjam-members-view name="members-view"
-                        genocide-request-params="{{genocideRequestParams}}"
-                        children-request-params="{{childrenRequestParams}}"
-                        account-id="[[session.token]]" 
-                        parents="[[parents]]"
-                        member-children="[[memberChildren]]"
-                        selected-name="{{selectedName}}"
-                        selected-role="{{selectedRole}}"
-                        selected-account-id="{{memberSubrouteData.memberId}}">
+                                            genocide-request-params="{{genocideRequestParams}}"
+                                            children-request-params="{{childrenRequestParams}}"
+                                            account-id="[[session.token]]" 
+                                            parents="[[parents]]"
+                                            member-children="[[memberChildren]]"
+                                            selected-name="{{selectedName}}"
+                                            selected-role="{{selectedRole}}"
+                                            selected-account-id="{{memberSubrouteData.memberId}}">
                     </wonderjam-members-view>
                     <wonderjam-profile-view name="profile-view"
-                        locales="[[locales]]"
-                        profile="[[profile]]"
-                        changeLanguageModel="[[changeLanguageModel]]"
-                        account-id="[[accountId]]">
+                                            locales="[[locales]]"
+                                            profile="[[profile]]"
+                                            changeLanguageModel="[[changeLanguageModel]]"
+                                            account-id="[[accountId]]">
                     </wonderjam-profile-view>
                     <wonderjam-send-view name="send-view"
-                        items="{{contacts}}" 
-                        account-id="[[session.token]]" 
-                        selected-item-ids="{{recipients}}"
-                        parent-candidates="[[parentCandidates]]"
-                        content-model="{{editedContentModel}}" 
-                        selected-meta-action="{{selectedMetaAction}}">
+                                         items="{{contacts}}" 
+                                         account-id="[[session.token]]" 
+                                         selected-item-ids="{{recipients}}"
+                                         parent-candidates="[[parentCandidates]]"
+                                         content-model="{{editedContentModel}}" 
+                                         selected-meta-action="{{selectedMetaAction}}">
                     </wonderjam-send-view>
                     <wonderjam-share-view name="share-view" 
-                        items="{{contacts}}"
-                        account-id="[[session.token]]" 
-                        selected-item-ids="{{recipients}}"
-                        content-model="{{editedContentModel}}" 
-                        share-model="{{shareModel}}"
-                        selected-meta-action="{{selectedMetaAction}}">
+                                          items="{{contacts}}"
+                                          account-id="[[session.token]]" 
+                                          selected-item-ids="{{recipients}}"
+                                          content-model="{{editedContentModel}}" 
+                                          share-model="{{shareModel}}"
+                                          selected-meta-action="{{selectedMetaAction}}">
                     </wonderjam-share-view>
                     <wonderjam-view404 name="view404">
                     </wonderjam-view404>
                 </iron-pages>
-                <div class="floating-action-bar layout horizontal wrap">
-                    <paper-fab icon="icons:add" on-tap="onNewMessage"></paper-fab>
-                </div>
+
             </app-header-layout>
+            <div class="floating-action-bar">
+                <iron-pages
+                    selected="[[page]]"
+                    attr-for-selected="name">
+                    <div name="article-view" class="layout horizontal wrap">
+                        <paper-fab icon="icons:arrow-back" on-tap="onBack"></paper-fab>
+                        <paper-fab icon="icons:add" on-tap="onNewContent"></paper-fab>
+                    </div>
+                    <div name="mailbox-view" class="layout horizontal wrap">
+                        <paper-fab icon="icons:add" on-tap="onNewMessage"></paper-fab>
+                    </div>
+                    <div name="members-view" class="layout horizontal wrap">
+                        <paper-fab icon="icons:add" on-tap="onNewMember"></paper-fab>
+                        <template is="dom-if" if="[[!isMeIndicator]]">
+                            <paper-fab icon="icons:remove" on-tap="onDeleteMember"></paper-fab>
+
+                            <paper-fab icon="icons:send" on-tap="onSendToMember"></paper-fab>
+                            <template is="dom-if" if="[[isUserIndicator]]">
+                                <paper-fab icon="icons:star" on-tap="onPromoteMember"></paper-fab>
+                            </template>
+                            <template is="dom-if" if="[[isAdminIndicator]]">
+                                <paper-fab icon="icons:star-border" on-tap="onDemoteMember"></paper-fab>
+                            </template>
+                        </template>
+
+                    </div>
+                    <div name="send-view" class="layout horizontal wrap">
+                        <paper-fab icon="send" on-tap="onSendMessage" title="Publish content" id="sendMessageFab"></paper-fab>
+                    </div>
+                    <div name="share-view" class="layout horizontal wrap">
+
+                        <paper-menu-button
+                            horizontal-align="right"
+                            vertical-align="bottom">
+                            <paper-fab id="addSectionButton" icon="more-vert" class="dropdown-trigger minor-action-fab" title="Add new section."></paper-fab>
+                            <paper-menu class="dropdown-content">
+                                <paper-fab id="addSectionButton" on-tap="onAddSection" icon="add-circle" class="minor-action-fab" title="Embedd text to the message content."></paper-fab>
+                                <paper-fab id="addVideoButton" on-tap="onEmbedVideo" icon="theaters" class="minor-action-fab" title="Embedd video to the message content."></paper-fab>
+                                <paper-fab id="addImageButton" on-tap="onEmbedImage" icon="perm-media"  class="minor-action-fab" title="Embedd image to the message content."></paper-fab>
+                                <paper-fab id="addLinkButton" on-tap="onEmbedLink" icon="link" class="minor-action-fab" title="Embedd a link to another message to the message content."></paper-fab>
+                            </paper-menu>
+                        </paper-menu-button>
+
+
+                        <!--<paper-fab class="minor-action-fab" icon="send" on-tap="onSendMessage" title="Publish content" id="sendMessageFab"></paper-fab>-->
+                        <paper-fab icon="save" on-tap="onShare" title="Publish content" id="sendMessageFab"></paper-fab>
+                        <paper-fab icon="clear" on-tap="onClear" title="Cancel all changes & create new article." id="sendNewContentFab"></paper-fab>
+
+                    </div>
+                </iron-pages>
+            </div>
         </app-drawer-layout>
+
     </template>
 
     <script>
@@ -282,8 +348,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 WonderjamAppBehaviors.ControllerMailingBehavior
             ],
             properties: {
-                
-                
             }
         });
     </script>
