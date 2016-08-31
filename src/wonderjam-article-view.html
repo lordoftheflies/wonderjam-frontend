@@ -47,9 +47,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </template>
                 </iron-list>
 
-                    <div class="card-content" hidden="[[!isEmpty(contentChildrenModel)]]">
-                        <div id="emptyChildrenText">No content in the folder.</div>
-                    </div>
+                <div class="card-content" hidden="[[!isEmpty(contentChildrenModel)]]">
+                    <div id="emptyChildrenText">No content in the folder.</div>
+                </div>
 
             </div>
 
@@ -150,6 +150,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             isEmpty: function (data) {
                 return (data === undefined || data === null || data.sections === undefined || data.sections === null || data.sections.length === 0);
             },
+            isDraftSelected: function (selectedContentFolder) {
+                return selectedContentFolder === 'drafts';
+            }
         });
     </script>
 </dom-module>

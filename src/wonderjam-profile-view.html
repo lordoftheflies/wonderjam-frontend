@@ -92,7 +92,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         language: this.profile.preferredLanguage
                     };
                     console.log('Change language request: ' + JSON.stringify(this.changeLanguageModel));
-                    this.$.changeLanguageAjax.generateRequest();
+                    this.fire('fetch-data', {
+                        ids: ['changeLanguageAjax']
+                    });
                 } else {
                     this._init = true;
                 }

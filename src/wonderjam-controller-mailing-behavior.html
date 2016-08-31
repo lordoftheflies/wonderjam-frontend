@@ -1,0 +1,41 @@
+<link rel="import" href="plutonium-widget-bound-beavior.html">
+
+<script>
+    (function () {
+        'use strict';
+
+        window.WonderjamAppBehaviors = window.WonderjamAppBehaviors || {};
+
+        /**
+         * Publisher controller behavior,
+         *
+         * @polymerBehavior
+         */
+        WonderjamAppBehaviors.ControllerMailingBehaviorImpl = {
+            properties: {
+                /**
+                 * Selected folder on the mailbox.
+                 *
+                 * @type {String}
+                 */
+                selectedMailBoxFolder: {
+                    type: String,
+                    notify: true,
+                    value: 'inbox'
+                },
+                mailBoxModel: {
+                    type: Array,
+                    notify: true,
+                    value: []
+                }
+            }
+        };
+
+
+        WonderjamAppBehaviors.ControllerMailingBehavior = [
+            PlutoniumBehaviors.WidgetBoundBehavior,
+            WonderjamAppBehaviors.ControllerMailingBehaviorImpl
+        ];
+
+    })();
+</script>

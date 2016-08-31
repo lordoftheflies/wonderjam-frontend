@@ -38,6 +38,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="wonderjam-controller-publisher-behavior.html">
 <link rel="import" href="wonderjam-controller-member-behavior.html">
 <link rel="import" href="wonderjam-controller-manager-behavior.html">
+<link rel="import" href="wonderjam-controller-mailing-behavior.html">
 
 <dom-module id="wonderjam-app">
     <template>
@@ -148,12 +149,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                    last-response="{{session}}" 
                    auto></iron-ajax>
         <!--Routing-->
-        <app-location route="{{route}}" query-params="{{queryParams}}"></app-location>
-        <app-route route="{{route}}" pattern="/registrate" data="{{activationData}}"></app-route>
-        <app-route route="{{route}}" pattern="/login"></app-route>
+        <app-location route="{{route}}" use-hash-as-path query-params="{{queryParams}}"></app-location>
+<!--        <app-route route="{{route}}" pattern="/registrate" data="{{activationData}}"></app-route>
+        <app-route route="{{route}}" pattern="/login"></app-route>-->
+        <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
         <app-route route="{{route}}" pattern="/article-view/:contentId" data="{{contentSubrouteData}}"></app-route>
         <app-route route="{{route}}" pattern="/members-view/:memberId" data="{{memberSubrouteData}}"></app-route>
-        <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
         <!--Cookies-->
         <polymer-cookie id="rememberMeCookie" name="rememberMe" value="{{rememberMe}}" time="1" format="d"></polymer-cookie>
         <polymer-cookie id="tokenCookie" name="token" value="{{accountId}}" time="1" format="d" auto-set></polymer-cookie>
@@ -163,10 +164,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <app-drawer>
                 <app-toolbar text-id="main-menu-label">Menu</app-toolbar>
                 <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-                    <a text-id="article-menu-label" name="article-view" href="/article-view/ROOT">Articles</a>
-                    <a text-id="mailbox-menu-label" name="mailbox-view" href="/mailbox-view">Mailbox</a>
-                    <a text-id="members-menu-label" name="members-view" href="/members-view">Network</a>
-                    <a text-id="about-menu-label" name="about-view" href="/about-view">About</a>
+                    <a text-id="article-menu-label" name="article-view" href="#/article-view/ROOT">Articles</a>
+                    <a text-id="mailbox-menu-label" name="mailbox-view" href="#/mailbox-view">Mailbox</a>
+                    <a text-id="members-menu-label" name="members-view" href="#/members-view/[[accountId]]">Network</a>
+                    <a text-id="about-menu-label" name="about-view" href="#/about-view">About</a>
                 </iron-selector>
             </app-drawer>
 
@@ -204,10 +205,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     attr-for-selected="name"
                     fallback-selection="view404"
                     role="main">
-                    <wonderjam-about-view>
+                    <wonderjam-about-view name="about-view">
                     </wonderjam-about-view>
-                    <wonderjam-article-view 
-                        name="article-view"
+                    <wonderjam-article-view name="article-view"
                         info-request-params="{{infoRequestParams}}"
                         toc-request-params="{{tocRequestParams}}"
                         root-model="[[rootModel]]"
@@ -220,14 +220,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         selected-article-id="{{contentSubrouteData.contentId}}"
                         selected-content-folder="{{selectedContentFolder}}">
                     </wonderjam-article-view>
-                    <wonderjam-mailbox-view 
-                        name="mailbox-view"
+                    <wonderjam-mailbox-view name="mailbox-view"
                         mail-box-model="[[mailBoxModel]]"
                         account-id="[[accountId]]"
                         selected-mail-box-folder="[[selectedMailBoxFolder]]">
                     </wonderjam-mailbox-view>
-                    <wonderjam-members-view 
-                        name="members-view"
+                    <wonderjam-members-view name="members-view"
                         genocide-request-params="{{genocideRequestParams}}"
                         children-request-params="{{childrenRequestParams}}"
                         account-id="[[session.token]]" 
@@ -237,15 +235,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         selected-role="{{selectedRole}}"
                         selected-account-id="{{memberSubrouteData.memberId}}">
                     </wonderjam-members-view>
-                    <wonderjam-profile-view 
-                        name="profile-view"
+                    <wonderjam-profile-view name="profile-view"
                         locales="[[locales]]"
                         profile="[[profile]]"
                         changeLanguageModel="[[changeLanguageModel]]"
                         account-id="[[accountId]]">
                     </wonderjam-profile-view>
-                    <wonderjam-send-view 
-                        name="send-view"
+                    <wonderjam-send-view name="send-view"
                         items="{{contacts}}" 
                         account-id="[[session.token]]" 
                         selected-item-ids="{{recipients}}"
@@ -253,8 +249,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         content-model="{{editedContentModel}}" 
                         selected-meta-action="{{selectedMetaAction}}">
                     </wonderjam-send-view>
-                    <wonderjam-share-view 
-                        name="share-view" 
+                    <wonderjam-share-view name="share-view" 
                         items="{{contacts}}"
                         account-id="[[session.token]]" 
                         selected-item-ids="{{recipients}}"
@@ -262,7 +257,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         share-model="{{shareModel}}"
                         selected-meta-action="{{selectedMetaAction}}">
                     </wonderjam-share-view>
-                    <wonderjam-view404 name="view404"></wonderjam-view404>
+                    <wonderjam-view404 name="view404">
+                    </wonderjam-view404>
                 </iron-pages>
                 <div class="floating-action-bar layout horizontal wrap">
                     <paper-fab icon="icons:add" on-tap="onNewMessage"></paper-fab>
@@ -275,26 +271,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         Polymer({
             is: 'wonderjam-app',
             behaviors: [
-                BehaviorsStore.I18nBehavior,
                 PlutoniumBehaviors.DatasourceBehavior,
                 PlutoniumBehaviors.AppRoutingBehavior,
                 PlutoniumBehaviors.AppToastingBehavior,
+                BehaviorsStore.I18nBehavior,
                 WonderjamAppBehaviors.ControllerArticleBehavior,
                 WonderjamAppBehaviors.ControllerPublicherBehavior,
                 WonderjamAppBehaviors.ControllerMemberBehavior,
-                WonderjamAppBehaviors.ControllerManagerBehavior
+                WonderjamAppBehaviors.ControllerManagerBehavior,
+                WonderjamAppBehaviors.ControllerMailingBehavior
             ],
             properties: {
-                /**
-                 * Selected folder on the mailbox.
-                 *
-                 * @type {String}
-                 */
-                selectedMailBoxFolder: {
-                    type: String,
-                    notify: true,
-                    value: 'inbox'
-                },
+                
                 
             }
         });
