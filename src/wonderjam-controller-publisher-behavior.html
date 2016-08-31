@@ -55,6 +55,12 @@
                 this.fire('feedback', {
                     message: 'Message publishing failed.'
                 });
+            },
+            onNavigateToEditor: function () {
+                this.fire('page-go', {page: 'share-view'});
+            },
+            onBackToContents: function () {
+                this.fire('page-go', {page: 'article-view'});
             }
         };
 
