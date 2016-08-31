@@ -287,7 +287,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <paper-fab icon="icons:add" on-tap="onNewContent"></paper-fab>
                     </div>
                     <div name="mailbox-view" class="layout horizontal wrap">
-                        <paper-fab icon="icons:add" on-tap="onNewMessage"></paper-fab>
+                        <paper-fab icon="icons:add" on-tap="onNavigateToMessage"></paper-fab>
                     </div>
                     <div name="members-view" class="layout horizontal wrap">
                         <paper-fab icon="icons:add" on-tap="onNewMember"></paper-fab>
@@ -305,7 +305,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                     </div>
                     <div name="send-view" class="layout horizontal wrap">
-                        <paper-fab icon="send" on-tap="onSendMessage" title="Publish content" id="sendMessageFab"></paper-fab>
+                        <paper-fab icon="wonderjam-icons:arrow-back" mini on-tap="onBackToMailBox" title="Back to mailbox" id="sendMessageFab"></paper-fab>
+                        <paper-fab icon="wonderjam-icons:send" on-tap="onSendMessage" title="Publish content" id="sendMessageFab"></paper-fab>
                     </div>
                     <div name="share-view" class="layout horizontal wrap">
 

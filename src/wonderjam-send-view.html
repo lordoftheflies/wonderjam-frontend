@@ -8,18 +8,16 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-icons/iron-icons.html">
-<link rel="import" href="../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../paper-input/paper-input-container.html">
-<link rel="import" href="../paper-input/paper-input.html">
-<link rel="import" href="../paper-checkbox/paper-checkbox.html">
-<link rel="import" href="../file-upload/file-upload.html">
-<!--<link rel="import" href="../plutonium-field-recipient/plutonium-field-recipient.html">-->
-<link rel="import" href="../paper-chip/paper-chip.html">
-<link rel="import" href="mlm-shared-styles.html">
-<link rel="import" href="../plutonium-elements/plutonium-elements.html">
-<link rel="import" href="../plutonium-manageable-content/plutonium-manageable-content.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input-container.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/paper-chip/paper-chip.html">
+
+<link rel="import" href="wonderjam-icons.html">
+<link rel="import" href="wonderjam-shared-styles.html">
 
 <!--
 `<wonderjam-send-view>` Send page of the application.
@@ -38,7 +36,7 @@ Wham! It's all awesome now!
 
     <template>
 
-        <style include="mlm-shared-styles">
+        <style include="wonderjam-shared-styles">
 
             /*            .main-action-fab-container {
                             position: relative;
@@ -55,34 +53,33 @@ Wham! It's all awesome now!
                         }*/
         </style>
 
-        
         <paper-card elevation="1" name="share" heading="Share with others" class="layout vertical main-action-fab-container">
-                <div class="card-content layout horizontal">
-                    <div class="flex layout vertical">
-                        <div class="layout horizontal">
-                            <paper-input-container id="recipientsInput" class="flex" always-float-label="true">
-                                <label>Recipients</label>
-                                <div class="paper-input-input layout horizontal wrap">
-                                    <template is="dom-repeat" items="[[selectedItemIds]]">
-                                        <paper-chip member="[[item]]" style="margin-right: 10px; background-color: white; z-index: 2000;" removable>
-                                            <!--TODO: #45-->
-                                            <!--<div class="icon">[[getRoleIcon(item)]]</div>-->
-                                            <h1>[[getUserName(item)]]</h1>
-                                            <h2>[[getUserEmail(item)]]</h2>
-                                        </paper-chip>
-                                    </template>
-                                </div>
-                            </paper-input-container>
+            <div class="card-content layout horizontal">
+                <div class="flex layout vertical">
+                    <div class="layout horizontal">
+                        <paper-input-container id="recipientsInput" class="flex" always-float-label="true">
+                            <label>Recipients</label>
+                            <div class="paper-input-input layout horizontal wrap">
+                                <template is="dom-repeat" items="[[selectedItemIds]]">
+                                    <paper-chip member="[[item]]" style="margin-right: 10px; background-color: white; z-index: 2000;" removable>
+                                        <!--TODO: #45-->
+                                        <!--<div class="icon">[[getRoleIcon(item)]]</div>-->
+                                        <h1>[[getUserName(item)]]</h1>
+                                        <h2>[[getUserEmail(item)]]</h2>
+                                    </paper-chip>
+                                </template>
+                            </div>
+                        </paper-input-container>
 
-                            <!--<paper-input label="Recipients" class="flex" name="recipients" value="{{_recipients}}"></paper-input>-->
-                            <paper-icon-button icon="supervisor-account" title="Choose contacts." on-tap="onOpenRecipientsDialog"></paper-icon-button>
-                            <paper-icon-button icon="clear" title="Clear recipients input." on-tap="onClearRecipients"></paper-icon-button>
-                        </div>
-                        <paper-input id="messageInput" class="bottom title" label="Message" value="{{message}}"></paper-input>
+                        <!--<paper-input label="Recipients" class="flex" name="recipients" value="{{_recipients}}"></paper-input>-->
+                        <paper-icon-button icon="wonderjam-icons:group" title="Choose contacts." on-tap="onOpenRecipientsDialog"></paper-icon-button>
+                        <paper-icon-button icon="wonderjam-icons:clear" title="Clear recipients input." on-tap="onClearRecipients"></paper-icon-button>
                     </div>
+                    <paper-input id="messageInput" class="bottom title" label="Message" value="{{message}}"></paper-input>
                 </div>
+            </div>
 
-            </paper-card>
+        </paper-card>
     </template>
 
     <script>
@@ -90,7 +87,6 @@ Wham! It's all awesome now!
         Polymer({
             is: 'wonderjam-send-view',
             behaviors: [
-                PlutoniumBehaviors.WidgetBehavior
             ],
             properties: {
                 shareAjaxRequest: {
@@ -143,10 +139,10 @@ Wham! It's all awesome now!
                 'itemsAddedOrRemoved(selectedItemIds.splices)'
             ],
             listeners: {
-                'remove': 'onRemoveItem',
-                'share': 'onShare',
-                'shareAjax.error': 'onShareError',
-                'shareAjax.response': 'onShareResponse'
+//                'remove': 'onRemoveItem',
+//                'share': 'onShare',
+//                'shareAjax.error': 'onShareError',
+//                'shareAjax.response': 'onShareResponse'
             },
             ready: function () {
                 console.log(this.is + ' is ready.');
@@ -155,10 +151,9 @@ Wham! It's all awesome now!
 //                this.pageDto = {
 //                };
 //            },
-            onClear: function() {
-                
-            },
+            onClear: function () {
 
+            },
             onShare: function (e, details) {
                 console.log('Save content: ' + JSON.stringify(this.contentModel));
                 this.contentModel.leaf = true;
@@ -172,7 +167,6 @@ Wham! It's all awesome now!
 //                    message: this.message
 //                });
             },
-            
             onNewArticle: function () {
                 this.contentModel = {
                     sections: [
@@ -215,7 +209,6 @@ Wham! It's all awesome now!
             onOnlySaveContent: function (event, detail) {
                 console.log('Save content.');
             },
-           
             /**
              * Submit the message.
              */
@@ -228,7 +221,6 @@ Wham! It's all awesome now!
                     ids: ['messageSendAjax']
                 });
             },
-            
             getUserName: function (id) {
                 if (this.items !== undefined && this.items !== null) {
                     var name = 'Unknown';
@@ -264,7 +256,6 @@ Wham! It's all awesome now!
                     return name;
                 }
             },
-            
 //            itemsAddedOrRemoved: function (splice) {
 //                if (splice === undefined || splice === null)
 //                    return;

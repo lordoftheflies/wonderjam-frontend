@@ -20,6 +20,9 @@
             observers: [
                 '_routePageChanged(routeData.page)',
             ],
+            listeners: {
+                'page-go': '_onNavigate'
+            },
             /**
              * Page changed event handler.
              * @param {String} page
@@ -48,6 +51,10 @@
             _showPage404: function () {
                 console.log(this.is, 'not found', this.page, 'page');
                 this.page = 'view404';
+            },
+            _onNavigate: function(event, detail) {
+                console.log(this.is, 'navigate to', detail.page);
+                this.set('route.path', '/' + detail.page);
             }
 
         };

@@ -28,6 +28,12 @@
                     notify: true,
                     value: []
                 }
+            },
+            onNavigateToMessage: function () {
+                this.fire('page-go', {page: 'send-view'});
+            },
+            onBackToMailBox: function () {
+                this.fire('page-go', {page: 'mailbox-view'});
             }
         };
 
