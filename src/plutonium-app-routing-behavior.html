@@ -1,3 +1,5 @@
+<link rel="import" href="plutonium-app-layout-behavior.html">
+
 <script>
     (function () {
         'use strict';
@@ -9,7 +11,7 @@
          *
          * @polymerBehavior
          */
-        PlutoniumBehaviors.AppRoutingBehavior = {
+        PlutoniumBehaviors.AppRoutingBehaviorImpl = {
             properties: {
                 page: {
                     type: String,
@@ -22,6 +24,9 @@
             ],
             listeners: {
                 'page-go': '_onNavigate'
+            },
+            ready: function () {
+                this._resetLayout();
             },
             /**
              * Page changed event handler.
@@ -42,7 +47,7 @@
                 var resolvedPageUrl = this.resolveUrl('wonderjam-' + page + '.html');
                 this.importHref(resolvedPageUrl, null, this._showPage404, true);
                 console.log(this.is, 'page changed', page);
-                this.$.headerLayout.resetLayout();
+                this._resetLayout();
             },
             /**
              * Page 404.
@@ -53,11 +58,16 @@
                 console.log(this.is, 'not found', this.page, 'page');
                 this.page = 'view404';
             },
-            _onNavigate: function(event, detail) {
+            _onNavigate: function (event, detail) {
                 console.log(this.is, 'navigate to', detail.page);
                 this.set('route.path', '/' + detail.page);
             }
 
         };
+
+        PlutoniumBehaviors.AppRoutingBehavior = [
+            PlutoniumBehaviors.AppLayoutBehavior,
+            PlutoniumBehaviors.AppRoutingBehaviorImpl
+        ];
     })();
 </script>
