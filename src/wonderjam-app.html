@@ -23,7 +23,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-fab-transitions/paper-fab-speed-dial.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="../bower_components/i18n-behavior/i18n-behavior.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animations.html">
 <link rel="import" href="../bower_components/plutonium-avatar-button/plutonium-avatar-button.html">
 <link rel="import" href="../bower_components/plutonium-language-picker/plutonium-language-picker.html">
 <link rel="import" href="../bower_components/plutonium-language-picker/plutonium-language-item.html">
@@ -84,16 +87,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 position: absolute;
                 display: inline-block !important;
                 /*bottom: 0px;*/
-                right: 0px;
-                bottom: 0px;
+                right: 24px;
+                bottom: 24px;
                 /*margin-top: -24px;*/
                 /*left: -56px;*/
             }
 
-            /*            paper-fab {
+            paper-fab {
+                margin-left: 8px;
+            }
+
+            /*            .bottom-right {
                             position: absolute;
-                            bottom: 0px;
-                            right: 0px;
+                            bottom: 10px;
+                            right: 10px;
                         }*/
         </style>
         <!--Get all members.-->
@@ -188,7 +195,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </app-drawer>
 
             <!-- Main content -->
-            <app-header-layout has-scrolling-region>
+            <app-header-layout id="headerLayout" has-scrolling-region>
 
                 <app-header fixed shadow>
                     <app-toolbar>
@@ -214,7 +221,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                             </a>
                         </plutonium-avatar-button>
                     </app-toolbar>
+                    <iron-pages
+                        selected="[[page]]"
+                        attr-for-selected="name"
+                        fallback-selection="none"
+                        role="header">
+                        <div name="none"></div>
+                        <paper-tabs name="article-view" hidden="[[!session.powerUser]]" data-route="content-view"  attr-for-selected="name" selected="{{selectedContentFolder}}" style="width: 100%;" autoselect>
+                            <paper-tab text-id="messagesPagePublicFolderTitle" name="public">Public</paper-tab>
+                            <paper-tab text-id="messagesPageMyContentsFolderTitle" name="drafts">Drafts</paper-tab>
+                            <paper-tab text-id="messagesPagePublishedFolderTitle" name="published">Published</paper-tab>
+                        </paper-tabs>
+
+                        <paper-tabs name="mailbox-view" data-route="mailbox-view"  attr-for-selected="name" selected="{{selectedMailBoxFolder}}" style="width: 100%;" autoselect>
+                            <paper-tab text-id="mailBoxPageInboxFolderTitle" name="inbox">Inbox</paper-tab> 
+                            <paper-tab text-id="sentItemsPageInboxFolderTitle" name="outbox">Sent items</paper-tab>
+                        </paper-tabs>
+                        <div name="members-view" href="#/members-view/[[accountId]]">Network</div>
+                        <div name="about-view" href="#/about-view"></div>
+                    </iron-pages>
                 </app-header>
+
+
 
                 <iron-pages
                     selected="[[page]]"
@@ -283,7 +311,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     selected="[[page]]"
                     attr-for-selected="name">
                     <div name="article-view" class="layout horizontal wrap">
-                        <paper-fab icon="icons:arrow-back" on-tap="onBackToContents"></paper-fab>
+                        <paper-fab icon="icons:arrow-back" mini on-tap="onBackToContents"></paper-fab>
                         <paper-fab icon="icons:add" on-tap="onNavigateToEditor"></paper-fab>
                     </div>
                     <div name="mailbox-view" class="layout horizontal wrap">
@@ -309,23 +337,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <paper-fab icon="wonderjam-icons:send" on-tap="onSendMessage" title="Publish content" id="sendMessageFab"></paper-fab>
                     </div>
                     <div name="share-view" class="layout horizontal wrap">
+                        <paper-fab icon="icons:arrow-back" mini on-tap="onBackToContents"></paper-fab>
 
-                        <paper-menu-button
-                            horizontal-align="right"
-                            vertical-align="bottom">
-                            <paper-fab id="addSectionButton" icon="more-vert" class="dropdown-trigger minor-action-fab" title="Add new section."></paper-fab>
-                            <paper-menu class="dropdown-content">
-                                <paper-fab id="addSectionButton" on-tap="onAddSection" icon="add-circle" class="minor-action-fab" title="Embedd text to the message content."></paper-fab>
-                                <paper-fab id="addVideoButton" on-tap="onEmbedVideo" icon="theaters" class="minor-action-fab" title="Embedd video to the message content."></paper-fab>
-                                <paper-fab id="addImageButton" on-tap="onEmbedImage" icon="perm-media"  class="minor-action-fab" title="Embedd image to the message content."></paper-fab>
-                                <paper-fab id="addLinkButton" on-tap="onEmbedLink" icon="link" class="minor-action-fab" title="Embedd a link to another message to the message content."></paper-fab>
-                            </paper-menu>
-                        </paper-menu-button>
+                        <paper-fab icon="wonderjam-icons:save" on-tap="onShare" title="Publish content" id="sendMessageFab"></paper-fab>
+
+                        <paper-fab-speed-dial direction="top" class="bottom-right">
+                            <paper-fab icon="add" class="dropdown-trigger"></paper-fab>
+                            <div class="dropdown-content">
+                                <paper-fab id="addSectionButton" mini on-tap="onAddSection" icon="wonderjam-icons:text" class="minor-action-fab" title="Embedd text to the message content."></paper-fab>
+                                <paper-fab id="addVideoButton" mini on-tap="onEmbedVideo" icon="wonderjam-icons:video" class="minor-action-fab" title="Embedd video to the message content."></paper-fab>
+                                <paper-fab id="addImageButton" mini on-tap="onEmbedImage" icon="wonderjam-icons:image"  class="minor-action-fab" title="Embedd image to the message content."></paper-fab>
+                                <paper-fab id="addLinkButton" mini on-tap="onEmbedLink" icon="wonderjam-icons:link" class="minor-action-fab" title="Embedd a link to another message to the message content."></paper-fab>
+                            </div>
+                        </paper-fab-speed-dial>
 
 
-                        <!--<paper-fab class="minor-action-fab" icon="send" on-tap="onSendMessage" title="Publish content" id="sendMessageFab"></paper-fab>-->
-                        <paper-fab icon="save" on-tap="onShare" title="Publish content" id="sendMessageFab"></paper-fab>
-                        <paper-fab icon="clear" on-tap="onClear" title="Cancel all changes & create new article." id="sendNewContentFab"></paper-fab>
+                        <paper-fab class="minor-action-fab" icon="wonderjam-icons:send" on-tap="onNavigateToMessage" title="Publish content" id="sendMessageFab"></paper-fab>
+                        <paper-fab icon="wonderjam-icons:delete" on-tap="onClear" title="Cancel all changes & create new article." id="sendNewContentFab"></paper-fab>
 
                     </div>
                 </iron-pages>
@@ -349,6 +377,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 WonderjamAppBehaviors.ControllerMailingBehavior
             ],
             properties: {
+            },
+            onOpenSpeedDial: function () {
+                console.log('fos');
+                this.$.asd.open();
             }
         });
     </script>

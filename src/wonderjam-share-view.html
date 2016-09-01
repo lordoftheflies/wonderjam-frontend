@@ -44,7 +44,7 @@ Wham! It's all awesome now!
 
     <template>
 
-        <style include="mlm-shared-styles">
+        <style include="wonderjam-shared-styles">
 
             :host {
                 --paper-menu-background-color: none;
@@ -242,11 +242,11 @@ Wham! It's all awesome now!
                 'itemsAddedOrRemoved(selectedItemIds.splices)'
             ],
             listeners: {
-                'create': 'onSectionCreate',
-                'remove': 'onRemoveItem',
-                'share': 'onShare',
-                'shareAjax.error': 'onShareError',
-                'shareAjax.response': 'onShareResponse'
+//                'create': 'onSectionCreate',
+//                'remove': 'onRemoveItem',
+//                'share': 'onShare',
+//                'shareAjax.error': 'onShareError',
+//                'shareAjax.response': 'onShareResponse'
             },
             ready: function () {
                 console.log(this.is + ' is ready.');

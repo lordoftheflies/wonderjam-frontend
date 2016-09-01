@@ -42,6 +42,7 @@
                 var resolvedPageUrl = this.resolveUrl('wonderjam-' + page + '.html');
                 this.importHref(resolvedPageUrl, null, this._showPage404, true);
                 console.log(this.is, 'page changed', page);
+                this.$.headerLayout.resetLayout();
             },
             /**
              * Page 404.
