@@ -104,7 +104,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 font-size: 14px;
                 @apply(--layout-horizontal);
                 @apply(--layout-center-center);
-                
+
             }
         </style>
         <!--Get all members.-->
@@ -259,59 +259,67 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     attr-for-selected="name"
                     fallback-selection="view404"
                     role="main">
-                    <wonderjam-about-view name="about-view">
+                    <wonderjam-about-view 
+                        name="about-view">
                     </wonderjam-about-view>
-                    <wonderjam-article-view name="article-view"
-                                            info-request-params="{{infoRequestParams}}"
-                                            toc-request-params="{{tocRequestParams}}"
-                                            root-model="[[rootModel]]"
-                                            parent-model="[[parentModel]]"
-                                            content-children-model="{{contentChildrenModel}}"
-                                            publisher-model="[[publisherModel]]"
-                                            account-id="[[session.token]]" 
-                                            admin="[[session.powerUser]]" 
-                                            owner-id="[[session.token]]"
-                                            selected-article-id="{{contentSubrouteData.contentId}}"
-                                            selected-content-folder="{{selectedContentFolder}}">
+                    <wonderjam-article-view 
+                        name="article-view"
+                        info-request-params="{{infoRequestParams}}"
+                        toc-request-params="{{tocRequestParams}}"
+                        root-model="[[rootModel]]"
+                        parent-model="[[parentModel]]"
+                        content-children-model="{{contentChildrenModel}}"
+                        publisher-model="[[publisherModel]]"
+                        account-id="[[session.token]]" 
+                        admin="[[session.powerUser]]" 
+                        owner-id="[[session.token]]"
+                        selected-article-id="{{contentSubrouteData.contentId}}"
+                        selected-content-folder="{{selectedContentFolder}}">
                     </wonderjam-article-view>
-                    <wonderjam-mailbox-view name="mailbox-view"
-                                            mail-box-model="[[mailBoxModel]]"
-                                            account-id="[[accountId]]"
-                                            selected-mail-box-folder="[[selectedMailBoxFolder]]">
+                    <wonderjam-mailbox-view 
+                        name="mailbox-view"
+                        mail-box-model="[[mailBoxModel]]"
+                        account-id="[[accountId]]"
+                        selected-mail-box-folder="[[selectedMailBoxFolder]]">
                     </wonderjam-mailbox-view>
-                    <wonderjam-members-view name="members-view"
-                                            genocide-request-params="{{genocideRequestParams}}"
-                                            children-request-params="{{childrenRequestParams}}"
-                                            account-id="[[session.token]]" 
-                                            parents="[[parents]]"
-                                            member-children="[[memberChildren]]"
-                                            selected-name="{{selectedName}}"
-                                            selected-role="{{selectedRole}}"
-                                            selected-account-id="{{memberSubrouteData.memberId}}">
+                    <wonderjam-members-view 
+                        name="members-view"
+                        genocide-request-params="{{genocideRequestParams}}"
+                        children-request-params="{{childrenRequestParams}}"
+                        account-id="[[session.token]]" 
+                        parents="[[parents]]"
+                        member-children="[[memberChildren]]"
+                        selected-name="{{selectedName}}"
+                        selected-role="{{selectedRole}}"
+                        selected-account-id="{{memberSubrouteData.memberId}}">
                     </wonderjam-members-view>
-                    <wonderjam-profile-view name="profile-view"
-                                            locales="[[locales]]"
-                                            profile="[[profile]]"
-                                            changeLanguageModel="[[changeLanguageModel]]"
-                                            account-id="[[accountId]]">
+                    <wonderjam-profile-view 
+                        name="profile-view"
+                        locales="[[locales]]"
+                        profile="[[profile]]"
+                        changeLanguageModel="[[changeLanguageModel]]"
+                        account-id="[[accountId]]">
                     </wonderjam-profile-view>
-                    <wonderjam-send-view name="send-view"
-                                         items="{{contacts}}" 
-                                         account-id="[[session.token]]" 
-                                         selected-item-ids="{{recipients}}"
-                                         parent-candidates="[[parentCandidates]]"
-                                         content-model="{{editedContentModel}}" 
-                                         selected-meta-action="{{selectedMetaAction}}">
+                    <wonderjam-send-view 
+                        name="send-view"
+                        items="{{contacts}}" 
+                        account-id="[[session.token]]" 
+                        selected-item-ids="{{recipients}}"
+                        parent-candidates="[[parentCandidates]]"
+                        content-model="{{editedContentModel}}" 
+                        selected-meta-action="{{selectedMetaAction}}">
                     </wonderjam-send-view>
-                    <wonderjam-share-view name="share-view" 
-                                          items="{{contacts}}"
-                                          account-id="[[session.token]]" 
-                                          selected-item-ids="{{recipients}}"
-                                          content-model="{{editedContentModel}}" 
-                                          share-model="{{shareModel}}"
-                                          selected-meta-action="{{selectedMetaAction}}">
+                    <wonderjam-share-view 
+                        name="share-view" 
+                        items="{{contacts}}"
+                        account-id="[[session.token]]" 
+                        selected-item-ids="{{recipients}}"
+                        content-model="{{editedContentModel}}" 
+                        share-model="{{shareModel}}"
+                        selected-meta-action="{{selectedMetaAction}}">
                     </wonderjam-share-view>
-                    <wonderjam-view404 name="view404">
+                    <wonderjam-view404 
+                        name="view404">
                     </wonderjam-view404>
                 </iron-pages>
 
@@ -328,6 +336,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <paper-fab icon="icons:add" on-tap="onNavigateToMessage"></paper-fab>
                     </div>
                     <div name="members-view" class="layout horizontal wrap">
+                        <paper-fab icon="wonderjam-icons:arrow-back" mini on-tap="onBackToMailBox" title="Back to mailbox" id="sendMessageFab"></paper-fab>
                         <paper-fab icon="icons:add" on-tap="onNewMember"></paper-fab>
                         <template is="dom-if" if="[[!isMeIndicator]]">
                             <paper-fab icon="icons:remove" on-tap="onDeleteMember"></paper-fab>

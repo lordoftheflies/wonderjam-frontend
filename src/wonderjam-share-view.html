@@ -9,23 +9,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../bower_components/i18n-behavior/i18n-behavior.html">
+
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-dropdown/iron-dropdown.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input-container.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
-<link rel="import" href="../bower_components/file-upload/file-upload.html">
-<!--<link rel="import" href="../plutonium-field-recipient/plutonium-field-recipient.html">-->
 <link rel="import" href="../bower_components/paper-chip/paper-chip.html">
-<!--<link rel="import" href="mlm-shared-styles.html">-->
-<link rel="import" href="../bower_components/plutonium-elements/plutonium-elements.html">
-<link rel="import" href="../bower_components/plutonium-manageable-content/plutonium-manageable-content.html">
-
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../bower_components/paper-fab-transitions/paper-fab-morph.html">
+
+<link rel="import" href="../bower_components/file-upload/file-upload.html">
+
+<link rel="import" href="wonderjam-article-form.html">
+
 
 <!--
 `<wonderjam-share-view>` Share page of the application.
@@ -44,10 +51,93 @@ Wham! It's all awesome now!
 
     <template>
 
-        <style include="wonderjam-shared-styles">
+        <style include="wonderjam-shared-styles iron-flex">
 
             :host {
                 --paper-menu-background-color: none;
+                display: block;
+                @apply(--layout-vertical);
+                /*@apply(--layout-center);*/
+                padding: 10px;
+
+
+            }
+
+            :host paper-material {
+                background-color: white;
+            }
+
+            .card-header {
+                position: relative;
+                border-top-left-radius: inherit;
+                border-top-right-radius: inherit;
+                overflow: hidden;
+
+                @apply(--paper-card-header);
+            }
+
+            .card-header iron-image {
+                display: block;
+                width: 100%;
+                --iron-image-width: 100%;
+                pointer-events: none;
+
+                @apply(--paper-card-header-image);
+            }
+
+            .card-header .title-text {
+                padding: 16px;
+                font-size: 24px;
+                font-weight: 400;
+                color: var(--paper-card-header-color, #000);
+
+                @apply(--paper-card-header-text);
+            }
+
+            .card-header .title-text.over-image {
+                position: absolute;
+                bottom: 0px;
+
+                @apply(--paper-card-header-image-text);
+            }
+
+            :host .card-content {
+                padding: 16px;
+                position:relative;
+
+                @apply(--paper-card-content);
+            }
+
+            :host .card-actions {
+                border-top: 1px solid #e8e8e8;
+                padding: 5px 16px;
+                position: relative;
+
+                @apply(--paper-card-actions);
+            }
+
+            #show-toolbar {
+                /* In real cases it would make sense use fixed position for the element,
+                 * and then no need to position --paper-morph-dropdown and --paper-morph-content
+                 */
+                --paper-morph-background: var(--default-primary-color);
+                --paper-morph-dropdown: {
+                    position: static !important;  //didn't find alternative to !important for Safari 
+                }
+                --paper-morph-content: {
+                    /*position: absolute;*/
+                    left: 0;
+                    bottom: 0;
+                    width: 100%;
+                    overflow: visible;
+                }
+            }
+
+            #show-toolbar paper-fab {
+                position: absolute;
+                bottom: 16px;
+                right: 16px;
+                --paper-fab-background: var(--default-primary-color);
             }
 
             plutonium-article-form {
@@ -98,89 +188,76 @@ Wham! It's all awesome now!
         
                     </paper-card>-->
 
-        <div name="content">
-            <paper-card id="propertiesCardTitle" elevation="1" heading="Properties"  name="props" class="layout vertical main-action-fab-container">
+        <paper-material id="propertiesCardTitle" elevation="1" heading="Properties"  name="props" class="layout vertical main-action-fab-container">
+            <div class="card-header layout horizontal">
+                <paper-input id="contentTitleInput" class="title-text flex" label="Title" value="{{contentModel.title}}"></paper-input>
+            </div>
+            <div class="card-content layout horizontal">
+                <div class="layout vertical flex">
+                    <paper-dropdown-menu 
+                        id="parentDdLabel"
+                        label="Parent">
+                        <paper-listbox id="parentCandidatesList"
+                                       class="dropdown-content"
+                                       attr-for-selected="{{attrForSelected}}"
+                                       items="[[parentCandidates]]"
+                                       as="parent"
+                                       selected="{{selectedParent}}">
+                            <template is="dom-repeat" items="[[parentCandidates]]">
 
-
-                <div class="card-content layout horizontal">
-                    <div class="layout vertical flex">
-                        <paper-dropdown-menu 
-                            id="parentDdLabel"
-                            label="Parent">
-                            <paper-listbox id="parentCandidatesList"
-                                           class="dropdown-content"
-                                           attr-for-selected="{{attrForSelected}}"
-                                           items="[[parentCandidates]]"
-                                           as="parent"
-                                           selected="{{selectedParent}}">
-                                <template is="dom-repeat" items="[[parentCandidates]]">
-
-                                    <paper-item id="[[item.id]]" class="item pad">
-                                        <label>[[item.title]]</label> 
-                                    </paper-item>
-                                </template>
-                            </paper-listbox>
-                        </paper-dropdown-menu>
-                        <paper-input id="contentTitleInput" class="bottom title" label="Title" value="{{contentModel.title}}"></paper-input>
-                        <paper-checkbox id="draftIndicator" checked="{{contentModel.draft}}">Draft</paper-checkbox>
-                    </div>
+                                <paper-item id="[[item.id]]" class="item pad">
+                                    <label>[[item.title]]</label> 
+                                </paper-item>
+                            </template>
+                        </paper-listbox>
+                    </paper-dropdown-menu>
                 </div>
-                <paper-toolbar>
-
-                    <paper-tabs attr-for-selected="name" selected="{{articleContentType}}" style="width: 100%;" autoselect>
-                        <paper-tab text-id="embbeddedContentTabLabel" name="embedded">Embed content</paper-tab>
-                        <paper-tab text-id="assembledContentTabLabel" name="assembled">Assembled content</paper-tab>
-                    </paper-tabs>
-                </paper-toolbar>
-            </paper-card>
-
-            <!--<paper-card id="articleContentCard" heading="{{articleContentHeading}}" elevation="1" class="layout vertical">-->
-            <div id="articleContentCard" heading="{{articleContentHeading}}" elevation="1" class="layout vertical">
-
-
-
-
-                <!--Selectexitemids: [[selectedItemIds.length]]-->
-
-
-
-                <iron-pages selected="{{articleContentType}}" attr-for-selected="name">
-
-                    <div name="assembled" class="card-content layout horizontal" style="padding-top: 10px;">
-                        <plutonium-article-form  
-                            class="flex"
-                            api-url="{{apiUrl}}"
-                            id="pcf"
-                            editable
-                            contacts="{{contacts}}" 
-                            content-model="{{contentModel}}"
-                            parent-candidates="{{parentCandidates}}"
-                            editors="[[editorMap]]">
-                        </plutonium-article-form>
-                    </div>
-
-                    <paper-card id="propertiesCardTitle" name="embedded" class="card-content layout horizontal" elevation="1" heading="Upload article">
-                        <file-upload 
-                            id="uploadFileText"
-                            drop-text="Drop any PDF file here."
-                            error-text="File upload failed."
-                            droppable="true" 
-                            raised="true" 
-                            multi="false" 
-                            method="POST"
-                            target="{{fileUploadTarget}}">Choose File</file-upload>
-                        <div class="flex"></div>
-                    </paper-card>
-
-                </iron-pages>
             </div>
 
-        </div>
+            <div class="card-content">
+                <paper-checkbox id="draftIndicator" checked="{{contentModel.draft}}">Draft</paper-checkbox>
+                <paper-fab-morph id="show-toolbar" vertical-align="top" horizontal-align="left">
+                    <paper-fab icon="wonderjam-icons:more" class="dropdown-trigger"></paper-fab>
+                    <paper-toolbar class="dropdown-content">
+                        <paper-tabs attr-for-selected="name" selected="{{articleContentType}}" class="flex" autoselect>
+                            <paper-tab text-id="embbeddedContentTabLabel" name="embedded">Embed content</paper-tab>
+                            <paper-tab text-id="assembledContentTabLabel" name="assembled">Assembled content</paper-tab>
+                        </paper-tabs>
+                    </paper-toolbar>
+                </paper-fab-morph>
+            </div>
+            <iron-pages class="card-content" selected="{{articleContentType}}" attr-for-selected="name">
 
+                <div name="assembled" class="card-content layout horizontal" style="padding-top: 10px;">
+                    <wonderjam-article-form  
+                        class="flex"
+                        api-url="{{apiUrl}}"
+                        id="pcf"
+                        editable
+                        contacts="{{contacts}}" 
+                        content-model="{{contentModel}}"
+                        parent-candidates="{{parentCandidates}}"
+                        editors="[[editorMap]]">
+                    </wonderjam-article-form>
+                </div>
 
-        <!--</iron-pages>-->
+                <!--<paper-card id="propertiesCardTitle" name="embedded" class="card-content layout horizontal" elevation="1" heading="Upload article">-->
+                <div id="propertiesCardTitle" name="embedded" class="layout vertical center" heading="Upload article">
+                    <file-upload 
+                        id="uploadFileText"
+                        drop-text="Drop any PDF file here."
+                        error-text="File upload failed."
+                        droppable="true" 
+                        raised="true" 
+                        multi="false" 
+                        method="POST"
+                        target="{{fileUploadTarget}}">Choose File</file-upload>
+                    <div class="flex"></div>
+                    <!--</paper-card>-->
+                </div>
 
-       
+            </iron-pages>
+        </paper-material>
 
     </template>
 

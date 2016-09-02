@@ -3,9 +3,7 @@
 <script>
     (function () {
         'use strict';
-
         window.WonderjamAppBehaviors = window.WonderjamAppBehaviors || {};
-
         /**
          * Publisher controller behavior,
          *
@@ -18,7 +16,63 @@
                  * @type {{}}
                  */
                 publisherModel: {
+                },
+                contentModel: {
+                    type: Object,
+                    notify: true,
+                    value: {
+                        sections: [
+                        ]
+                    }
                 }
+            },
+            /**
+             * Add text-section handler.
+             */
+            onAddSection: function () {
+                console.log('Add section after field[' + 'section' + this.contentModel.sections.length + ']');
+//                this.fire('create', {
+//                    name: 'section' + this.contentModel.sections.length,
+//                    type: 'plutonium-cm-editor-text',
+//                    title: '',
+//                    data: ''
+//                });
+            },
+            /**
+             * Add video-section handler.
+             */
+            onEmbedVideo: function () {
+                console.log('Embed video to after field[' + 'section' + this.contentModel.sections.length + ']');
+//                this.fire('create', {
+//                    name: 'section' + this.contentModel.sections.length,
+//                    type: 'plutonium-cm-editor-video',
+//                    title: '',
+//                    data: ''
+//                });
+            },
+            /**
+             * Add image-section handler.
+             */
+            onEmbedImage: function () {
+                console.log('Embed image to after field[' + 'section' + this.contentModel.sections.length + ']');
+//                this.fire('create', {
+//                    name: this.name,
+//                    type: 'plutonium-cm-editor-image',
+//                    title: '',
+//                    data: ''
+//                });
+            },
+            /**
+             * Add link-section handler.
+             */
+            onEmbedLink: function () {
+                console.log('Embed link to after field[' + 'section' + this.contentModel.sections.length + ']');
+                this.fire('create', {
+                    name: 'section' + this.contentModel.sections.length,
+                    type: 'plutonium-cm-editor-link',
+                    title: '',
+                    data: ''
+                });
             },
             /**
              * Ajax response handler for `publisherAjax` element.
@@ -63,12 +117,9 @@
                 this.fire('page-go', {page: 'article-view'});
             }
         };
-
-
         WonderjamAppBehaviors.ControllerPublicherBehavior = [
             PlutoniumBehaviors.WidgetBoundBehavior,
             WonderjamAppBehaviors.ControllerPublicherBehaviorImpl
         ];
-
     })();
 </script>
