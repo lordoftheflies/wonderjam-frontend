@@ -21,8 +21,7 @@
                     type: Object,
                     notify: true,
                     value: {
-                        sections: [
-                        ]
+                        sections: []
                     }
                 }
             },
@@ -31,12 +30,12 @@
              */
             onAddSection: function () {
                 console.log('Add section after field[' + 'section' + this.contentModel.sections.length + ']');
-//                this.fire('create', {
-//                    name: 'section' + this.contentModel.sections.length,
-//                    type: 'plutonium-cm-editor-text',
-//                    title: '',
-//                    data: ''
-//                });
+                this.fire('create', {
+                    name: 'section' + this.contentModel.sections.length,
+                    type: 'plutonium-cm-editor-text',
+                    title: '',
+                    data: ''
+                });
             },
             /**
              * Add video-section handler.

@@ -31,6 +31,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/file-upload/file-upload.html">
 
+<link rel="import" href="wonderjam-icons.html">
+
 <link rel="import" href="wonderjam-article-form.html">
 
 
@@ -217,11 +219,12 @@ Wham! It's all awesome now!
             <div class="card-content">
                 <paper-checkbox id="draftIndicator" checked="{{contentModel.draft}}">Draft</paper-checkbox>
                 <paper-fab-morph id="show-toolbar" vertical-align="top" horizontal-align="left">
-                    <paper-fab icon="wonderjam-icons:more" class="dropdown-trigger"></paper-fab>
+                    <paper-fab icon="wonderjam-icons:[[articleContentType]]" class="dropdown-trigger"></paper-fab>
                     <paper-toolbar class="dropdown-content">
                         <paper-tabs attr-for-selected="name" selected="{{articleContentType}}" class="flex" autoselect>
-                            <paper-tab text-id="embbeddedContentTabLabel" name="embedded">Embed content</paper-tab>
-                            <paper-tab text-id="assembledContentTabLabel" name="assembled">Assembled content</paper-tab>
+                            <paper-tab text-id="fileContentTabLabel" name="upload">Upload</paper-tab>
+                            <paper-tab text-id="folderContentTabLabel" name="embedded">Folder</paper-tab>
+                            <paper-tab text-id="articleContentTabLabel" name="assembled">Assemble</paper-tab>
                         </paper-tabs>
                     </paper-toolbar>
                 </paper-fab-morph>
@@ -242,7 +245,7 @@ Wham! It's all awesome now!
                 </div>
 
                 <!--<paper-card id="propertiesCardTitle" name="embedded" class="card-content layout horizontal" elevation="1" heading="Upload article">-->
-                <div id="propertiesCardTitle" name="embedded" class="layout vertical center" heading="Upload article">
+                <div id="propertiesCardTitle" name="upload" class="layout vertical center" heading="Upload article">
                     <file-upload 
                         id="uploadFileText"
                         drop-text="Drop any PDF file here."
@@ -254,6 +257,9 @@ Wham! It's all awesome now!
                         target="{{fileUploadTarget}}">Choose File</file-upload>
                     <div class="flex"></div>
                     <!--</paper-card>-->
+                </div>
+                <div id="propertiesCardTitle" name="embedded" class="layout vertical center" heading="Upload article">
+                    Select articles.
                 </div>
 
             </iron-pages>

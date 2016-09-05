@@ -37,12 +37,7 @@
                     type: Object,
                     notify: true
                 },
-                /**
-                 * Model publisher.
-                 * @type {{}}
-                 */
-                publisherModel: {
-                },
+                
                 /**
                  * Table of contents request parameters.
                  * @type {{pageId: String, tag: String, owner: String}}
@@ -69,6 +64,7 @@
                     type: Object,
                     notify: true
                 }
+                
             },
             observers: [
                 'observeContentSubrouteData(contentSubrouteData, selectedContentFolder)'

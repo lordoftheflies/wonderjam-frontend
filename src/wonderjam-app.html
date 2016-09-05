@@ -23,6 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/paper-fab-transitions/paper-fab-speed-dial.html">
 <link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="../bower_components/i18n-behavior/i18n-behavior.html">
@@ -180,6 +181,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!--        <app-route route="{{route}}" pattern="/registrate" data="{{activationData}}"></app-route>
                 <app-route route="{{route}}" pattern="/login"></app-route>-->
         <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+        <app-route route="{{route}}" pattern="/article-section/:contentId" data="{{contentSubrouteData}}"></app-route>
         <app-route route="{{route}}" pattern="/article-view/:contentId" data="{{contentSubrouteData}}"></app-route>
         <app-route route="{{route}}" pattern="/members-view/:memberId" data="{{memberSubrouteData}}"></app-route>
         <!--Cookies-->
@@ -249,6 +251,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                 </paper-tab>
                             </template>
                         </paper-tabs>
+                        <paper-tabs selected="{{memberSubrouteData.memberId}}" class="flex" scrollable attr-for-selected="name" name="article-section" href="#/members-view/[[accountId]]">
+                            <!--<template is="dom-repeat" items="[[parents]]">-->
+                                <paper-tab name="[[item.id]]" role="[[item.role]]" link>
+                                    <!--<iron-icon class="end-justified" icon="wonderjam-icons:[[getIcon(item.role)]]" href="#/members-view/{{item.id}}"></iron-icon>-->
+                                    <a class="member tab link" href="#/members-view/{{item.id}}">[[contentChildrenModel.title]]</a>
+                                </paper-tab>
+                            <!--</template>-->
+                        </paper-tabs>
                     </iron-pages>
                 </app-header>
 
@@ -276,6 +286,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         selected-article-id="{{contentSubrouteData.contentId}}"
                         selected-content-folder="{{selectedContentFolder}}">
                     </wonderjam-article-view>
+                    <wonderjam-article-section
+                        name="article-section"
+                        selected-article-id="{{contentSubrouteData.contentId}}"
+                        content-model="[[contentChildrenModel]]">
+                    </wonderjam-article-section>
                     <wonderjam-mailbox-view 
                         name="mailbox-view"
                         mail-box-model="[[mailBoxModel]]"
@@ -329,24 +344,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     selected="[[page]]"
                     attr-for-selected="name">
                     <div name="article-view" class="layout horizontal wrap">
-                        <paper-fab icon="icons:arrow-back" mini on-tap="onBackToContents"></paper-fab>
-                        <paper-fab icon="icons:add" on-tap="onNavigateToEditor"></paper-fab>
+                        <paper-fab icon="wonderjam-icons:arrow-back" mini on-tap="onBackToContents"></paper-fab>
+                        <paper-fab icon="wonderjam-icons:add" on-tap="onNavigateToEditor"></paper-fab>
+                    </div>
+                    <div name="article-section" class="layout horizontal wrap">
+                        <paper-fab icon="wonderjam-icons:arrow-back" mini on-tap="onBackToContents"></paper-fab>
+                        <paper-fab icon="wonderjam-icons:add" on-tap="onNavigateToEditor"></paper-fab>
+                        <paper-fab icon="wonderjam-icons:edit" on-tap="onNavigateToEditor"></paper-fab>
+                        <paper-fab icon="wonderjam-icons:delete" on-tap="onNavigateToEditor"></paper-fab>
                     </div>
                     <div name="mailbox-view" class="layout horizontal wrap">
-                        <paper-fab icon="icons:add" on-tap="onNavigateToMessage"></paper-fab>
+                        <paper-fab icon="wonderjam-icons:add" on-tap="onNavigateToMessage"></paper-fab>
                     </div>
                     <div name="members-view" class="layout horizontal wrap">
                         <paper-fab icon="wonderjam-icons:arrow-back" mini on-tap="onBackToMailBox" title="Back to mailbox" id="sendMessageFab"></paper-fab>
-                        <paper-fab icon="icons:add" on-tap="onNewMember"></paper-fab>
+                        <paper-fab icon="wonderjam-icons:add" on-tap="onNewMember"></paper-fab>
                         <template is="dom-if" if="[[!isMeIndicator]]">
-                            <paper-fab icon="icons:remove" on-tap="onDeleteMember"></paper-fab>
+                            <paper-fab icon="wonderjam-icons:remove" on-tap="onDeleteMember"></paper-fab>
 
                             <paper-fab icon="icons:send" on-tap="onSendToMember"></paper-fab>
                             <template is="dom-if" if="[[isUserIndicator]]">
-                                <paper-fab icon="icons:star" on-tap="onPromoteMember"></paper-fab>
+                                <paper-fab icon="wonderjam-icons:star" on-tap="onPromoteMember"></paper-fab>
                             </template>
                             <template is="dom-if" if="[[isAdminIndicator]]">
-                                <paper-fab icon="icons:star-border" on-tap="onDemoteMember"></paper-fab>
+                                <paper-fab icon="wonderjam-icons:star-border" on-tap="onDemoteMember"></paper-fab>
                             </template>
                         </template>
 
@@ -356,7 +377,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <paper-fab icon="wonderjam-icons:send" on-tap="onSendMessage" title="Publish content" id="sendMessageFab"></paper-fab>
                     </div>
                     <div name="share-view" class="layout horizontal wrap">
-                        <paper-fab icon="icons:arrow-back" mini on-tap="onBackToContents"></paper-fab>
+                        <paper-fab icon="wonderjam-icons:arrow-back" mini on-tap="onBackToContents"></paper-fab>
 
                         <paper-fab icon="wonderjam-icons:save" on-tap="onShare" title="Publish content" id="sendMessageFab"></paper-fab>
 

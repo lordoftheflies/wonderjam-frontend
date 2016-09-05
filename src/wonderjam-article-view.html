@@ -11,21 +11,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
 <link rel="import" href="../bower_components/i18n-behavior/i18n-behavior.html">
-
+<!--Iron components-->
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-list/iron-list.html">
-
+<!--Paper components-->
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
-<link rel="import" href="../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
-<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
-
-<link rel="import" href="wonderjam-article-section.html">
-
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<!--Application shared stlyes-->
 <link rel="import" href="wonderjam-shared-styles.html">
+<!--
+An element providing a solution to no problem in particular.
 
+Example:
+
+    <wonderjam-article-view 
+        name="article-view"
+        info-request-params="{{infoRequestParams}}"
+        toc-request-params="{{tocRequestParams}}"
+        root-model="[[rootModel]]"
+        parent-model="[[parentModel]]"
+        content-children-model="{{contentChildrenModel}}"
+        publisher-model="[[publisherModel]]"
+        account-id="[[session.token]]" 
+        admin="[[session.powerUser]]" 
+        owner-id="[[session.token]]"
+        selected-article-id="{{contentSubrouteData.contentId}}"
+        selected-content-folder="{{selectedContentFolder}}">
+    </wonderjam-article-view>
+
+@demo index.html
+-->
 <dom-module id="wonderjam-article-view">
     <template>
         <style include="wonderjam-shared-styles">
@@ -35,57 +51,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 padding: 10px;
             }
         </style>
+        <paper-material class="layout vertical flex material-card" hidden="[[contentChildrenModel.leaf]]">
+            <iron-list items="{{contentChildrenModel.sections}}" as="section"   hidden="[[isEmpty(contentChildrenModel)]]">
+                <template>
+                    <paper-item class="card-item flex layout horizontal" on-tap="onNavigate" name="[[section.name]]">
+                        <span class="flex">[[section.title]]</span>
+                        <div hidden="[[!isDraftSelected(selectedContentFolder)]]" class="layout horizontal">
+                            <paper-icon-button name="[[section.name]]" icon="create" on-tap="onEditArticle"></paper-icon-button>
+                            <paper-icon-button name="[[section.name]]" icon="delete" on-tap="onDeleteArticle"></paper-icon-button>
+                            <paper-icon-button name="[[section.name]]" icon="file-upload" on-tap="onPublishArticle"></paper-icon-button>
+                            <paper-icon-button name="[[section.name]]" icon="file-download" on-tap="onUnpublishArticle"></paper-icon-button>
+                        </div>
+                    </paper-item>
+                </template>
+            </iron-list>
 
-        <template is="dom-if" if="{{contentChildrenModel.hasEmbeddedFile}}">
-            File
-            <iframe src$="{{getContentFileUrl(contentChildrenModel.embeddedFileName)}}"></iframe>
-        </template>
-        <template is="dom-if" if="{{!contentChildrenModel.hasEmbeddedFile}}">
-            <paper-material class="layout vertical flex material-card" hidden="[[contentChildrenModel.leaf]]">
-                <iron-list items="{{contentChildrenModel.sections}}" as="section"   hidden="[[isEmpty(contentChildrenModel)]]">
-                    <template>
-                        <!--                        <a class="paper-item-link" href="{{getLink(section)}}">-->
-                        <paper-item class="layout horizontal">
-                            <paper-material elevation="1" class="flex layout horizontal" on-tap="onNavigate" name="[[section.name]]">
-                                <span class="flex">[[section.title]]</span>
-                                <div hidden="[[!isDraftSelected(selectedContentFolder)]]" class="layout horizontal">
-                                    <paper-icon-button name="[[section.name]]" icon="create" on-tap="onEditArticle"></paper-icon-button>
-                                    <paper-icon-button name="[[section.name]]" icon="delete" on-tap="onDeleteArticle"></paper-icon-button>
-                                    <paper-icon-button name="[[section.name]]" icon="file-upload" on-tap="onPublishArticle"></paper-icon-button>
-                                    <paper-icon-button name="[[section.name]]" icon="file-download" on-tap="onUnpublishArticle"></paper-icon-button>
-                                </div>
-                            </paper-material>
+            <div class="card-content" hidden="[[!isEmpty(contentChildrenModel)]]">
+                <div id="emptyChildrenText">No content in the folder.</div>
+            </div>
 
-                        </paper-item>
-                        <!--</a>-->
-                    </template>
-                </iron-list>
-
-                <div class="card-content" hidden="[[!isEmpty(contentChildrenModel)]]">
-                    <div id="emptyChildrenText">No content in the folder.</div>
-                </div>
-
-            </paper-material>
-            
-            <wonderjam-article-section class="flex layout horizontal"
-                                       content-model="[[contentChildrenModel]]"
-
-                                       hidden="[[!contentChildrenModel.leaf]]">
-
-            </wonderjam-article-section>
-            <!--            <paper-card heading="[[contentChildrenModel.title]]" hidden="[[!contentChildrenModel.leaf]]">
-                            <template is="dom-repeat" items="{{contentChildrenModel.sections}}" as="section">
-                                <plutonium-article-field
-                                    name="[[section.name]]" 
-                                    model="{{section}}" 
-                                    api-url="[[apiUrl]]">
-                                </plutonium-article-field>
-                                <br />
-                            </template>
-                        </paper-card>-->
-        </template>
-
-
+        </paper-material>
     </template>
 
     <script>
@@ -124,6 +109,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     notify: true,
                     value: 'public'
                 },
+                selectedArticleId: {
+                    type: String,
+                    notify: true,
+                    value: 'ROOT'
+                },
+                contentChildrenModel: {
+                    type: Object,
+                    notify: true
+                }
             },
             observers: [
                 'observeSelectedContentFolder(selectedContentFolder)',
@@ -160,6 +154,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             },
             isDraftSelected: function (selectedContentFolder) {
                 return selectedContentFolder === 'drafts';
+            },
+            onNavigate: function (event, detail) {
+                console.log('Navigate to ', event.currentTarget.name);
+                this.selectedArticleId = event.currentTarget.name;
+                this.fire('fetch-data', {
+                    ids: ['rootModelAjax', 'childTocAjax', 'parentTocAjax']
+                });
+                this.fire('page-go', {
+                    page: 'article-section/' + event.currentTarget.name
+                });
             }
         });
     </script>
