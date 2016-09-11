@@ -17,6 +17,14 @@
                     type: String,
                     reflectToAttribute: true,
                     observer: '_pageChanged'
+                },
+                homePage: {
+                    type: String,
+                    notify: true
+                },
+                applicationDomain: {
+                    type: String,
+                    notify: true
                 }
             },
             observers: [
@@ -35,7 +43,7 @@
              */
             _routePageChanged: function (page) {
                 console.log(this.is, 'navigate to', page);
-                this.page = page || 'about-view';
+                this.page = page || this.homePage;
             },
             /**
              * Page changed observer.
@@ -44,7 +52,7 @@
              */
             _pageChanged: function (page) {
                 // Load page import on demand. Show 404 page if fails
-                var resolvedPageUrl = this.resolveUrl('wonderjam-' + page + '.html');
+                var resolvedPageUrl = this.resolveUrl(this.applicationDomain + '-' + page + '.html');
                 this.importHref(resolvedPageUrl, null, this._showPage404, true);
                 console.log(this.is, 'page changed', page);
                 this._resetLayout();

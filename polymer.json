@@ -5,6 +5,7 @@
     "src/wonderjam-about-view.html",
     "src/wonderjam-article-view.html",
     "src/wonderjam-article-section-view.html",
+    "src/wonderjam-login-view.html",
     "src/wonderjam-mailbox-view.html",
     "src/wonderjam-members-view.html",
     "src/wonderjam-send-view.html",

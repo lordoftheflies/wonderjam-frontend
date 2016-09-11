@@ -18,7 +18,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/polymer-cookie/polymer-cookie.html">
-<link rel="import" href="../bower_components/rest-api/rest-api.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
@@ -185,8 +184,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-route route="{{route}}" pattern="/article-view/:contentId" data="{{contentSubrouteData}}"></app-route>
         <app-route route="{{route}}" pattern="/members-view/:memberId" data="{{memberSubrouteData}}"></app-route>
         <!--Cookies-->
+        <!--<polymer-cookie id="rememberMeCookie" name="rememberMe" value="{{rememberMe}}" time="1" format="d"></polymer-cookie>-->
         <polymer-cookie id="rememberMeCookie" name="rememberMe" value="{{rememberMe}}" time="1" format="d"></polymer-cookie>
-        <polymer-cookie id="tokenCookie" name="token" value="{{accountId}}" time="1" format="d" auto-set></polymer-cookie>
+        <polymer-cookie id="tokenCookie" name="accountId" value="{{accountId}}" time="1" format="d" auto-set></polymer-cookie>
         <!--Layout-->
         <app-drawer-layout fullbleed>
             <!-- Drawer content -->
@@ -269,6 +269,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     attr-for-selected="name"
                     fallback-selection="view404"
                     role="main">
+                    <wonderjam-login-view name="login-view">
+                        
+                    </wonderjam-login-view>
+                    
                     <wonderjam-about-view 
                         name="about-view">
                     </wonderjam-about-view>
@@ -289,7 +293,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <wonderjam-article-section
                         name="article-section"
                         selected-article-id="{{contentSubrouteData.contentId}}"
-                        content-model="[[contentChildrenModel]]">
+                        content-model="{{editedContentModel}}">
                     </wonderjam-article-section>
                     <wonderjam-mailbox-view 
                         name="mailbox-view"
@@ -325,6 +329,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         selected-meta-action="{{selectedMetaAction}}">
                     </wonderjam-send-view>
                     <wonderjam-share-view 
+                        id="shareView"
                         name="share-view" 
                         items="{{contacts}}"
                         account-id="[[session.token]]" 

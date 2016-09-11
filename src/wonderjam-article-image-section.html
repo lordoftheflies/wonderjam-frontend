@@ -55,7 +55,7 @@ Example:
             </div>
         </div>
 
-        <paper-card elevation="1" heading="{{model.title}}" class="layout vertical" hidden="[[!editable]]">
+        <!--<paper-card elevation="1" heading="{{model.title}}" class="layout vertical" hidden="[[!editable]]">-->
             <div id="modelData" class$="card-content horizontal {{model.justification}} layout">
                  <div class="layout vertical">
                     <iron-image fade class="thumbnail" sizing="cover" width$="{{model.width}}" height$="{{model.height}}" src$="{{model.data}}"></iron-image>
@@ -67,7 +67,7 @@ Example:
                 <paper-icon-button id="showEditorButton" on-tap="onShowEditor" icon="create" raised></paper-icon-button>
                 <paper-icon-button id="removeSectionButton" on-tap="onRemoveSection" icon="delete"></paper-icon-button>
             </div>
-        </paper-card>
+        <!--</paper-card>-->
     </template>
 
     <script>

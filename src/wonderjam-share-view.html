@@ -206,7 +206,6 @@ Wham! It's all awesome now!
                                        as="parent"
                                        selected="{{selectedParent}}">
                             <template is="dom-repeat" items="[[parentCandidates]]">
-
                                 <paper-item id="[[item.id]]" class="item pad">
                                     <label>[[item.title]]</label> 
                                 </paper-item>
@@ -231,18 +230,18 @@ Wham! It's all awesome now!
             </div>
             <iron-pages class="card-content" selected="{{articleContentType}}" attr-for-selected="name">
 
-                <div name="assembled" class="card-content layout horizontal" style="padding-top: 10px;">
-                    <wonderjam-article-form  
-                        class="flex"
-                        api-url="{{apiUrl}}"
-                        id="pcf"
-                        editable
-                        contacts="{{contacts}}" 
-                        content-model="{{contentModel}}"
-                        parent-candidates="{{parentCandidates}}"
-                        editors="[[editorMap]]">
-                    </wonderjam-article-form>
-                </div>
+                <wonderjam-article-form  
+                    id="sectionEditor"
+                    name="assembled"
+                    class="flex card-content layout horizontal"
+                    api-url="{{apiUrl}}"
+                    id="pcf"
+                    editable
+                    content-model="{{contentModel}}"
+                    contacts="{{contacts}}" 
+                    parent-candidates="{{parentCandidates}}"
+                    editors="[[editorMap]]">
+                </wonderjam-article-form>
 
                 <!--<paper-card id="propertiesCardTitle" name="embedded" class="card-content layout horizontal" elevation="1" heading="Upload article">-->
                 <div id="propertiesCardTitle" name="upload" class="layout vertical center" heading="Upload article">
@@ -255,8 +254,6 @@ Wham! It's all awesome now!
                         multi="false" 
                         method="POST"
                         target="{{fileUploadTarget}}">Choose File</file-upload>
-                    <div class="flex"></div>
-                    <!--</paper-card>-->
                 </div>
                 <div id="propertiesCardTitle" name="embedded" class="layout vertical center" heading="Upload article">
                     Select articles.
@@ -272,7 +269,7 @@ Wham! It's all awesome now!
         Polymer({
             is: 'wonderjam-share-view',
             behaviors: [
-                PlutoniumBehaviors.WidgetBehavior
+//                PlutoniumBehaviors.WidgetBehavior
             ],
             properties: {
                 shareAjaxRequest: {

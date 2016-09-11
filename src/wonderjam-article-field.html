@@ -17,6 +17,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-icons/editor-icons.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-fab-transitions/paper-fab-morph.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../bower_components/i18n-behavior/i18n-behavior.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
@@ -47,36 +49,66 @@ Example:
 
 <dom-module id="wonderjam-article-field">
     <template>
-        <style>
+        <style include="iron-flex">
             :host {
                 display: block;
+                @apply(--layout-vertical);
+                @apply(--layout-flex);
             }
 
         </style>
-        <iron-pages selected="{{model.type}}" attr-for-selected="field">
-            
-            <wonderjam-article-link-section 
-                name="{{model.name}}" editable="{{editable}}" model="{{model}}"
-                field="plutonium-cm-editor-link"
-                parent-candidates-url="{{apiUrl}}/content-management/candidates/child"
-                ></wonderjam-article-link-section>
-<!--            <div 
-                name="{{model.name}}" editable="{{editable}}" model="{{model}}"
-                field="plutonium-cm-editor-text"
-                >{{model.data}}</div>-->
-            <wonderjam-article-text-section class="layout vertical"
-                name="{{model.name}}" editable="{{editable}}" model="{{model}}"
-                field="plutonium-cm-editor-text"
-                ></wonderjam-article-text-section>
-            <wonderjam-article-video-section 
-                name="{{model.name}}" editable="{{editable}}" model="{{model}}"
-                field="plutonium-cm-editor-video"
-                ></wonderjam-article-video-section>
-            <wonderjam-article-image-section
-                name="{{model.name}}" editable="{{editable}}" model="{{model}}"
-                field="plutonium-cm-editor-image"
-                ></wonderjam-article-image-section>
-        </iron-pages>
+
+        <app-toolbar class="card-actions">
+            <paper-icon-button id="moveUpButton" on-tap="onMoveUpSection" icon="expand-less" raised></paper-icon-button>
+            <paper-icon-button id="moveDownButton" on-tap="onMoveDownSection" icon="expand-more" raised></paper-icon-button>
+            <paper-icon-button id="showEditorButton" on-tap="onShowEditor" icon="create" raised></paper-icon-button>
+            <paper-icon-button id="removeSectionButton" on-tap="onRemoveSection" icon="delete"></paper-icon-button>
+        </app-toolbar>
+
+
+        <paper-fab-morph id="show-toolbar" vertical-align="top" horizontal-align="left">
+            <iron-pages selected="{{model.type}}" attr-for-selected="field" class="dropdown-trigger">
+                <wonderjam-article-link-section 
+                    name="{{model.name}}" editable="{{editable}}" model="{{model}}"
+                    field="plutonium-cm-editor-link"
+                    parent-candidates-url="{{apiUrl}}/content-management/candidates/child"
+                    ></wonderjam-article-link-section>
+                <wonderjam-article-text-section 
+                    class="layout vertical"
+                    name="{{model.name}}" editable="{{editable}}" model="{{model}}"
+                    field="plutonium-cm-editor-text"
+                    ></wonderjam-article-text-section>
+                <wonderjam-article-video-section 
+                    name="{{model.name}}" editable="{{editable}}" model="{{model}}"
+                    field="plutonium-cm-editor-video"
+                    ></wonderjam-article-video-section>
+                <wonderjam-article-image-section
+                    name="{{model.name}}" editable="{{editable}}" model="{{model}}"
+                    field="plutonium-cm-editor-image"
+                    ></wonderjam-article-image-section>
+            </iron-pages>
+            <iron-pages selected="{{model.type}}" attr-for-selected="field" class="dropdown-content">
+                <wonderjam-article-link-section 
+                    name="{{model.name}}" editable="{{editable}}" model="{{model}}"
+                    field="plutonium-cm-editor-link"
+                    parent-candidates-url="{{apiUrl}}/content-management/candidates/child"
+                    ></wonderjam-article-link-section>
+                <wonderjam-article-text-section 
+                    class="layout vertical"
+                    name="{{model.name}}" editable="{{editable}}" model="{{model}}"
+                    field="plutonium-cm-editor-text"
+                    ></wonderjam-article-text-section>
+                <wonderjam-article-video-section 
+                    name="{{model.name}}" editable="{{editable}}" model="{{model}}"
+                    field="plutonium-cm-editor-video"
+                    ></wonderjam-article-video-section>
+                <wonderjam-article-image-section
+                    name="{{model.name}}" editable="{{editable}}" model="{{model}}"
+                    field="plutonium-cm-editor-image"
+                    ></wonderjam-article-image-section>
+            </iron-pages>
+        </paper-fab-morph>
+
     </template>
 
     <script>

@@ -27,7 +27,6 @@
     "paper-icon-button": "polymerelements/paper-icon-button#^1.1.2",
     "polymer": "Polymer/polymer#^1.6.0",
     "i18n-behavior": "^1.1.7",
-    "rest-api": "^0.0.1",
     "plutonium-language-picker": "lordoftheflies/plutonium-language-picker",
     "plutonium-avatar-button": "lordoftheflies/plutonium-avatar-button",
     "paper-card": "PolymerElements/paper-card",
@@ -50,7 +49,10 @@
     "iron-icons": "polymerelements/iron-icons#^1.1.3",
     "paper-input": "polymerelements/paper-input#^1.1.17",
     "paper-chip": "^1.0.0",
-    "file-upload": "^1.7.7"
+    "file-upload": "^1.7.7",
+    "gold-email-input": "PolymerElements/gold-email-input#^1.0.7",
+    "iron-form": "PolymerElements/iron-form#^1.1.4",
+    "paper-spinner": "PolymerElements/paper-spinner#^1.2.0"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

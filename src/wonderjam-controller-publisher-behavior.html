@@ -3,20 +3,27 @@
 <script>
     (function () {
         'use strict';
+
         window.WonderjamAppBehaviors = window.WonderjamAppBehaviors || {};
+
         /**
          * Publisher controller behavior,
+         * 
          *
          * @polymerBehavior
          */
         WonderjamAppBehaviors.ControllerPublicherBehaviorImpl = {
             properties: {
                 /**
-                 * Model publisher.
-                 * @type {{}}
+                 * Model for publisher.
+                 * @type {{accountId: string, articleId: string}}
                  */
                 publisherModel: {
                 },
+                /**
+                 * Model for content.
+                 * @type {{sections: Array<{name: string, title: string, data: string}>}}
+                 */
                 contentModel: {
                     type: Object,
                     notify: true,
@@ -30,7 +37,7 @@
              */
             onAddSection: function () {
                 console.log('Add section after field[' + 'section' + this.contentModel.sections.length + ']');
-                this.fire('create', {
+                this.$.shareView.$.sectionEditor.fire('create', {
                     name: 'section' + this.contentModel.sections.length,
                     type: 'plutonium-cm-editor-text',
                     title: '',
@@ -42,31 +49,31 @@
              */
             onEmbedVideo: function () {
                 console.log('Embed video to after field[' + 'section' + this.contentModel.sections.length + ']');
-//                this.fire('create', {
-//                    name: 'section' + this.contentModel.sections.length,
-//                    type: 'plutonium-cm-editor-video',
-//                    title: '',
-//                    data: ''
-//                });
+                this.$.shareView.$.sectionEditor.fire('create', {
+                    name: 'section' + this.contentModel.sections.length,
+                    type: 'plutonium-cm-editor-video',
+                    title: '',
+                    data: ''
+                });
             },
             /**
              * Add image-section handler.
              */
             onEmbedImage: function () {
                 console.log('Embed image to after field[' + 'section' + this.contentModel.sections.length + ']');
-//                this.fire('create', {
-//                    name: this.name,
-//                    type: 'plutonium-cm-editor-image',
-//                    title: '',
-//                    data: ''
-//                });
+                this.$.shareView.$.sectionEditor.fire('create', {
+                    name: this.name,
+                    type: 'plutonium-cm-editor-image',
+                    title: '',
+                    data: ''
+                });
             },
             /**
              * Add link-section handler.
              */
             onEmbedLink: function () {
                 console.log('Embed link to after field[' + 'section' + this.contentModel.sections.length + ']');
-                this.fire('create', {
+                this.$.shareView.$.sectionEditor.fire('create', {
                     name: 'section' + this.contentModel.sections.length,
                     type: 'plutonium-cm-editor-link',
                     title: '',
