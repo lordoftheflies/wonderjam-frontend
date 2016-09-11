@@ -57,9 +57,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <form is="iron-form" id="signInForm" 
                       method="post" action="http://localhost:8080/login" headers="[[authHeaders]]" content-type="application/json"
                       hidden="[[loading]]">
-                      
-                    <gold-email-input id="signinEmailInput" name="userName" label="Email" value="{{credentials.userName}}" required auto-validate></gold-email-input>
-                    <paper-input id="signinEmailPassword" name="password" label="Password" value="{{credentials.password}}" type="password" required auto-validate></paper-input>
+                    <template is="dom-if" if="[[hasAuthenticationError]]">
+                        <div>{{authenticationError}}</div>
+                    </template>
+
+                    <!--<gold-email-input id="signinEmailInput" name="userName" label="Email" value="{{credentials.userName}}" required auto-validate></gold-email-input>-->
+                    <paper-input 
+                        id="signinUserNameInput" 
+                        name="userName" 
+                        label="Username" 
+                        value="{{credentials.userName}}"
+                        error-message="[[userNameError]]"
+                        required 
+                        auto-validate>
+                    </paper-input>
+                    <paper-input 
+                        id="signinEmailPassword" 
+                        name="password" 
+                        label="Password" 
+                        value="{{credentials.password}}" 
+                        type="password"
+                        error-message="[[passwordError]]"
+                        required 
+                        auto-validate>
+                    </paper-input>
                 </form>
             </div>
             <div class="card-actions">
@@ -110,6 +131,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     type: Boolean,
                     reflectToAttribute: true,
                     value: false
+                },
+                userNameError: {
+                    type: String,
+                    notify: true,
+                    value: 'Username is required.'
+                },
+                passwordError: {
+                    type: String,
+                    notify: true,
+                    value: 'Password is required.'
+                },
+                authenticationError: {
+                    type: String,
+                    notify: true,
+                    value: 'Sign-in failed.'
+                },
+                hasAuthenticationError: {
+                    type: String,
+                    notify: true,
+                    value: false
                 }
             },
             listeners: {
@@ -141,7 +182,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 this.loading = false;
                 this.credentials.userName = null;
                 this.credentials.password = null;
-                console.error(this.is, 'sign-in error', detail.response);
+                if (detail.request.status === 401) { // Unauthorized
+                    this.hasAuthenticationError = true;
+                    this.authenticationError = detail.request.statusText;
+                } else if (detail.request.status === 403) { // Forbidden
+                    this.hasAuthenticationError = true;
+                    this.authenticationError = detail.request.statusText;
+                } else if (detail.request.status === 404) { // Not found
+                    this.hasAuthenticationError = true;
+                    this.authenticationError = detail.request.statusText;
+                } else {
+                    this.hasAuthenticationError = true;
+                    this.authenticationError = detail.request.statusText;
+                }
+                console.error(this.is, 'sign-in error', detail.request.response);
             },
             computeSignInDisabled: function (userName, password) {
                 return userName === null || password === null || userName.length === 0 || password.length === 0;
