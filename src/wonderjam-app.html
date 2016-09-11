@@ -253,10 +253,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         </paper-tabs>
                         <paper-tabs selected="{{memberSubrouteData.memberId}}" class="flex" scrollable attr-for-selected="name" name="article-section" href="#/members-view/[[accountId]]">
                             <!--<template is="dom-repeat" items="[[parents]]">-->
-                                <paper-tab name="[[item.id]]" role="[[item.role]]" link>
-                                    <!--<iron-icon class="end-justified" icon="wonderjam-icons:[[getIcon(item.role)]]" href="#/members-view/{{item.id}}"></iron-icon>-->
-                                    <a class="member tab link" href="#/members-view/{{item.id}}">[[contentChildrenModel.title]]</a>
-                                </paper-tab>
+                            <paper-tab name="[[item.id]]" role="[[item.role]]" link>
+                                <!--<iron-icon class="end-justified" icon="wonderjam-icons:[[getIcon(item.role)]]" href="#/members-view/{{item.id}}"></iron-icon>-->
+                                <a class="member tab link" href="#/members-view/{{item.id}}">[[contentChildrenModel.title]]</a>
+                            </paper-tab>
                             <!--</template>-->
                         </paper-tabs>
                     </iron-pages>
@@ -269,10 +269,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     attr-for-selected="name"
                     fallback-selection="view404"
                     role="main">
-                    <wonderjam-login-view name="login-view">
-                        
+                    <wonderjam-login-view 
+                        name="login-view"
+                        signed-in="{{authenticated}}">
                     </wonderjam-login-view>
-                    
+
                     <wonderjam-about-view 
                         name="about-view">
                     </wonderjam-about-view>

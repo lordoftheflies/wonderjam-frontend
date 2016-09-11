@@ -128,11 +128,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 this.$.signInForm.submit();
             },
             onSigninFormResponse: function (event, detail) {
+                this.signedIn = true;
                 this.loading = false;
                 this.user = detail.response;
+                this.fire('page-go', {
+                    page: ''
+                });
                 console.log(this.is, 'sign-in response', detail.response);
             },
             onSigninFormError: function (event, detail) {
+                this.signedIn = false;
                 this.loading = false;
                 this.credentials.userName = null;
                 this.credentials.password = null;

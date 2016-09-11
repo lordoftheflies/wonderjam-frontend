@@ -22,8 +22,16 @@
                     type: String,
                     notify: true
                 },
+                loginPage: {
+                    type: String,
+                    notify: true
+                },
                 applicationDomain: {
                     type: String,
+                    notify: true
+                },
+                authenticated: {
+                    type: Boolean,
                     notify: true
                 }
             },
@@ -43,7 +51,11 @@
              */
             _routePageChanged: function (page) {
                 console.log(this.is, 'navigate to', page);
-                this.page = page || this.homePage;
+                if (this.authenticated) {
+                    this.page = page || this.homePage;
+                } else {
+                    this.page = this.loginPage;
+                }
             },
             /**
              * Page changed observer.
