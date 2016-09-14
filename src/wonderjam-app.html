@@ -36,6 +36,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="plutonium-app-routing-behavior.html">
 <link rel="import" href="plutonium-app-toasting-behavior.html">
 <link rel="import" href="plutonium-datasource-behavior.html">
+<link rel="import" href="plutonium-app-secure-behavior.html">
 <link rel="import" href="plutonium-widget-bound-beavior.html">
 <link rel="import" href="wonderjam-controller-article-behavior.html">
 <link rel="import" href="wonderjam-controller-publisher-behavior.html">
@@ -106,6 +107,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 @apply(--layout-center-center);
 
             }
+
+            #mainTitle {
+                text-align: center;
+            }
         </style>
         <!--Get all members.-->
         <iron-ajax id="possibleParentsIronAjax" url="[[apiUrl]]/addressbook/all" 
@@ -172,9 +177,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                    body="{{shareModel}}" on-response="onMessageSendResponse" on-error="onMessageSendError"
                    method="POST"  handle-as="json"content-type="application/json"></iron-ajax>
         <!--Get token-->
-        <iron-ajax id="sessionAjax" url="[[apiUrl]]/authentication/session?token=[[accountId]]" 
-                   last-response="{{session}}" 
-                   auto></iron-ajax>
+        <!--        <iron-ajax id="sessionAjax" url="[[apiUrl]]/authentication/session?token=[[accountId]]" 
+                           last-response="{{session}}" 
+                           auto></iron-ajax>-->
+        <iron-ajax id="tokenAjax" url="/token" last-response="{{token}}" auto></iron-ajax>
+        <!--<iron-ajax id="rootArticlesAjax" url="http://localhost:8081/cms/root" headers="[[headers]]" last-response="{{rootArticlesModel}}" auto="[[token]]"></iron-ajax>-->
+        <iron-ajax id="rootArticlesAjax" url="http://localhost:8081/cms/root" headers="[[headers]]" last-response="{{rootArticlesModel}}" auto="false"></iron-ajax>
         <!--Routing-->
         <app-location route="{{route}}" use-hash-as-path query-params="{{queryParams}}"></app-location>
         <!--        <app-route route="{{route}}" pattern="/registrate" data="{{activationData}}"></app-route>
@@ -188,7 +196,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <polymer-cookie id="rememberMeCookie" name="rememberMe" value="{{rememberMe}}" time="1" format="d"></polymer-cookie>
         <polymer-cookie id="tokenCookie" name="accountId" value="{{accountId}}" time="1" format="d" auto-set></polymer-cookie>
         <!--Layout-->
-        <app-drawer-layout fullbleed>
+        <app-drawer-layout fullbleed force-narrow="[[!authenticated]]">
             <!-- Drawer content -->
             <app-drawer>
                 <app-toolbar text-id="main-menu-label">Menu</app-toolbar>
@@ -203,16 +211,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <!-- Main content -->
             <app-header-layout id="headerLayout" has-scrolling-region>
 
-                <app-header fixed shadow>
+                <app-header fixed shadow="[[authenticated]]">
                     <app-toolbar>
-                        <paper-icon-button icon="wonderjam-icons:menu" drawer-toggle></paper-icon-button>
-                        <div main-title class="flex">Topflavon</div>
+                        <paper-icon-button icon="wonderjam-icons:menu" drawer-toggle hidden="[[!authenticated]]"></paper-icon-button>
+                        <div id="mainTitle" main-title class="flex center-center">Topflavon</div>
                         <plutonium-language-picker>
                             <plutonium-language-item lang="en" text-id="english-language-label">English</plutonium-language-item>
                             <plutonium-language-item lang="hu" text-id="hungarian-language-label">Magyar</plutonium-language-item>
                             <plutonium-language-item lang="po" text-id="polish-language-label">Polski</plutonium-language-item>
                         </plutonium-language-picker>
-                        <plutonium-avatar-button display-name-attribute="userName" display-unique-attribute="userName" user="[[session]]">
+                        <plutonium-avatar-button 
+                            hidden="[[!authenticated]]"
+                            display-name-attribute="userName" display-unique-attribute="userName" user="[[session]]">
                             <a href="#/profile-view" class="menu">
                                 <paper-item class="menu">
                                     <iron-icon icon="account-circle" item-icon></iron-icon>
@@ -415,6 +425,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 PlutoniumBehaviors.DatasourceBehavior,
                 PlutoniumBehaviors.AppRoutingBehavior,
                 PlutoniumBehaviors.AppToastingBehavior,
+                PlutoniumBehaviors.AppSecurityBehavior,
                 BehaviorsStore.I18nBehavior,
                 WonderjamAppBehaviors.ControllerArticleBehavior,
                 WonderjamAppBehaviors.ControllerPublicherBehavior,
@@ -423,9 +434,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 WonderjamAppBehaviors.ControllerMailingBehavior
             ],
             properties: {
+                rootArticlesModel: {
+                    type: Object,
+                    notify: true
+                },
+                authenticated: {
+                    type: Boolean,
+                    notify: true,
+                    value: false
+                }
             },
+            observers: [
+                'observeRootArticlesModel(rootArticlesModel)'
+            ],
             onOpenSpeedDial: function () {
-                console.log('fos');
                 this.$.asd.open();
             },
             getIcon: function (data) {
@@ -436,6 +458,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 } else if (data === 'ADMIN') {
                     return 'member';
                 }
+            },
+            observeRootArticlesModel: function (rootArticlesModel) {
+                console.log('KKKKKKKKKKKKKKKKKKKKKK ', rootArticlesModel);
             }
         });
     </script>

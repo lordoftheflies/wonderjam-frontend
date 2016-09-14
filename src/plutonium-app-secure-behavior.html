@@ -1,0 +1,34 @@
+<script>
+    (function () {
+        'use strict';
+
+        window.PlutoniumBehaviors = window.PlutoniumBehaviors || {};
+
+        /**
+         * Provides application toasing behavior with `<paper-toast id="mainToast">`.
+         *
+         * @polymerBehavior
+         */
+        PlutoniumBehaviors.AppSecurityBehavior = {
+            properties: {
+                token: {
+                    type: Object,
+                    notify: true
+                },
+                headers: {
+                    type: Object,
+                    notify: true
+                }
+            },
+            observers: [
+                'observeAuthorizationHeaders(token)'
+            ],
+            observeAuthorizationHeaders: function (token) {
+                this.headers = {
+                    'X-Auth-Token' : token.token
+                }
+                console.log(this.is, 'set authorization header', token);
+            }
+        };
+    })();
+</script>

@@ -55,7 +55,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <paper-spinner id="spinner" hidden="[[!loading]]"></paper-spinner>
             <div class="card-content">
                 <form is="iron-form" id="signInForm" 
-                      method="post" action="http://localhost:8080/login" headers="[[authHeaders]]" content-type="application/json"
+                      method="post" action="http://localhost:8080/user" headers="[[authHeaders]]" content-type="application/json"
                       hidden="[[loading]]">
                     <template is="dom-if" if="[[hasAuthenticationError]]">
                         <div>{{authenticationError}}</div>
@@ -130,6 +130,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 signedIn: {
                     type: Boolean,
                     reflectToAttribute: true,
+                    notify: true,
                     value: false
                 },
                 userNameError: {
@@ -169,11 +170,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 this.$.signInForm.submit();
             },
             onSigninFormResponse: function (event, detail) {
-                this.signedIn = true;
+                this.signedIn = detail.response.authenticated;
                 this.loading = false;
                 this.user = detail.response;
                 this.fire('page-go', {
-                    page: ''
+                    page: 'article-view'
                 });
                 console.log(this.is, 'sign-in response', detail.response);
             },
