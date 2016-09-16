@@ -117,67 +117,66 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </style>
         <!--Get all members.-->
         <iron-ajax id="possibleParentsIronAjax" url="[[apiUrl]]/addressbook/all" 
-                   last-response="{{possibleParents}}" 
-                   ></iron-ajax>
+                   last-response="{{possibleParents}}" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[authenticated]]"></iron-ajax>
         <!--Get network members.-->
         <iron-ajax id="contactsAjax" url="[[apiUrl]]/addressbook/[[accountId]]/contacts" 
-                   last-response="{{contacts}}" 
-                   ></iron-ajax>
+                   last-response="{{contacts}}" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[authenticated]]"></iron-ajax>
         <!--Get member parents.-->
         <iron-ajax id="genocideIronAjax" url="[[apiUrl]]/addressbook/genocide" 
-                   params="[[genocideRequestParams]]" last-response="{{parents}}" 
-                   ></iron-ajax>
+                   params="[[genocideRequestParams]]" last-response="{{parents}}" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[authenticated]]"></iron-ajax>
         <!--Get member children.-->
         <iron-ajax id="childrenIronAjax" url="[[apiUrl]]/addressbook/children" 
-                   params="[[childrenRequestParams]]" last-response="{{memberChildren}}" 
-                   ></iron-ajax>
+                   params="[[childrenRequestParams]]" last-response="{{memberChildren}}" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[authenticated]]"></iron-ajax>
         <!--Get article info-->
         <iron-ajax id="rootModelAjax" url="[[apiUrl]]/content-management/toc/info" 
-                   params="[[infoRequestParams]]" last-response="{{rootModel}}" 
-                   handle-as="json"></iron-ajax>
+                   params="[[infoRequestParams]]" last-response="{{rootModel}}" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[authenticated]]"></iron-ajax>
         <!--Get parent articles-->
         <iron-ajax id="parentTocAjax" url="[[apiUrl]]/content-management/toc/path" 
-                   params="[[tocRequestParams]]" last-response="{{parentModel}}" on-response="onParentTocAjaxResponse" on-error="onParentTocAjaxError" 
-                   handle-as="json"></iron-ajax>
+                   params="[[tocRequestParams]]" last-response="{{parentModel}}" on-response="onParentTocAjaxResponse" on-error="onParentTocAjaxError" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[authenticated]]"></iron-ajax>
         <!--Get child contents of an article-->
         <iron-ajax id="childTocAjax" url="[[apiUrl]]/content-management/toc" 
-                   params="[[tocRequestParams]]" last-response="{{contentChildrenModel}}" on-response="onChildTocAjaxResponse" on-error="onChildTocAjaxError" 
-                   handle-as="json"></iron-ajax>
+                   params="[[tocRequestParams]]" last-response="{{contentChildrenModel}}" on-response="onChildTocAjaxResponse" on-error="onChildTocAjaxError" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[authenticated]]"></iron-ajax>
         <!--Publish content-->
         <iron-ajax id="publisherAjax" url="[[apiUrl]]/content-management/publish" 
-                   body="{{publisherModel}}" on-response="onPublisherAjaxResponse" on-error="onPublisherAjaxError"
-                   method="POST" handle-as="json" content-type="application/json">
-        </iron-ajax>
+                   body="{{publisherModel}}" on-response="onPublisherAjaxResponse" on-error="onPublisherAjaxError" headers="[[headers]]"
+                   method="POST" handle-as="json" content-type="application/json"></iron-ajax>
         <!--Unpublish content-->
         <iron-ajax id="unpublisherAjax" url="[[apiUrl]]/content-management/unpublish" 
-                   body="{{publisherModel}}" on-response="onUnpublisherAjaxResponse" on-error="onUnpublisherAjaxError"
+                   body="{{publisherModel}}" on-response="onUnpublisherAjaxResponse" on-error="onUnpublisherAjaxError" headers="[[headers]]"
                    method="POST" handle-as="json" content-type="application/json"></iron-ajax>
         <!--Get mailbox folder-->
         <iron-ajax id="mailBoxAjax" url="[[apiUrl]]/mailbox/[[accountId]]/[[selectedMailBoxFolder]]" 
-                   last-response="{{mailBoxModel}}"
-                   ></iron-ajax>
+                   last-response="{{mailBoxModel}}" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[authenticated]]"></iron-ajax>
         <!--Get locales-->
         <iron-ajax id="localesAjax" url="[[apiUrl]]/localization/locales" 
-                   headers="[[headers]]" last-response="{{locales}}" 
+                   last-response="{{locales}}" headers="[[headers]]"
                    handle-as="json" content-type="application/json" auto="[[authenticated]]"></iron-ajax>
         <!--Get profile-->
         <iron-ajax id="profileAjax" url="[[apiUrl]]/addressbook/[[accountId]]/profile" 
-                   last-response="{{profile}}" 
-                   auto></iron-ajax>
+                   last-response="{{profile}}" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[authenticated]]"></iron-ajax>
         <!--Change language-->
         <iron-ajax id="changeLanguageAjax" url="[[apiUrl]]/localization/change" 
-                   body="{{changeLanguageModel}}" on-response="handleChangeLanguageResponse" on-error="handleChangeLanguageError"
+                   body="{{changeLanguageModel}}" on-response="handleChangeLanguageResponse" on-error="handleChangeLanguageError" headers="[[headers]]"
                    method="POST" handle-as="json" content-type="application/json"></iron-ajax>
         <iron-ajax id="parentCandidatesAjax" url="[[apiUrl]]/content-management/candidates/parent" 
-                   last-response="{{parentCandidates}}" 
-                   auto></iron-ajax>
+                   last-response="{{parentCandidates}}" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[authenticated]]"></iron-ajax>
         <!--Share content-->
         <iron-ajax id="shareAjax" url="[[apiUrl]]/content-management/[[accountId]]/save"
-                   body="{{editedContentModel}}"
+                   body="{{editedContentModel}}" headers="[[headers]]"
                    method="POST" handle-as="json" content-type="application/json"></iron-ajax>
         <!--Send message-->
         <iron-ajax id="messageSendAjax" url="[[apiUrl]]/mailbox/[[accountId]]/send"
-                   body="{{shareModel}}" on-response="onMessageSendResponse" on-error="onMessageSendError"
+                   body="{{shareModel}}" on-response="onMessageSendResponse" on-error="onMessageSendError" headers="[[headers]]"
                    method="POST" handle-as="json" content-type="application/json"></iron-ajax>
         <!--Get token-->
         <!--        <iron-ajax id="sessionAjax" url="[[apiUrl]]/authentication/session?token=[[accountId]]" 
@@ -185,7 +184,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                            auto></iron-ajax>-->
         <iron-ajax id="tokenAjax" url="[[apiUrl]]/token" 
                    last-response="{{token}}" 
-                   handle-as="json" content-type="application/json" auto></iron-ajax>
+                   handle-as="json" content-type="application/json"  auto="[[authenticated]]"></iron-ajax>
         <iron-ajax id="logoutAjax" url="[[apiUrl]]/logout" 
                    body="{}" headers="[[headers]]" on-response="onLogoutResponse" on-error="onLogoutError"
                    method="POST" handle-as="json" content-type="application/json"></iron-ajax>
