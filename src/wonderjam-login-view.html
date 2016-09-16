@@ -55,7 +55,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <paper-spinner id="spinner" hidden="[[!loading]]"></paper-spinner>
             <div class="card-content">
                 <form is="iron-form" id="signInForm" 
-                      method="post" action="http://localhost:8080/user" headers="[[authHeaders]]" content-type="application/json"
+                      method="POST"  action="[[authenticationUrl]]" headers="[[authHeaders]]" content-type="application/json"
                       hidden="[[loading]]">
                     <template is="dom-if" if="[[hasAuthenticationError]]">
                         <div>{{authenticationError}}</div>
@@ -152,7 +152,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     type: String,
                     notify: true,
                     value: false
+                },
+                authenticationUrl: {
+                    type: String,
+                    notify: true,
+                    value: 'Username is required.'
                 }
+                
             },
             listeners: {
                 'iron-form-response': 'onSigninFormResponse',

@@ -108,7 +108,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             }
 
-            #mainTitle {
+            app-header[shadow] #mainTitle {
+                text-align: left;
+            }
+            app-header #mainTitle {
                 text-align: center;
             }
         </style>
@@ -155,8 +158,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                    ></iron-ajax>
         <!--Get locales-->
         <iron-ajax id="localesAjax" url="[[apiUrl]]/localization/locales" 
-                   last-response="{{locales}}" 
-                   auto></iron-ajax>
+                   headers="[[headers]]" last-response="{{locales}}" 
+                   handle-as="json" content-type="application/json" auto="[[authenticated]]"></iron-ajax>
         <!--Get profile-->
         <iron-ajax id="profileAjax" url="[[apiUrl]]/addressbook/[[accountId]]/profile" 
                    last-response="{{profile}}" 
@@ -175,14 +178,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!--Send message-->
         <iron-ajax id="messageSendAjax" url="[[apiUrl]]/mailbox/[[accountId]]/send"
                    body="{{shareModel}}" on-response="onMessageSendResponse" on-error="onMessageSendError"
-                   method="POST"  handle-as="json"content-type="application/json"></iron-ajax>
+                   method="POST" handle-as="json" content-type="application/json"></iron-ajax>
         <!--Get token-->
         <!--        <iron-ajax id="sessionAjax" url="[[apiUrl]]/authentication/session?token=[[accountId]]" 
                            last-response="{{session}}" 
                            auto></iron-ajax>-->
-        <iron-ajax id="tokenAjax" url="/token" last-response="{{token}}" auto></iron-ajax>
+        <iron-ajax id="tokenAjax" url="[[apiUrl]]/token" 
+                   last-response="{{token}}" 
+                   handle-as="json" content-type="application/json" auto></iron-ajax>
+        <iron-ajax id="logoutAjax" url="[[apiUrl]]/logout" 
+                   body="{}" headers="[[headers]]" on-response="onLogoutResponse" on-error="onLogoutError"
+                   method="POST" handle-as="json" content-type="application/json"></iron-ajax>
         <!--<iron-ajax id="rootArticlesAjax" url="http://localhost:8081/cms/root" headers="[[headers]]" last-response="{{rootArticlesModel}}" auto="[[token]]"></iron-ajax>-->
-        <iron-ajax id="rootArticlesAjax" url="http://localhost:8081/cms/root" headers="[[headers]]" last-response="{{rootArticlesModel}}" auto="false"></iron-ajax>
+        <!--<iron-ajax id="rootArticlesAjax" url="http://localhost:8081/cms/root" headers="[[headers]]" last-response="{{rootArticlesModel}}" auto="false"></iron-ajax>-->
         <!--Routing-->
         <app-location route="{{route}}" use-hash-as-path query-params="{{queryParams}}"></app-location>
         <!--        <app-route route="{{route}}" pattern="/registrate" data="{{activationData}}"></app-route>
@@ -195,6 +203,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!--<polymer-cookie id="rememberMeCookie" name="rememberMe" value="{{rememberMe}}" time="1" format="d"></polymer-cookie>-->
         <polymer-cookie id="rememberMeCookie" name="rememberMe" value="{{rememberMe}}" time="1" format="d"></polymer-cookie>
         <polymer-cookie id="tokenCookie" name="accountId" value="{{accountId}}" time="1" format="d" auto-set></polymer-cookie>
+        <polymer-cookie
+            id="xsrfCookie"
+            name="XSRF-TOKEN">
+        </polymer-cookie>
         <!--Layout-->
         <app-drawer-layout fullbleed force-narrow="[[!authenticated]]">
             <!-- Drawer content -->
@@ -281,7 +293,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     role="main">
                     <wonderjam-login-view 
                         name="login-view"
-                        signed-in="{{authenticated}}">
+                        signed-in="{{authenticated}}"
+                        authentication-url="[[apiUrl]]/login">
                     </wonderjam-login-view>
 
                     <wonderjam-about-view 
@@ -442,6 +455,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     type: Boolean,
                     notify: true,
                     value: false
+                },
+                apiUrl: {
+                    value: "/backend"
+//                    value: "http://localhost:8080/backend"
                 }
             },
             observers: [

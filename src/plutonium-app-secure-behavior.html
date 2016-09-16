@@ -24,10 +24,29 @@
                 'observeAuthorizationHeaders(token)'
             ],
             observeAuthorizationHeaders: function (token) {
+                
                 this.headers = {
-                    'X-Auth-Token' : token.token
+                    'X-Auth-Token': token.token,
+                    'X-XSRF-TOKEN': this.$.xsrfCookie.readCookie()
                 }
                 console.log(this.is, 'set authorization header', token);
+            },
+            onLogout: function () {
+                console.log(this.is, 'logout ...');
+                this.$.logoutAjax.generateRequest();
+            },
+            onLogoutResponse: function () {
+                this.authenticated = false;
+                console.log(this.is, 'logout successful');
+                this.fire('page-go', {
+                    page: 'login-view'
+                });
+            },
+            onLogoutError: function () {
+
+                this.fire('feedback', {
+                    text: 'Logout failed.'
+                });
             }
         };
     })();
