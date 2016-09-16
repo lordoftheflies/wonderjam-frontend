@@ -183,8 +183,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                            last-response="{{session}}" 
                            auto></iron-ajax>-->
         <iron-ajax id="tokenAjax" url="[[apiUrl]]/token" 
-                   last-response="{{token}}" 
-                   handle-as="json" content-type="application/json"  auto="[[authenticated]]"></iron-ajax>
+                   last-response="{{token}}"  headers="[[headers]]"
+                   handle-as="json" content-type="application/json"  auto></iron-ajax>
+                   <!--handle-as="json" content-type="application/json"  auto="[[authenticated]]"></iron-ajax>-->
         <iron-ajax id="logoutAjax" url="[[apiUrl]]/logout" 
                    body="{}" headers="[[headers]]" on-response="onLogoutResponse" on-error="onLogoutError"
                    method="POST" handle-as="json" content-type="application/json"></iron-ajax>
