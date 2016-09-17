@@ -147,6 +147,6 @@
   "messagesPagePublicFolderTitle": "Public",
   "messagesPageMyContentsFolderTitle": "Drafts",
   "messagesPagePublishedFolderTitle": "Published",
-  "mailBoxPageInboxFolderTitle": "Inbox",
-  "sentItemsPageInboxFolderTitle": "Sent items"
+  "mailBoxPageInboxFolderTitle": "Odebrane wiadomości",
+  "sentItemsPageInboxFolderTitle": "Wysłane"
 }

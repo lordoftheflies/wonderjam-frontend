@@ -167,8 +167,8 @@
     "messagesPagePublicFolderTitle": "Public",
     "messagesPageMyContentsFolderTitle": "Drafts",
     "messagesPagePublishedFolderTitle": "Published",
-    "mailBoxPageInboxFolderTitle": "Inbox",
-    "sentItemsPageInboxFolderTitle": "Sent items"
+    "mailBoxPageInboxFolderTitle": "Odebrane wiadomości",
+    "sentItemsPageInboxFolderTitle": "Wysłane"
   },
   "wonderjam-article-field": {
     "meta": {
@@ -246,9 +246,9 @@
       ]
     },
     "model": {},
-    "messageItemSenderLabel": "From:",
-    "messageItemReceiverLabel": "To:",
-    "emptyMailBoxFolderText": "No messages in the folder."
+    "messageItemSenderLabel": "Od",
+    "messageItemReceiverLabel": "Do",
+    "emptyMailBoxFolderText": "Brak wiadomości w folderze."
   },
   "wonderjam-members-view": {
     "meta": {

@@ -1,10 +1,25 @@
 {
   "meta": {
     "todo": [
+      {
+        "op": "add",
+        "path": "/emptyMailBoxFolderText",
+        "value": "No messages in the folder."
+      },
+      {
+        "op": "add",
+        "path": "/messageItemSenderLabel",
+        "value": "From:"
+      },
+      {
+        "op": "add",
+        "path": "/messageItemReceiverLabel",
+        "value": "To:"
+      }
     ]
   },
   "model": {},
   "messageItemSenderLabel": "Küldő",
-  "messageItemReceiverLabel": "Fogadó",
+  "messageItemReceiverLabel": "Címzett",
   "emptyMailBoxFolderText": "Nincsenek üzenetek a mappában."
 }

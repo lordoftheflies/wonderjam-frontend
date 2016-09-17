@@ -246,9 +246,9 @@
       ]
     },
     "model": {},
-    "messageItemSenderLabel": "From:",
-    "messageItemReceiverLabel": "To:",
-    "emptyMailBoxFolderText": "No messages in the folder."
+    "messageItemSenderLabel": "Küldő",
+    "messageItemReceiverLabel": "Címzett",
+    "emptyMailBoxFolderText": "Nincsenek üzenetek a mappában."
   },
   "wonderjam-members-view": {
     "meta": {

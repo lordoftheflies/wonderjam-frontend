@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file xml:space="default" source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2016-09-17T12:23:17Z" product-name="messages">
+  <file xml:space="default" source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2016-09-17T12:32:04Z" product-name="messages">
     <header>
       <tool tool-id="xliff-conv" tool-name="xliff-conv" tool-version="1.0.10"/>
     </header>
@@ -120,15 +120,15 @@
       </trans-unit>
       <trans-unit id="wonderjam-mailbox-view.messageItemSenderLabel">
         <source>From:</source>
-        <target state="new">From:</target>
+        <target state="new">Küldő</target>
       </trans-unit>
       <trans-unit id="wonderjam-mailbox-view.messageItemReceiverLabel">
         <source>To:</source>
-        <target state="new">To:</target>
+        <target state="new">Címzett</target>
       </trans-unit>
       <trans-unit id="wonderjam-mailbox-view.emptyMailBoxFolderText">
         <source>No messages in the folder.</source>
-        <target state="new">No messages in the folder.</target>
+        <target state="new">Nincsenek üzenetek a mappában.</target>
       </trans-unit>
       <trans-unit id="wonderjam-members-view.emptyChildrenText">
         <source>No children.</source>
