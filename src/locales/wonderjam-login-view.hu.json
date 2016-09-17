@@ -1,1 +1,30 @@
-{}
+{
+  "meta": {
+    "todo": [
+      {
+        "op": "add",
+        "path": "/model/signinUserNameInput/label",
+        "value": "Username"
+      },
+      {
+        "op": "add",
+        "path": "/model/signinEmailPassword/label",
+        "value": "Password"
+      },
+      {
+        "op": "add",
+        "path": "/signInSubmitTitle",
+        "value": "Sign in"
+      }
+    ]
+  },
+  "model": {
+    "signinUserNameInput": {
+      "label": "Username"
+    },
+    "signinEmailPassword": {
+      "label": "Password"
+    }
+  },
+  "signInSubmitTitle": "Sign in"
+}

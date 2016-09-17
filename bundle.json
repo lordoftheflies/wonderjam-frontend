@@ -92,6 +92,25 @@
     "model": {},
     "emptyChildrenText": "No content in the folder."
   },
+  "wonderjam-login-view": {
+    "meta": {
+      "locales": [
+        "en",
+        "en-US",
+        "hu",
+        "po"
+      ]
+    },
+    "model": {
+      "signinUserNameInput": {
+        "label": "Username"
+      },
+      "signinEmailPassword": {
+        "label": "Password"
+      }
+    },
+    "signInSubmitTitle": "Sign in"
+  },
   "wonderjam-mailbox-view": {
     "meta": {
       "locales": [

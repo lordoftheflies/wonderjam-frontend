@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file xml:space="default" source-language="en" target-language="en" datatype="plaintext" original="messages" date="2016-09-17T11:29:26Z" product-name="messages">
+  <file xml:space="default" source-language="en" target-language="en" datatype="plaintext" original="messages" date="2016-09-17T11:31:23Z" product-name="messages">
     <header>
       <tool tool-id="xliff-conv" tool-name="xliff-conv" tool-version="1.0.10"/>
     </header>
@@ -105,6 +105,18 @@
       <trans-unit id="wonderjam-article-view.emptyChildrenText">
         <source>No content in the folder.</source>
         <target state="new">No content in the folder.</target>
+      </trans-unit>
+      <trans-unit id="wonderjam-login-view.model.signinUserNameInput.label">
+        <source>Username</source>
+        <target state="new">Username</target>
+      </trans-unit>
+      <trans-unit id="wonderjam-login-view.model.signinEmailPassword.label">
+        <source>Password</source>
+        <target state="new">Password</target>
+      </trans-unit>
+      <trans-unit id="wonderjam-login-view.signInSubmitTitle">
+        <source>Sign in</source>
+        <target state="new">Sign in</target>
       </trans-unit>
       <trans-unit id="wonderjam-mailbox-view.paper-material_1:iron-list:template:paper-item:div:div:div:span.0">
         <source>From: {1}</source>
