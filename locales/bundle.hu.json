@@ -230,40 +230,24 @@
       "todo": [
         {
           "op": "add",
-          "path": "/paper-material_1:iron-list:template:paper-item:div:div:div:span/0",
-          "value": "From: {1}"
-        },
-        {
-          "op": "add",
-          "path": "/paper-material_1:iron-list:template:paper-item:div:div:div:span/1",
-          "value": "[[message.fromName]]"
-        },
-        {
-          "op": "add",
-          "path": "/paper-material_1:iron-list:template:paper-item:div:div:div:span_1/0",
-          "value": "To: {1}"
-        },
-        {
-          "op": "add",
-          "path": "/paper-material_1:iron-list:template:paper-item:div:div:div:span_1/1",
-          "value": "[[message.toName]]"
-        },
-        {
-          "op": "add",
           "path": "/emptyMailBoxFolderText",
           "value": "No messages in the folder."
+        },
+        {
+          "op": "add",
+          "path": "/messageItemSenderLabel",
+          "value": "From:"
+        },
+        {
+          "op": "add",
+          "path": "/messageItemReceiverLabel",
+          "value": "To:"
         }
       ]
     },
     "model": {},
-    "paper-material_1:iron-list:template:paper-item:div:div:div:span": [
-      "From: {1}",
-      "[[message.fromName]]"
-    ],
-    "paper-material_1:iron-list:template:paper-item:div:div:div:span_1": [
-      "To: {1}",
-      "[[message.toName]]"
-    ],
+    "messageItemSenderLabel": "From:",
+    "messageItemReceiverLabel": "To:",
     "emptyMailBoxFolderText": "No messages in the folder."
   },
   "wonderjam-members-view": {

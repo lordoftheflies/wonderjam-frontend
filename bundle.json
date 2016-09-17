@@ -121,14 +121,8 @@
       ]
     },
     "model": {},
-    "paper-material_1:iron-list:template:paper-item:div:div:div:span": [
-      "From: {1}",
-      "[[message.fromName]]"
-    ],
-    "paper-material_1:iron-list:template:paper-item:div:div:div:span_1": [
-      "To: {1}",
-      "[[message.toName]]"
-    ],
+    "messageItemSenderLabel": "From:",
+    "messageItemReceiverLabel": "To:",
     "emptyMailBoxFolderText": "No messages in the folder."
   },
   "wonderjam-members-view": {

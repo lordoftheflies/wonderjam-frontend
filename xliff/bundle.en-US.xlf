@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file xml:space="default" source-language="en" target-language="en-US" datatype="plaintext" original="messages" date="2016-09-17T12:18:03Z" product-name="messages">
+  <file xml:space="default" source-language="en" target-language="en-US" datatype="plaintext" original="messages" date="2016-09-17T12:23:17Z" product-name="messages">
     <header>
       <tool tool-id="xliff-conv" tool-name="xliff-conv" tool-version="1.0.10"/>
     </header>
@@ -118,21 +118,13 @@
         <source>Sign in</source>
         <target state="new">Sign in</target>
       </trans-unit>
-      <trans-unit id="wonderjam-mailbox-view.paper-material_1:iron-list:template:paper-item:div:div:div:span.0">
-        <source>From: {1}</source>
-        <target state="new">From: {1}</target>
+      <trans-unit id="wonderjam-mailbox-view.messageItemSenderLabel">
+        <source>From:</source>
+        <target state="new">From:</target>
       </trans-unit>
-      <trans-unit id="wonderjam-mailbox-view.paper-material_1:iron-list:template:paper-item:div:div:div:span.1">
-        <source>[[message.fromName]]</source>
-        <target state="new">[[message.fromName]]</target>
-      </trans-unit>
-      <trans-unit id="wonderjam-mailbox-view.paper-material_1:iron-list:template:paper-item:div:div:div:span_1.0">
-        <source>To: {1}</source>
-        <target state="new">To: {1}</target>
-      </trans-unit>
-      <trans-unit id="wonderjam-mailbox-view.paper-material_1:iron-list:template:paper-item:div:div:div:span_1.1">
-        <source>[[message.toName]]</source>
-        <target state="new">[[message.toName]]</target>
+      <trans-unit id="wonderjam-mailbox-view.messageItemReceiverLabel">
+        <source>To:</source>
+        <target state="new">To:</target>
       </trans-unit>
       <trans-unit id="wonderjam-mailbox-view.emptyMailBoxFolderText">
         <source>No messages in the folder.</source>
