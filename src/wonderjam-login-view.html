@@ -19,6 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/polymer-cookie/polymer-cookie.html">
+<link rel="import" href="../bower_components/i18n-behavior/i18n-behavior.html">
 <dom-module id="wonderjam-login-view">
     <template>
         <style>
@@ -86,7 +87,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div class="card-actions">
                 <paper-button on-tap="onSignIn" raised>
                     <iron-icon icon="account-circle"></iron-icon>
-                    <span>Sign in</span>
+                    <span id="signInSubmitTitle">Sign in</span>
                 </paper-button>
             </div>
         </paper-card>
@@ -94,6 +95,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script>
         Polymer({
             is: 'wonderjam-login-view',
+            behaviors: [
+                BehaviorsStore.I18nBehavior
+            ],
             properties: {
                 credentials: {
                     type: Object,

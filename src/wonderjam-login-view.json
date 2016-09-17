@@ -1,0 +1,12 @@
+{
+  "meta": {},
+  "model": {
+    "signinUserNameInput": {
+      "label": "Username"
+    },
+    "signinEmailPassword": {
+      "label": "Password"
+    }
+  },
+  "signInSubmitTitle": "Sign in"
+}
