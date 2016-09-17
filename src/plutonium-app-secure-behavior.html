@@ -26,22 +26,24 @@
                         principal: {
                             token: ''
                         }
-                    }
+                    },
+                    token: ''
                 }
             },
             observers: [
-                'observeAuthorizationHeaders(token)',
+                'observeAuthorizationHeaders(user.token)',
                 'observeAccountId(user.principal)'
             ],
             observeAuthorizationHeaders: function (token) {
-                
-                this.headers = {
-                    'X-Auth-Token': token.token,
-                    'X-XSRF-TOKEN': this.$.xsrfCookie.readCookie()
+                if (token !== null && token !== undefined) {
+                    this.headers = {
+                        'X-Auth-Token': token,
+                        'X-XSRF-TOKEN': this.$.xsrfCookie.readCookie()
+                    }
+                    console.log(this.is, 'set authorization header', token);
                 }
-                console.log(this.is, 'set authorization header', token);
             },
-            observeAccountId: function(principal) {
+            observeAccountId: function (principal) {
                 this.accountId = principal.token;
             },
             onLogout: function () {
