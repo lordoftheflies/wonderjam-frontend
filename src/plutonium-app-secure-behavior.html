@@ -34,6 +34,7 @@
             onLogout: function () {
                 console.log(this.is, 'logout ...');
                 this.$.logoutAjax.generateRequest();
+                this.$.tokenAjax.generateRequest();
             },
             onLogoutResponse: function () {
                 this.authenticated = false;

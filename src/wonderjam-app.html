@@ -184,7 +184,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                            auto></iron-ajax>-->
         <iron-ajax id="tokenAjax" url="[[apiUrl]]/token" 
                    last-response="{{token}}"  headers="[[headers]]"
-                   handle-as="json" content-type="application/json"  auto></iron-ajax>
+                   handle-as="json" content-type="application/json"></iron-ajax>
                    <!--handle-as="json" content-type="application/json"  auto="[[authenticated]]"></iron-ajax>-->
         <iron-ajax id="logoutAjax" url="[[apiUrl]]/logout" 
                    body="{}" headers="[[headers]]" on-response="onLogoutResponse" on-error="onLogoutError"
@@ -228,13 +228,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <paper-icon-button icon="wonderjam-icons:menu" drawer-toggle hidden="[[!authenticated]]"></paper-icon-button>
                         <div id="mainTitle" main-title class="flex center-center">Topflavon</div>
                         <plutonium-language-picker>
+                            <!--<plutonium-language-item lang="en-US" text-id="english-language-label">English (US)</plutonium-language-item>-->
                             <plutonium-language-item lang="en" text-id="english-language-label">English</plutonium-language-item>
                             <plutonium-language-item lang="hu" text-id="hungarian-language-label">Magyar</plutonium-language-item>
                             <plutonium-language-item lang="po" text-id="polish-language-label">Polski</plutonium-language-item>
                         </plutonium-language-picker>
                         <plutonium-avatar-button 
                             hidden="[[!authenticated]]"
-                            display-name-attribute="userName" display-unique-attribute="userName" user="[[session]]">
+                            display-name-attribute="userName" display-unique-attribute="userName" user="[[user]]">
                             <a href="#/profile-view" class="menu">
                                 <paper-item class="menu">
                                     <iron-icon icon="account-circle" item-icon></iron-icon>
@@ -294,6 +295,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <wonderjam-login-view 
                         name="login-view"
                         signed-in="{{authenticated}}"
+                        user="{{user}}"
                         authentication-url="[[apiUrl]]/login">
                     </wonderjam-login-view>
 
@@ -464,6 +466,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             observers: [
                 'observeRootArticlesModel(rootArticlesModel)'
             ],
+            ready: function() {
+              this.$.tokenAjax.generateRequest();  
+            },
             onOpenSpeedDial: function () {
                 this.$.asd.open();
             },

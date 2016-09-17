@@ -1,1 +1,19 @@
-{}
+{
+  "meta": {
+    "todo": [
+      {
+        "op": "add",
+        "path": "/authors-card:div:paper-item:paper-item-body:div",
+        "value": "Hegedűs László"
+      },
+      {
+        "op": "add",
+        "path": "/authors-card:div:paper-item:paper-item-body:div_1",
+        "value": "heglas11@gmail.com"
+      }
+    ]
+  },
+  "model": {},
+  "authors-card:div:paper-item:paper-item-body:div": "Hegedűs László",
+  "authors-card:div:paper-item:paper-item-body:div_1": "heglas11@gmail.com"
+}
