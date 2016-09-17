@@ -18,10 +18,15 @@
                 headers: {
                     type: Object,
                     notify: true
+                },
+                user: {
+                    type: Object,
+                    notify: true
                 }
             },
             observers: [
-                'observeAuthorizationHeaders(token)'
+                'observeAuthorizationHeaders(token)',
+                'observeAccountId(user.principal)'
             ],
             observeAuthorizationHeaders: function (token) {
                 
@@ -30,6 +35,9 @@
                     'X-XSRF-TOKEN': this.$.xsrfCookie.readCookie()
                 }
                 console.log(this.is, 'set authorization header', token);
+            },
+            observeAccountId: function(principal) {
+                return principal.token;
             },
             onLogout: function () {
                 console.log(this.is, 'logout ...');
