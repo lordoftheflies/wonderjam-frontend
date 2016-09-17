@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file xml:space="default" source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2016-09-17T11:31:23Z" product-name="messages">
+  <file xml:space="default" source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2016-09-17T11:34:21Z" product-name="messages">
     <header>
       <tool tool-id="xliff-conv" tool-name="xliff-conv" tool-version="1.0.10"/>
     </header>
@@ -16,23 +16,23 @@
       </trans-unit>
       <trans-unit id="wonderjam-app.model.sendMessageFab.title">
         <source>Publish content</source>
-        <target state="new">Publish content</target>
+        <target state="new">Cikk publikálása</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.model.addSectionButton.title">
         <source>Embedd text to the message content.</source>
-        <target state="new">Embedd text to the message content.</target>
+        <target state="new">Szöveges tartalom beágyazása.</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.model.addVideoButton.title">
         <source>Embedd video to the message content.</source>
-        <target state="new">Embedd video to the message content.</target>
+        <target state="new">Videó begyazása.</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.model.addImageButton.title">
         <source>Embedd image to the message content.</source>
-        <target state="new">Embedd image to the message content.</target>
+        <target state="new">Kép beágyazása.</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.model.addLinkButton.title">
         <source>Embedd a link to another message to the message content.</source>
-        <target state="new">Embedd a link to another message to the message content.</target>
+        <target state="new">Hivatkozás más tartalomra.</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.model.sendNewContentFab.title">
         <source>Cancel all changes &amp; create new article.</source>
@@ -40,23 +40,23 @@
       </trans-unit>
       <trans-unit id="wonderjam-app.main-menu-label">
         <source>Menu</source>
-        <target state="new">Menu</target>
+        <target state="new">Menü</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.article-menu-label">
         <source>Articles</source>
-        <target state="new">Articles</target>
+        <target state="new">Cikkek</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.mailbox-menu-label">
         <source>Mailbox</source>
-        <target state="new">Mailbox</target>
+        <target state="new">Levelesláda</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.members-menu-label">
         <source>Network</source>
-        <target state="new">Network</target>
+        <target state="new">Hálózat</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.about-menu-label">
         <source>About</source>
-        <target state="new">About</target>
+        <target state="new">Rólunk</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.mainTitle">
         <source>Topflavon</source>
@@ -64,7 +64,7 @@
       </trans-unit>
       <trans-unit id="wonderjam-app.english-language-label">
         <source>English</source>
-        <target state="new">English</target>
+        <target state="new">Angol</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.hungarian-language-label">
         <source>Magyar</source>
@@ -72,51 +72,51 @@
       </trans-unit>
       <trans-unit id="wonderjam-app.polish-language-label">
         <source>Polski</source>
-        <target state="new">Polski</target>
+        <target state="new">Lengyel</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.profile-menu-label">
         <source>Profile</source>
-        <target state="new">Profile</target>
+        <target state="new">Profil</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.logout-label">
         <source>Logout</source>
-        <target state="new">Logout</target>
+        <target state="new">Kijelentkezés</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.messagesPagePublicFolderTitle">
         <source>Public</source>
-        <target state="new">Public</target>
+        <target state="new">Publikus</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.messagesPageMyContentsFolderTitle">
         <source>Drafts</source>
-        <target state="new">Drafts</target>
+        <target state="new">Piszkozat</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.messagesPagePublishedFolderTitle">
         <source>Published</source>
-        <target state="new">Published</target>
+        <target state="new">Publikált</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.mailBoxPageInboxFolderTitle">
         <source>Inbox</source>
-        <target state="new">Inbox</target>
+        <target state="new">Beérkező</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.sentItemsPageInboxFolderTitle">
         <source>Sent items</source>
-        <target state="new">Sent items</target>
+        <target state="new">Elküldött</target>
       </trans-unit>
       <trans-unit id="wonderjam-article-view.emptyChildrenText">
         <source>No content in the folder.</source>
-        <target state="new">No content in the folder.</target>
+        <target state="new">A mappában nincs tartalom.</target>
       </trans-unit>
       <trans-unit id="wonderjam-login-view.model.signinUserNameInput.label">
         <source>Username</source>
-        <target state="new">Username</target>
+        <target state="new">Felhasználónév</target>
       </trans-unit>
       <trans-unit id="wonderjam-login-view.model.signinEmailPassword.label">
         <source>Password</source>
-        <target state="new">Password</target>
+        <target state="new">Jelszó</target>
       </trans-unit>
       <trans-unit id="wonderjam-login-view.signInSubmitTitle">
         <source>Sign in</source>
-        <target state="new">Sign in</target>
+        <target state="new">Bejelentkezés</target>
       </trans-unit>
       <trans-unit id="wonderjam-mailbox-view.paper-material_1:iron-list:template:paper-item:div:div:div:span.0">
         <source>From: {1}</source>
