@@ -71,9 +71,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         Polymer({
             is: 'wonderjam-mailbox-view',
-//            behaviors: [
-//                PlutoniumBehaviors.WidgetBehavior
-//            ],
+            behaviors: [
+                BehaviorsStore.I18nBehavior
+            ],
             properties: {
                 selectedMailBoxFolder: {
                     type: String,
