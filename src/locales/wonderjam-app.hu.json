@@ -115,38 +115,38 @@
   },
   "model": {
     "sendMessageFab": {
-      "title": "Publish content"
+      "title": "Cikk publikálása"
     },
     "addSectionButton": {
-      "title": "Embedd text to the message content."
+      "title": "Szöveges tartalom beágyazása."
     },
     "addVideoButton": {
-      "title": "Embedd video to the message content."
+      "title": "Videó begyazása."
     },
     "addImageButton": {
-      "title": "Embedd image to the message content."
+      "title": "Kép beágyazása."
     },
     "addLinkButton": {
-      "title": "Embedd a link to another message to the message content."
+      "title": "Hivatkozás más tartalomra."
     },
     "sendNewContentFab": {
       "title": "Cancel all changes & create new article."
     }
   },
-  "main-menu-label": "Menu",
-  "article-menu-label": "Articles",
-  "mailbox-menu-label": "Mailbox",
-  "members-menu-label": "Network",
-  "about-menu-label": "About",
+  "main-menu-label": "Menü",
+  "article-menu-label": "Cikkek",
+  "mailbox-menu-label": "Levelesláda",
+  "members-menu-label": "Hálózat",
+  "about-menu-label": "Rólunk",
   "mainTitle": "Topflavon",
-  "english-language-label": "English",
+  "english-language-label": "Angol",
   "hungarian-language-label": "Magyar",
-  "polish-language-label": "Polski",
-  "profile-menu-label": "Profile",
-  "logout-label": "Logout",
-  "messagesPagePublicFolderTitle": "Public",
-  "messagesPageMyContentsFolderTitle": "Drafts",
-  "messagesPagePublishedFolderTitle": "Published",
-  "mailBoxPageInboxFolderTitle": "Inbox",
-  "sentItemsPageInboxFolderTitle": "Sent items"
+  "polish-language-label": "Lengyel",
+  "profile-menu-label": "Profil",
+  "logout-label": "Kijelentkezés",
+  "messagesPagePublicFolderTitle": "Publikus",
+  "messagesPageMyContentsFolderTitle": "Piszkozat",
+  "messagesPagePublishedFolderTitle": "Publikált",
+  "mailBoxPageInboxFolderTitle": "Beérkező",
+  "sentItemsPageInboxFolderTitle": "Elküldött"
 }

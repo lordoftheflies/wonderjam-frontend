@@ -20,11 +20,11 @@
   },
   "model": {
     "signinUserNameInput": {
-      "label": "Username"
+      "label": "Felhasználónév"
     },
     "signinEmailPassword": {
-      "label": "Password"
+      "label": "Jelszó"
     }
   },
-  "signInSubmitTitle": "Sign in"
+  "signInSubmitTitle": "Bejelentkezés"
 }
