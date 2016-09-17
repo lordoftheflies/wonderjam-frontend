@@ -21,7 +21,12 @@
                 },
                 user: {
                     type: Object,
-                    notify: true
+                    notify: true,
+                    value: {
+                        principal: {
+                            token: ''
+                        }
+                    }
                 }
             },
             observers: [
@@ -37,7 +42,7 @@
                 console.log(this.is, 'set authorization header', token);
             },
             observeAccountId: function(principal) {
-                return principal.token;
+                this.accountId = principal.token;
             },
             onLogout: function () {
                 console.log(this.is, 'logout ...');

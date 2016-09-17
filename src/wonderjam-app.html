@@ -256,7 +256,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         fallback-selection="none"
                         role="header">
                         <div name="none"></div>
-                        <paper-tabs name="article-view" hidden="[[!session.powerUser]]" data-route="content-view"  attr-for-selected="name" selected="{{selectedContentFolder}}" style="width: 100%;" autoselect>
+                        <!--hidden="[[!session.powerUser]]"-->
+                        <paper-tabs name="article-view" data-route="content-view"  attr-for-selected="name" selected="{{selectedContentFolder}}" style="width: 100%;" autoselect>
                             <paper-tab text-id="messagesPagePublicFolderTitle" name="public">Public</paper-tab>
                             <paper-tab text-id="messagesPageMyContentsFolderTitle" name="drafts">Drafts</paper-tab>
                             <paper-tab text-id="messagesPagePublishedFolderTitle" name="published">Published</paper-tab>
@@ -310,9 +311,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         parent-model="[[parentModel]]"
                         content-children-model="{{contentChildrenModel}}"
                         publisher-model="[[publisherModel]]"
-                        account-id="[[session.token]]" 
-                        admin="[[session.powerUser]]" 
-                        owner-id="[[session.token]]"
+                        account-id="[[accountId]]" 
+                        admin="true" 
+                        owner-id="[[accountId]]"
                         selected-article-id="{{contentSubrouteData.contentId}}"
                         selected-content-folder="{{selectedContentFolder}}">
                     </wonderjam-article-view>
@@ -331,7 +332,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         name="members-view"
                         genocide-request-params="{{genocideRequestParams}}"
                         children-request-params="{{childrenRequestParams}}"
-                        account-id="[[session.token]]" 
+                        account-id="[[accountId]]" 
                         parents="[[parents]]"
                         member-children="[[memberChildren]]"
                         selected-name="{{selectedName}}"
@@ -348,7 +349,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <wonderjam-send-view 
                         name="send-view"
                         items="{{contacts}}" 
-                        account-id="[[session.token]]" 
+                        account-id="[[accountId]]" 
                         selected-item-ids="{{recipients}}"
                         parent-candidates="[[parentCandidates]]"
                         content-model="{{editedContentModel}}" 
@@ -358,7 +359,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         id="shareView"
                         name="share-view" 
                         items="{{contacts}}"
-                        account-id="[[session.token]]" 
+                        account-id="[[accountId]]" 
                         selected-item-ids="{{recipients}}"
                         content-model="{{editedContentModel}}" 
                         share-model="{{shareModel}}"
