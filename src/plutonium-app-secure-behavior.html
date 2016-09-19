@@ -35,13 +35,14 @@
                 'observeAccountId(user.principal)'
             ],
             observeAuthorizationHeaders: function (token) {
+                this.headers = {};
                 if (token !== null && token !== undefined) {
-                    this.headers = {
-                        'X-Auth-Token': token,
-                        'X-XSRF-TOKEN': this.$.xsrfCookie.readCookie()
-                    }
-                    console.log(this.is, 'set authorization header', token);
+                    this.headers['X-Auth-Token'] = token;
                 }
+                this.headers['X-XSRF-TOKEN'] = this.$.xsrfCookie.readCookie();
+
+                console.log(this.is, 'set authorization header', token);
+
             },
             observeAccountId: function (principal) {
                 this.accountId = principal.token;

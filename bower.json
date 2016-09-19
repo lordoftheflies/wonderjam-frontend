@@ -52,7 +52,8 @@
     "file-upload": "^1.7.7",
     "gold-email-input": "PolymerElements/gold-email-input#^1.0.7",
     "iron-form": "PolymerElements/iron-form#^1.1.4",
-    "paper-spinner": "PolymerElements/paper-spinner#^1.2.0"
+    "paper-spinner": "PolymerElements/paper-spinner#^1.2.0",
+    "paper-toggle-button": "polymerelements/paper-toggle-button#^1.2.0"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

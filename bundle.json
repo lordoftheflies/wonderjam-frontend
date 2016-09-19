@@ -109,6 +109,7 @@
         "label": "Password"
       }
     },
+    "rememberMeToggleButtonLabel": "Remember me",
     "signInSubmitTitle": "Sign in"
   },
   "wonderjam-mailbox-view": {

@@ -212,6 +212,11 @@
           "op": "add",
           "path": "/signInSubmitTitle",
           "value": "Sign in"
+        },
+        {
+          "op": "add",
+          "path": "/rememberMeToggleButtonLabel",
+          "value": "Remember me"
         }
       ]
     },
@@ -223,6 +228,7 @@
         "label": "Password"
       }
     },
+    "rememberMeToggleButtonLabel": "Remember me",
     "signInSubmitTitle": "Sign in"
   },
   "wonderjam-mailbox-view": {

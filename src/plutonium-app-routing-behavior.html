@@ -32,7 +32,8 @@
                 },
                 authenticated: {
                     type: Boolean,
-                    notify: true
+                    notify: true,
+                    value: false
                 }
             },
             observers: [
@@ -40,6 +41,12 @@
             ],
             listeners: {
                 'page-go': '_onNavigate'
+            },
+            attached: function () {
+//                this.session = this.$.sessionCookie.readCookie();
+                if (this.session) {
+                    this.authenticated = false;
+                }
             },
             ready: function () {
                 this._resetLayout();

@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../bower_components/gold-email-input/gold-email-input.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
@@ -51,6 +52,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             name="XSRF-TOKEN"
             value="{{xsrfToken}}">
         </polymer-cookie>
+<!--        <polymer-cookie
+            id="sessionCookie"
+            name="SESSION" auto-set>
+            value="{{session}}">
+        </polymer-cookie>
+-->        <polymer-cookie
+            id="rememberMeCookie"
+            name="remember-me"
+            value="{{rememberMe}}">
+        </polymer-cookie>
+<!--        <polymer-cookie
+            id="userNameCookie"
+            name="username"
+            value="{{session}}">
+        </polymer-cookie>
+        <polymer-cookie
+            id="passwordCookie"
+            name="username"
+            value="{{session}}">
+        </polymer-cookie>-->
 
         <paper-card id="signinCard" heading="Login">
             <paper-spinner id="spinner" hidden="[[!loading]]"></paper-spinner>
@@ -62,6 +83,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <div>{{authenticationError}}</div>
                     </template>
 
+                    <paper-toggle-button id="rememberMeToggleButtonLabel" name="remember-me" checked="{{rememberMe}}" value="[[rememberMe]]">Remember me</paper-toggle-button>
                     <!--<gold-email-input id="signinEmailInput" name="userName" label="Email" value="{{credentials.userName}}" required auto-validate></gold-email-input>-->
                     <paper-input 
                         id="signinUserNameInput" 
@@ -113,6 +135,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     reflectToAttribute: true,
                     value: {}
                 },
+                rememberMe: {
+                    type: Boolean,
+                    notify: true,
+                    value: false
+                },
+                session: {
+                    type: String,
+                    notify: true
+                },
                 xsrfToken: {
                     type: String,
                     notify: true
@@ -134,8 +165,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 signedIn: {
                     type: Boolean,
                     reflectToAttribute: true,
-                    notify: true,
-                    value: false
+                    notify: true
                 },
                 userNameError: {
                     type: String,
@@ -177,10 +207,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             onSignIn: function (event, detail) {
                 this.loading = true;
                 console.log(this.is, 'sign-in request ...');
+                if (this.rememberMe) {
+                    this.$.rememberMeCookie.createCookie();
+                } else {
+                    this.$.rememberMeCookie.eraseCookie();
+                }
                 this.$.signInForm.submit();
             },
             onSigninFormResponse: function (event, detail) {
                 this.signedIn = detail.response.authenticated;
+                this.session = btoa(this.credentials.userName + ':' + this.credentials.password);
+//                this.$.sessionCookie.createCookie();
                 this.loading = false;
                 this.user = detail.response;
                 this.fire('page-go', {
