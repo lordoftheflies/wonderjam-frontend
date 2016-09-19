@@ -3,34 +3,40 @@
     "todo": [
       {
         "op": "add",
-        "path": "/model/signinUserNameInput/label",
-        "value": "Username"
-      },
-      {
-        "op": "add",
         "path": "/model/signinEmailPassword/label",
         "value": "Password"
       },
       {
         "op": "add",
-        "path": "/signInSubmitTitle",
-        "value": "Sign in"
+        "path": "/rememberMeToggleButtonLabel",
+        "value": "Remember me"
       },
       {
         "op": "add",
-        "path": "/rememberMeToggleButtonLabel",
-        "value": "Remember me"
+        "path": "/forgottenPasswordTitle",
+        "value": "Forgotten password"
+      },
+      {
+        "op": "add",
+        "path": "/signOnSubmitTitle",
+        "value": "Sign on"
+      },
+      {
+        "op": "add",
+        "path": "/model/signInSubmit/title",
+        "value": "Sign in"
       }
     ]
   },
   "model": {
-    "signinUserNameInput": {
-      "label": "Username"
-    },
     "signinEmailPassword": {
       "label": "Password"
+    },
+    "signInSubmit": {
+      "title": "Sign in"
     }
   },
   "rememberMeToggleButtonLabel": "Remember me",
-  "signInSubmitTitle": "Sign in"
+  "forgottenPasswordTitle": "Forgotten password",
+  "signOnSubmitTitle": "Sign on"
 }

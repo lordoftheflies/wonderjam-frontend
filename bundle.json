@@ -102,15 +102,16 @@
       ]
     },
     "model": {
-      "signinUserNameInput": {
-        "label": "Username"
-      },
       "signinEmailPassword": {
         "label": "Password"
+      },
+      "signInSubmit": {
+        "title": "Sign in"
       }
     },
     "rememberMeToggleButtonLabel": "Remember me",
-    "signInSubmitTitle": "Sign in"
+    "forgottenPasswordTitle": "Forgotten password",
+    "signOnSubmitTitle": "Sign on"
   },
   "wonderjam-mailbox-view": {
     "meta": {

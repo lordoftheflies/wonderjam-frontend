@@ -45,6 +45,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 vertical-align: middle;
                 text-transform: none;
             }
+
+            form {
+                position: relative;
+            }
+
+            form paper-fab {
+                position: absolute;
+                top: -50px;
+                right: -40px;
+            }
         </style>
 
         <polymer-cookie
@@ -52,26 +62,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             name="XSRF-TOKEN"
             value="{{xsrfToken}}">
         </polymer-cookie>
-<!--        <polymer-cookie
-            id="sessionCookie"
-            name="SESSION" auto-set>
-            value="{{session}}">
-        </polymer-cookie>
--->        <polymer-cookie
+        <!--        <polymer-cookie
+                    id="sessionCookie"
+                    name="SESSION" auto-set>
+                    value="{{session}}">
+                </polymer-cookie>
+        -->        <polymer-cookie
             id="rememberMeCookie"
             name="remember-me"
             value="{{rememberMe}}">
         </polymer-cookie>
-<!--        <polymer-cookie
-            id="userNameCookie"
-            name="username"
-            value="{{session}}">
-        </polymer-cookie>
-        <polymer-cookie
-            id="passwordCookie"
-            name="username"
-            value="{{session}}">
-        </polymer-cookie>-->
+        <!--        <polymer-cookie
+                    id="userNameCookie"
+                    name="username"
+                    value="{{session}}">
+                </polymer-cookie>
+                <polymer-cookie
+                    id="passwordCookie"
+                    name="username"
+                    value="{{session}}">
+                </polymer-cookie>-->
 
         <paper-card id="signinCard" heading="Login">
             <paper-spinner id="spinner" hidden="[[!loading]]"></paper-spinner>
@@ -83,17 +93,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <div>{{authenticationError}}</div>
                     </template>
 
-                    <paper-toggle-button id="rememberMeToggleButtonLabel" name="remember-me" checked="{{rememberMe}}" value="[[rememberMe]]">Remember me</paper-toggle-button>
-                    <!--<gold-email-input id="signinEmailInput" name="userName" label="Email" value="{{credentials.userName}}" required auto-validate></gold-email-input>-->
-                    <paper-input 
-                        id="signinUserNameInput" 
+                    <gold-email-input 
+                        id="signinEmailInput" 
                         name="userName" 
-                        label="Username" 
-                        value="{{credentials.userName}}"
+                        label="Email" 
+                        tabindex="1"
                         error-message="[[userNameError]]"
-                        required 
-                        auto-validate>
-                    </paper-input>
+                        value="{{credentials.userName}}" 
+                        required auto-validate></gold-email-input>
+                    <!--                    <paper-input 
+                                            id="signinUserNameInput" 
+                                            name="userName" 
+                                            label="Username" 
+                                            value="{{credentials.userName}}"
+                                            error-message="[[userNameError]]"
+                                            required 
+                                            auto-validate>
+                                        </paper-input>-->
                     <paper-input 
                         id="signinEmailPassword" 
                         name="password" 
@@ -101,17 +117,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         value="{{credentials.password}}" 
                         type="password"
                         error-message="[[passwordError]]"
+                        tabindex="2"
                         required 
                         auto-validate>
                     </paper-input>
+
+                    <paper-fab 
+                        id="signInSubmit" 
+                        icon="arrow-forward" 
+                        title="Sign in" 
+                        on-tap="onSignIn" 
+                        tabindex="3"
+                        dialog-confirm></paper-fab>
                 </form>
             </div>
-            <div class="card-actions">
-                <paper-button on-tap="onSignIn" raised>
+            <div class="card-actions layout vertical">
+                <paper-toggle-button id="rememberMeToggleButtonLabel" tabindex="4" name="remember-me" checked="{{rememberMe}}" value="[[rememberMe]]">Remember me</paper-toggle-button>
+                <!--<div class="layout horizontal">-->
+                <br />
+                <paper-button on-tap="onForgottenPassword" tabindex="5" raised>
                     <iron-icon icon="account-circle"></iron-icon>
-                    <span id="signInSubmitTitle">Sign in</span>
+                    <span id="forgottenPasswordTitle">Forgotten password</span>
                 </paper-button>
+                <br />
+                <paper-button on-tap="onSignIn" tabindex="6" raised>
+                    <iron-icon icon="account-circle"></iron-icon>
+                    <span id="signOnSubmitTitle">Sign on</span>
+                </paper-button>
+                <!--</div>-->
             </div>
+
+
         </paper-card>
     </template>
     <script>
@@ -192,7 +228,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     notify: true,
                     value: 'Username is required.'
                 }
-                
+
             },
             listeners: {
                 'iron-form-response': 'onSigninFormResponse',
