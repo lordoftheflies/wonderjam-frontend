@@ -62,12 +62,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             name="XSRF-TOKEN"
             value="{{xsrfToken}}">
         </polymer-cookie>
-        <!--        <polymer-cookie
-                    id="sessionCookie"
-                    name="SESSION" auto-set>
-                    value="{{session}}">
-                </polymer-cookie>
-        -->        <polymer-cookie
+<!--        <polymer-cookie
+            id="sessionCookie"
+            name="SESSION" auto-set
+            value="{{session}}">
+        </polymer-cookie>
+        -->       
+        <polymer-cookie
             id="rememberMeCookie"
             name="remember-me"
             value="{{rememberMe}}">
@@ -252,7 +253,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             },
             onSigninFormResponse: function (event, detail) {
                 this.signedIn = detail.response.authenticated;
-                this.session = btoa(this.credentials.userName + ':' + this.credentials.password);
+//                this.session = btoa(this.credentials.userName + ':' + this.credentials.password);
 //                this.$.sessionCookie.createCookie();
                 this.loading = false;
                 this.user = detail.response;

@@ -28,20 +28,28 @@
                         }
                     },
                     token: ''
+                },
+                xsrfToken: {
+                    type: String,
+                    notify: true
                 }
             },
             observers: [
-                'observeAuthorizationHeaders(user.token)',
+                'observeAuthorizationHeaders(token.token)',
                 'observeAccountId(user.principal)'
             ],
-            observeAuthorizationHeaders: function (token) {
+            observeAuthorizationHeaders: function (token, xsrfToken) {
                 this.headers = {};
-                if (token !== null && token !== undefined) {
+                
+                if (token !== null && token !== undefined && token !== '') {
                     this.headers['X-Auth-Token'] = token;
+                } else if (this.authenticated) {
+                    this.$.tokenAjax.generateRequest();
                 }
                 this.headers['X-XSRF-TOKEN'] = this.$.xsrfCookie.readCookie();
 
-                console.log(this.is, 'set authorization header', token);
+                console.log(this.is, 'X-XSRF-TOKEN', this.$.xsrfCookie.readCookie());
+                console.log(this.is, 'X-Auth-Token', token);
 
             },
             observeAccountId: function (principal) {
@@ -50,7 +58,7 @@
             onLogout: function () {
                 console.log(this.is, 'logout ...');
                 this.$.logoutAjax.generateRequest();
-                this.$.tokenAjax.generateRequest();
+//                this.$.tokenAjax.generateRequest();
             },
             onLogoutResponse: function () {
                 this.authenticated = false;

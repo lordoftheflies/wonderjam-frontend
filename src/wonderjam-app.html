@@ -185,9 +185,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-ajax id="tokenAjax" url="[[apiUrl]]/token" 
                    last-response="{{token}}"  headers="[[headers]]"
                    handle-as="json" content-type="application/json"></iron-ajax>
-                   <!--handle-as="json" content-type="application/json"  auto="[[authenticated]]"></iron-ajax>-->
+        <!--handle-as="json" content-type="application/json"  auto="[[authenticated]]"></iron-ajax>-->
         <iron-ajax id="logoutAjax" url="[[apiUrl]]/logout" 
-                   body="{}" headers="[[headers]]" on-response="onLogoutResponse" on-error="onLogoutError"
+                   headers="[[headers]]" on-response="onLogoutResponse" on-error="onLogoutError"
                    method="POST" handle-as="json" content-type="application/json"></iron-ajax>
         <!--<iron-ajax id="rootArticlesAjax" url="http://localhost:8081/cms/root" headers="[[headers]]" last-response="{{rootArticlesModel}}" auto="[[token]]"></iron-ajax>-->
         <!--<iron-ajax id="rootArticlesAjax" url="http://localhost:8081/cms/root" headers="[[headers]]" last-response="{{rootArticlesModel}}" auto="false"></iron-ajax>-->
@@ -205,14 +205,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!--<polymer-cookie id="tokenCookie" name="accountId" value="{{accountId}}" time="1" format="d" auto-set></polymer-cookie>-->
         <polymer-cookie
             id="xsrfCookie"
-            name="XSRF-TOKEN">
+            name="XSRF-TOKEN"
+            value="{{xsrfToken}}">
         </polymer-cookie>
-    <!--        <polymer-cookie
-                id="sessionCookie"
-                name="user_session"
-                value="{{session}}">
-            </polymer-cookie>
-            -->
+        <!--        <polymer-cookie
+                    id="sessionCookie"
+                    name="user_session"
+                    value="{{session}}">
+                </polymer-cookie>
+        -->
         <!--Layout-->
         <app-drawer-layout fullbleed force-narrow="[[!authenticated]]">
             <!-- Drawer content -->
@@ -473,8 +474,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             observers: [
                 'observeRootArticlesModel(rootArticlesModel)'
             ],
-            ready: function() {
-              this.$.tokenAjax.generateRequest();  
+            ready: function () {
+                this.$.tokenAjax.generateRequest();
             },
             onOpenSpeedDial: function () {
                 this.$.asd.open();
