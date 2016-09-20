@@ -62,11 +62,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             name="XSRF-TOKEN"
             value="{{xsrfToken}}">
         </polymer-cookie>
-<!--        <polymer-cookie
-            id="sessionCookie"
-            name="SESSION" auto-set
-            value="{{session}}">
-        </polymer-cookie>
+        <!--        <polymer-cookie
+                    id="sessionCookie"
+                    name="SESSION" auto-set
+                    value="{{session}}">
+                </polymer-cookie>
         -->       
         <polymer-cookie
             id="rememberMeCookie"
@@ -87,7 +87,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-card id="signinCard" heading="Login">
             <paper-spinner id="spinner" hidden="[[!loading]]"></paper-spinner>
             <div class="card-content">
-                <form is="iron-form" id="signInForm" 
+                <form is="iron-form" id="signInForm"  with-credentials
                       method="POST"  action="[[authenticationUrl]]" headers="[[authHeaders]]" content-type="application/json"
                       hidden="[[loading]]">
                     <template is="dom-if" if="[[hasAuthenticationError]]">
@@ -257,8 +257,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 //                this.$.sessionCookie.createCookie();
                 this.loading = false;
                 this.user = detail.response;
+                this.fire('fetch-data', {
+                    ids: ['tokenAjax']
+                });
                 this.fire('page-go', {
-                    page: 'article-view'
+                    page: 'article-view/ROOT'
                 });
                 console.log(this.is, 'sign-in response', detail.response);
             },

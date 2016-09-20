@@ -1,4 +1,7 @@
 <link rel="import" href="plutonium-widget-bound-beavior.html">
+<link rel="import" href="plutonium-app-secure-behavior.html">
+
+
 
 <script>
     (function () {
@@ -77,8 +80,23 @@
             /**
              * Open member creation dialog.
              */
+            onOpenMemberEditor: function (event, detail) {
+                this.set('memberDetailsSubrouteData.accountId', this.$.membersView.selectedAccountId);
+                this.set('page', 'member-editor');
+            },
             onOpenCreateMember: function (event, detail) {
-                this.$.memberEditor.show();
+                this.fire('page-go', {
+                    page: 'member-editor'
+                });
+            },
+            onCreateMember: function(event, details) {
+                this.$.memberEditor.createMember();
+            },
+            onCreateMemberRepeat: function () {
+                this.$.memberEditor.createMemberRepeat();
+            },
+            onCancelMemberEditor: function () {
+                this.$.memberEditor.clear();
             },
             /**
              * Ajax response handler for `createMemberAjax` element.
@@ -188,6 +206,7 @@
 
         WonderjamAppBehaviors.ControllerManagerBehavior = [
             PlutoniumBehaviors.WidgetBoundBehavior,
+            PlutoniumBehaviors.AppSecurityBehavior,
             WonderjamAppBehaviors.ControllerManagerBehaviorImpl
         ];
 

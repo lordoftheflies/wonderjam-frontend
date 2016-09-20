@@ -43,9 +43,18 @@
                 'page-go': '_onNavigate'
             },
             attached: function () {
-//                this.session = this.$.sessionCookie.readCookie();
-                if (this.session) {
-                    this.authenticated = false;
+                this.session = this.$.sessionCookie.readCookie();
+                this.xsrfToken = this.$.xsrfCookie.readCookie();
+                if (this.session && this.$.rememberMeCookie.readCookie()) {
+                    this.authenticated = true;
+//                    this.$.tokenAjax.generateRequest();
+                    console.log(this.is, 'SYNCHING SESSION TOKEN');
+//                } else {
+//                    // Re-authenticate
+//                    this.$.tokenAjax.generateRequest();
+                } else {
+//                    this.$.tokenAjax.generateRequest();
+                    console.log(this.is, 'USER AUTHENTICATION');
                 }
             },
             ready: function () {
@@ -58,10 +67,13 @@
              */
             _routePageChanged: function (page) {
                 console.log(this.is, 'navigate to', page);
+                
+                
+                
                 if (this.authenticated) {
                     this.page = page || this.homePage;
                 } else {
-                    this.page = this.loginPage;
+                    this.page = this.loginPage || this.homePage;
                 }
             },
             /**
