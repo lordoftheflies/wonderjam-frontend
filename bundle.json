@@ -22,6 +22,9 @@
       ]
     },
     "model": {
+      "openMemberEditorFab": {
+        "title": "Edit member."
+      },
       "sendMessageFab": {
         "title": "Publish content"
       },
@@ -56,7 +59,9 @@
     "messagesPageMyContentsFolderTitle": "Drafts",
     "messagesPagePublishedFolderTitle": "Published",
     "mailBoxPageInboxFolderTitle": "Inbox",
-    "sentItemsPageInboxFolderTitle": "Sent items"
+    "sentItemsPageInboxFolderTitle": "Sent items",
+    "headerLayout:app-header:app-toolbar_1:iron-pages:paper-tabs_4:paper-tab": "Person",
+    "headerLayout:app-header:app-toolbar_1:iron-pages:paper-tabs_4:paper-tab_1": "Group"
   },
   "wonderjam-article-field": {
     "meta": {

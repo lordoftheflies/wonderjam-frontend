@@ -97,6 +97,8 @@
             },
             onCancelMemberEditor: function () {
                 this.$.memberEditor.clear();
+                this.set('memberSubrouteData.memberId', this.$.membersView.selectedAccountId);
+                this.set('page', 'members-view');
             },
             /**
              * Ajax response handler for `createMemberAjax` element.
@@ -131,8 +133,8 @@
             onDeleteMemberAjaxResponse: function (event, details) {
                 console.log(this.si, 'member removed successfully:', JSON.stringify(details.response));
                 this.$.networkPage.selectedAccountId = this.session.token;
-                this.$.childrenIronAjax.generateRequest();
-                this.$.genocideIronAjax.generateRequest();
+//                this.$.childrenIronAjax.generateRequest();
+//                this.$.genocideIronAjax.generateRequest();
                 this.fire('feedback', {
                     message: 'Member removed successfully.'
                 });
@@ -157,8 +159,8 @@
              */
             onPromoteMemberAjaxResponse: function (event, details) {
                 console.log(this.is, 'member promoted successfully:', JSON.stringify(details.response));
-                this.$.childrenIronAjax.generateRequest();
-                this.$.genocideIronAjax.generateRequest();
+//                this.$.childrenIronAjax.generateRequest();
+//                this.$.genocideIronAjax.generateRequest();
                 this.selectedRole = 'ADMIN';
                 this.fire('feedback', {
                     message: 'Member promoted successfully'
@@ -184,8 +186,8 @@
              */
             onDemoteMemberAjaxResponse: function (event, details) {
                 console.log(this.is, 'member demoted successfully:', JSON.stringify(details.response));
-                this.$.childrenIronAjax.generateRequest();
-                this.$.genocideIronAjax.generateRequest();
+//                this.$.childrenIronAjax.generateRequest();
+//                this.$.genocideIronAjax.generateRequest();
                 this.selectedRole = 'USER';
                 this.fire('feedback', {
                     message: 'Member demoted successfully'

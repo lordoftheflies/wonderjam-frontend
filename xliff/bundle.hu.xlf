@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file xml:space="default" source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2016-09-20T09:23:28Z" product-name="messages">
+  <file xml:space="default" source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2016-09-21T04:47:13Z" product-name="messages">
     <header>
       <tool tool-id="xliff-conv" tool-name="xliff-conv" tool-version="1.0.10"/>
     </header>
@@ -13,6 +13,10 @@
       <trans-unit id="wonderjam-about-view.authors-card:div:paper-item:paper-item-body:div_1">
         <source>heglas11@gmail.com</source>
         <target state="new">heglas11@gmail.com</target>
+      </trans-unit>
+      <trans-unit id="wonderjam-app.model.openMemberEditorFab.title">
+        <source>Edit member.</source>
+        <target state="new">Edit member.</target>
       </trans-unit>
       <trans-unit id="wonderjam-app.model.sendMessageFab.title">
         <source>Publish content</source>
@@ -101,6 +105,14 @@
       <trans-unit id="wonderjam-app.sentItemsPageInboxFolderTitle">
         <source>Sent items</source>
         <target state="new">Elküldött</target>
+      </trans-unit>
+      <trans-unit id="wonderjam-app.headerLayout:app-header:app-toolbar_1:iron-pages:paper-tabs_4:paper-tab">
+        <source>Person</source>
+        <target state="new">Person</target>
+      </trans-unit>
+      <trans-unit id="wonderjam-app.headerLayout:app-header:app-toolbar_1:iron-pages:paper-tabs_4:paper-tab_1">
+        <source>Group</source>
+        <target state="new">Group</target>
       </trans-unit>
       <trans-unit id="wonderjam-article-view.emptyChildrenText">
         <source>No content in the folder.</source>

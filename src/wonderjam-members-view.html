@@ -20,6 +20,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-list/iron-list.html">
 <link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
 
+<link rel="import" href="plutonium-widget-bound-beavior.html">
+
 <link rel="import" href="wonderjam-shared-styles.html">
 <link rel="import" href="wonderjam-icons.html">
 
@@ -29,9 +31,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             :host {
                 display: block;
                 @apply(--layout-vertical);
+                @apply(--layout-flex);
                 padding: 10px;
             }
-            
+
 
         </style>
 
@@ -56,7 +59,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         Polymer({
             is: 'wonderjam-members-view',
             behaviors: [
-                BehaviorsStore.I18nBehavior
+                BehaviorsStore.I18nBehavior,
+                PlutoniumBehaviors.WidgetBoundBehavior
             ],
             properties: {
                 isMeIndicator: {
@@ -77,12 +81,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 genocideRequestParams: {
                     type: Object,
                     notify: true,
-                    computed: 'computeGenocideRenocideRequestParams(selectedAccountId)'
+                    reflectToAttribute: true
+//                    computed: 'computeGenocideRenocideRequestParams(selectedAccountId)'
                 },
                 childrenRequestParams: {
                     type: Object,
                     notify: true,
-                    computed: 'computeChildrenRequestParams(selectedAccountId)'
+                    reflectToAttribute: true
+//                    computed: 'computeChildrenRequestParams(selectedAccountId)'
                 },
                 /**
                  * Account-id of the selected member.
@@ -141,7 +147,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 'observeOwnerChange(accountId)'
             ],
             listeners: {
-                'iron-select': 'onSelectMember',
+//                'iron-select': 'onSelectMember',
                 'network-tree-refresh': 'onRefresh'
             },
             ready: function () {
@@ -151,27 +157,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 this.selectedAccountId = accountId;
             },
             observeChildRequestParams: function (selectedAccountId) {
+                this.childrenRequestParams = {
+                    parentId: selectedAccountId
+                };
 //                this.memberChildrenRequestParams.parentId = selectedAccountId;
                 console.log(this.is, 'child request parameters updated:', this.childrenRequestParams);
-                this.fire('fetch-data', {
-                    ids: ['childrenIronAjax', 'genocideIronAjax']
-                });
+//                this.fire('fetch-data', {
+//                    ids: ['childrenIronAjax', 'genocideIronAjax']
+//                });
+
             },
             observeGenocideRequestParams: function (selectedAccountId) {
 //                this.genocideRequestParams.childId = selectedAccountId;
+
+//                this.fire('fetch-data', {
+//                    ids: ['childrenIronAjax', 'genocideIronAjax']
+//                });
+
+                this.genocideRequestParams = {
+                    childId: selectedAccountId
+                };
                 console.log(this.is + ' genocide request parameters updated:', this.genocideRequestParams);
-                this.fire('fetch-data', {
-                    ids: ['childrenIronAjax', 'genocideIronAjax']
-                });
             },
-            computeChildrenRequestParams: function () {
+            computeChildrenRequestParams: function (selectedAccountId) {
                 return {
-                    parentId: this.selectedAccountId
+                    parentId: selectedAccountId
                 };
             },
-            computeGenocideRenocideRequestParams: function () {
+            computeGenocideRenocideRequestParams: function (selectedAccountId) {
                 return {
-                    childId: this.selectedAccountId
+                    childId: selectedAccountId
                 };
             },
             onSelectMember: function (event, details) {
@@ -199,9 +214,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
             onRefresh: function () {
-                this.fire('fetch-data', {
-                    ids: ['childrenIronAjax', 'genocideIronAjax']
-                });
+//                this.fire('fetch-data', {
+//                    ids: ['childrenIronAjax', 'genocideIronAjax']
+//                });
             },
             /**
              * Fired when the create new member floating-action-button pushed.

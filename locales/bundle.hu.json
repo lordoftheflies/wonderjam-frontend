@@ -130,10 +130,28 @@
           "op": "add",
           "path": "/sentItemsPageInboxFolderTitle",
           "value": "Sent items"
+        },
+        {
+          "op": "add",
+          "path": "/headerLayout:app-header:app-toolbar_1:iron-pages:paper-tabs_4:paper-tab",
+          "value": "Person"
+        },
+        {
+          "op": "add",
+          "path": "/headerLayout:app-header:app-toolbar_1:iron-pages:paper-tabs_4:paper-tab_1",
+          "value": "Group"
+        },
+        {
+          "op": "add",
+          "path": "/model/openMemberEditorFab/title",
+          "value": "Edit member."
         }
       ]
     },
     "model": {
+      "openMemberEditorFab": {
+        "title": "Edit member."
+      },
       "sendMessageFab": {
         "title": "Cikk publikálása"
       },
@@ -168,7 +186,9 @@
     "messagesPageMyContentsFolderTitle": "Piszkozat",
     "messagesPagePublishedFolderTitle": "Publikált",
     "mailBoxPageInboxFolderTitle": "Beérkező",
-    "sentItemsPageInboxFolderTitle": "Elküldött"
+    "sentItemsPageInboxFolderTitle": "Elküldött",
+    "headerLayout:app-header:app-toolbar_1:iron-pages:paper-tabs_4:paper-tab": "Person",
+    "headerLayout:app-header:app-toolbar_1:iron-pages:paper-tabs_4:paper-tab_1": "Group"
   },
   "wonderjam-article-field": {
     "meta": {

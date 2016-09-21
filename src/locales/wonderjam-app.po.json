@@ -110,10 +110,28 @@
         "op": "add",
         "path": "/sentItemsPageInboxFolderTitle",
         "value": "Sent items"
+      },
+      {
+        "op": "add",
+        "path": "/headerLayout:app-header:app-toolbar_1:iron-pages:paper-tabs_4:paper-tab",
+        "value": "Person"
+      },
+      {
+        "op": "add",
+        "path": "/headerLayout:app-header:app-toolbar_1:iron-pages:paper-tabs_4:paper-tab_1",
+        "value": "Group"
+      },
+      {
+        "op": "add",
+        "path": "/model/openMemberEditorFab/title",
+        "value": "Edit member."
       }
     ]
   },
   "model": {
+    "openMemberEditorFab": {
+      "title": "Edit member."
+    },
     "sendMessageFab": {
       "title": "Publish content"
     },
@@ -148,5 +166,7 @@
   "messagesPageMyContentsFolderTitle": "Drafts",
   "messagesPagePublishedFolderTitle": "Published",
   "mailBoxPageInboxFolderTitle": "Odebrane wiadomości",
-  "sentItemsPageInboxFolderTitle": "Wysłane"
+  "sentItemsPageInboxFolderTitle": "Wysłane",
+  "headerLayout:app-header:app-toolbar_1:iron-pages:paper-tabs_4:paper-tab": "Person",
+  "headerLayout:app-header:app-toolbar_1:iron-pages:paper-tabs_4:paper-tab_1": "Group"
 }

@@ -13,6 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input-container.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/paper-chip/paper-chip.html">
 
@@ -75,7 +76,7 @@ Wham! It's all awesome now!
                         <paper-icon-button icon="wonderjam-icons:group" title="Choose contacts." on-tap="onOpenRecipientsDialog"></paper-icon-button>
                         <paper-icon-button icon="wonderjam-icons:clear" title="Clear recipients input." on-tap="onClearRecipients"></paper-icon-button>
                     </div>
-                    <paper-input id="messageInput" class="bottom title" label="Message" value="{{message}}"></paper-input>
+                    <paper-textarea id="messageInput" rows="6" class="bottom title" label="Message" value="{{message}}"></paper-textarea>
                 </div>
             </div>
 
@@ -89,21 +90,7 @@ Wham! It's all awesome now!
             behaviors: [
             ],
             properties: {
-                shareAjaxRequest: {
-                },
-                pageDto: {
-                    type: Object,
-                    notify: true
-                },
-                contentModel: {
-                    type: Object,
-                    notify: true,
-                    value: {
-                        sections: [
-                        ]
-                    }
-                },
-                shareModel: {
+                messageSendModel: {
                     type: Object,
                     notify: true,
                     value: {
@@ -114,21 +101,6 @@ Wham! It's all awesome now!
                     type: Array,
                     notify: true
                 },
-                selectedMetaAction: {
-                    type: String,
-                    notify: true,
-                    value: 'content'
-                },
-                articleContentType: {
-                    type: String,
-                    notify: true,
-                    value: 'assembled'
-                },
-                articleContentHeading: {
-                    type: String,
-                    notify: true,
-                    computed: 'computeHeader(articleContentType)'
-                },
                 recipients: {
                     type: String,
                     notify: true,
@@ -136,7 +108,8 @@ Wham! It's all awesome now!
                 }
             },
             observers: [
-                'itemsAddedOrRemoved(selectedItemIds.splices)'
+                'itemsAddedOrRemoved(selectedItemIds.splices)',
+                'observeMessageSendModel(message, recipients)'
             ],
             listeners: {
 //                'remove': 'onRemoveItem',
@@ -151,30 +124,9 @@ Wham! It's all awesome now!
 //                this.pageDto = {
 //                };
 //            },
-            onClear: function () {
-
-            },
-            onShare: function (e, details) {
-                console.log('Save content: ' + JSON.stringify(this.contentModel));
-                this.contentModel.leaf = true;
-                this.$.shareAjax.generateRequest();
-                this.fire('fetch-data', {
-                    ids: ['shareAjax']
-                });
-//                this.fire('share', {
-//                    content: this.contentModel,
-//                    recipients: this.selectedContactIds,
-//                    message: this.message
-//                });
-            },
-            onNewArticle: function () {
-                this.contentModel = {
-                    sections: [
-                    ]
-                };
-            },
+            
             onOpenRecipientsDialog: function () {
-                console.log(this.is + ' send event pick-recipients.');
+                console.log(this.is, ' send event pick-recipients.');
                 this.fire('pick-recipients', {});
             },
             /**
@@ -183,12 +135,12 @@ Wham! It's all awesome now!
              */
             onClearRecipients: function () {
                 this.splice('selectedItemIds', 0, this.selectedItemIds.length);
-                console.log('mlm-recipient-picker clear recipients.');
+                console.log(this.is, 'clear recipients.');
             },
             itemsAddedOrRemoved: function (splice) {
                 if (splice === undefined || splice === null)
                     return;
-                console.log('mlm-recipient-picker change recipients: ' + JSON.stringify(this.selectedItemIds));
+                console.log(this.is, 'change recipients: ', JSON.stringify(this.selectedItemIds));
                 var recipientslabel = '';
                 if (this.items !== undefined && this.items !== null) {
                     this.items.forEach(function (item, index) {
@@ -198,6 +150,10 @@ Wham! It's all awesome now!
                     }, this);
                 }
                 this.recipients = recipientslabel;
+            },
+            observeMessageSendModel: function(message, recipients) {
+                this.messageSendModel.recipients = this.selectedItemIds;
+                this.messageSendModel.message = this.message;
             },
             onRemoveItem: function (event, detail) {
                 event.stopPropagation();
@@ -213,13 +169,13 @@ Wham! It's all awesome now!
              * Submit the message.
              */
             onSendMessage: function (event, detail) {
-                this.shareModel.recipients = this.selectedItemIds;
-                this.shareModel.message = this.message;
-                this.shareModel.contentId = this.contentModel.id;
+                this.messageSendModel.recipients = this.selectedItemIds;
+                this.messageSendModel.message = this.message;
+                this.messageSendModel.contentId = this.contentModel.id;
 //                Sthis.$.messageSendAjax.generateRequest();
-                this.fire('fetch-data', {
-                    ids: ['messageSendAjax']
-                });
+//                this.fire('fetch-data', {
+//                    ids: ['messageSendAjax']
+//                });
             },
             getUserName: function (id) {
                 if (this.items !== undefined && this.items !== null) {

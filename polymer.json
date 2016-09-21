@@ -9,6 +9,7 @@
     "src/wonderjam-mailbox-view.html",
     "src/wonderjam-member-editor.html",
     "src/wonderjam-members-view.html",
+    "src/wonderjam-recipients-view.html",
     "src/wonderjam-send-view.html",
     "src/wonderjam-share-view.html",
     "src/wonderjam-view404.html"
