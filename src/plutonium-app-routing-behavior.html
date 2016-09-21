@@ -50,7 +50,7 @@
                 this.xsrfToken = this.$.xsrfCookie.readCookie();
                 if (this.xsrfToken && this.rememberMe) {
                     this.authenticated = true;
-                    this.page = this.homePage;
+                    if (!this.page) this.page = this.homePage;
                     this.$.tokenAjax.generateRequest();
                     console.log(this.is, 'SYNCHING SESSION TOKEN');
 //                } else {

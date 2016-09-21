@@ -133,7 +133,7 @@ Example:
                 'create': 'onPushSection',
                 'remove': 'onRemoveSectionInParent',
                 'edit': 'onOpenEditorInParent',
-                'iron-items-changed': 'onRefresh',
+//                'iron-items-changed': 'onRefresh',
                 'iron-overlay-closed': 'onApply',
                 'moveupsection': 'onMoveUpSectionInParent',
                 'movedownsection': 'onMoveDownSectionInParent'
@@ -280,46 +280,46 @@ Example:
 //                //                    console.log('Cancel edit.');
 //                //                }
 //            },
-//            onMoveUpSectionInParent: function (e) {
-//                var index = this.indexOfSection(e.detail.name);
-//                var s = [];
-//                if (index - 1 >= 0) {
-//                    s = this.splice('contentModel.sections', index - 1, this.contentModel.sections.length - index + 1);
-//                    var first = s[0];
-//                    var second = s[1];
-//                    var tail = s.filter(function (value, index, arr) {
-//                        return index > 1;
-//                    }, this);
-//                    this.push('contentModel.sections', second, first);
-//                    tail.forEach(function (value, index, arr) {
-//                        this.push('contentModel.sections', value);
-//                    }, this);
-//                } else {
-//                    s = this.splice('contentModel.sections', 0, 1);
-//                    this.push('contentModel.sections', s[0]);
-//                }
-//            },
-//            onMoveDownSectionInParent: function (e) {
-//                var index = this.indexOfSection(e.detail.name);
-//                var s = [];
-//                if (index < this.contentModel.sections.length - 1) {
-//                    s = this.splice('contentModel.sections', index, this.contentModel.sections.length - index);
-//                    var first = s[0];
-//                    var second = s[1];
-//                    var tail = s.filter(function (value, index, arr) {
-//                        return index > 1;
-//                    }, this);
-//                    this.push('contentModel.sections', second, first);
-//                    tail.forEach(function (value, index, arr) {
-//                        this.push('contentModel.sections', value);
-//                    }, this);
-//                } else {
-//                    s = this.splice('contentModel.sections', 0, this.contentModel.sections.length - 1);
-//                    s.forEach(function (value, index, arr) {
-//                        this.push('contentModel.sections', value);
-//                    }, this);
-//                }
-//            },
+            onMoveUpSectionInParent: function (e) {
+                var index = this.indexOfSection(e.detail.name);
+                var s = [];
+                if (index - 1 >= 0) {
+                    s = this.splice('contentModel.sections', index - 1, this.contentModel.sections.length - index + 1);
+                    var first = s[0];
+                    var second = s[1];
+                    var tail = s.filter(function (value, index, arr) {
+                        return index > 1;
+                    }, this);
+                    this.push('contentModel.sections', second, first);
+                    tail.forEach(function (value, index, arr) {
+                        this.push('contentModel.sections', value);
+                    }, this);
+                } else {
+                    s = this.splice('contentModel.sections', 0, 1);
+                    this.push('contentModel.sections', s[0]);
+                }
+            },
+            onMoveDownSectionInParent: function (e) {
+                var index = this.indexOfSection(e.detail.name);
+                var s = [];
+                if (index < this.contentModel.sections.length - 1) {
+                    s = this.splice('contentModel.sections', index, this.contentModel.sections.length - index);
+                    var first = s[0];
+                    var second = s[1];
+                    var tail = s.filter(function (value, index, arr) {
+                        return index > 1;
+                    }, this);
+                    this.push('contentModel.sections', second, first);
+                    tail.forEach(function (value, index, arr) {
+                        this.push('contentModel.sections', value);
+                    }, this);
+                } else {
+                    s = this.splice('contentModel.sections', 0, this.contentModel.sections.length - 1);
+                    s.forEach(function (value, index, arr) {
+                        this.push('contentModel.sections', value);
+                    }, this);
+                }
+            },
 //            indexOfSection: function (name) {
 //                var s = this.contentModel.sections;
 //                var index = s.indexOf(
