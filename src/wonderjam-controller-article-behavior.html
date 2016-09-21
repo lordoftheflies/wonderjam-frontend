@@ -67,7 +67,7 @@
                 
             },
             observers: [
-                'observeContentSubrouteData(contentSubrouteData, selectedContentFolder)'
+                'observeContentSubrouteData(accountId, contentSubrouteData.contentId, selectedContentFolder)'
             ],
             /**
              * Content page sub routing observer.
@@ -75,11 +75,11 @@
              * @param {String} selectedContentFolder
              * @returns {undefined}
              */
-            observeContentSubrouteData: function (contentSubrouteData, selectedContentFolder) {
+            observeContentSubrouteData: function (accountId, contentId, selectedContentFolder) {
                 console.log(this.is, 'observe route', this.contentSubrouteData);
-                this.tocRequestParams.pageId = contentSubrouteData.contentId;
+                this.tocRequestParams.pageId = contentId;
                 this.tocRequestParams.tag = selectedContentFolder;
-                this.tocRequestParams.owner = this.accountId;
+                this.tocRequestParams.owner = accountId;
             },
             /**
              * Ajax response handler for `childTocAjax` element.
