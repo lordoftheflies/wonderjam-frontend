@@ -38,16 +38,19 @@
             },
             observers: [
                 '_routePageChanged(routeData.page)',
+                '_secureRoutePageChanged(routeData.page, authenticated)'
             ],
             listeners: {
                 'page-go': '_onNavigate'
             },
             attached: function () {
-                this.session = this.$.sessionCookie.readCookie();
+                this.rememberMe = this.$.rememberMeCookie.readCookie();
+//                this.session = this.$.sessionCookie.readCookie();
+
                 this.xsrfToken = this.$.xsrfCookie.readCookie();
-                if (this.session && this.$.rememberMeCookie.readCookie()) {
+                if (this.xsrfToken && this.rememberMe) {
                     this.authenticated = true;
-//                    this.$.tokenAjax.generateRequest();
+                    this.$.tokenAjax.generateRequest();
                     console.log(this.is, 'SYNCHING SESSION TOKEN');
 //                } else {
 //                    // Re-authenticate
@@ -68,12 +71,19 @@
             _routePageChanged: function (page) {
                 console.log(this.is, 'navigate to', page);
                 
-                
-                
                 if (this.authenticated) {
                     this.page = page || this.homePage;
                 } else {
-                    this.page = this.loginPage || this.homePage;
+                    this.page = this.loginPage;
+                }
+            },
+            _secureRoutePageChanged: function (page, authenticated) {
+                console.log(this.is, 'navigate to', page);
+                
+                if (authenticated) {
+                    this.page = page || this.homePage;
+                } else {
+                    this.page = this.loginPage;
                 }
             },
             /**

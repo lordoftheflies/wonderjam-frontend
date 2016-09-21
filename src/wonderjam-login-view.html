@@ -256,7 +256,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 //                this.session = btoa(this.credentials.userName + ':' + this.credentials.password);
 //                this.$.sessionCookie.createCookie();
                 this.loading = false;
-                this.user = detail.response;
+                this.user = detail.response.principal;
                 this.fire('fetch-data', {
                     ids: ['tokenAjax']
                 });

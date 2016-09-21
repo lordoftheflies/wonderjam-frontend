@@ -24,11 +24,7 @@
                     type: Object,
                     notify: true,
                     value: {
-                        principal: {
-                            token: ''
-                        }
-                    },
-                    token: ''
+                    }
                 },
                 xsrfToken: {
                     type: String,
@@ -42,12 +38,12 @@
             observers: [
                 'observeAuthorizationHeaders(token.token, xsrfToken)',
 //                'observeAuthorizationHeaders(user.token, xsrfToken)',
-                'observeAccountId(user.principal)',
+                'observeAccountId(user)',
 //                'observeSessionSync(token)'
             ],
             observeAuthorizationHeaders: function (token, xsrfToken) {
                 this.headers = {};
-                
+
                 if (token !== null && token !== undefined && token !== '') {
                     this.headers['X-Auth-Token'] = token;
                 } else if (this.authenticated) {
@@ -60,14 +56,14 @@
                 console.log(this.is, 'X-Auth-Token', token);
 
             },
-            observeSessionSync: function(token) {
-                if (token) { 
+            observeSessionSync: function (token) {
+                if (token) {
                     this.user.principal = token;
                     this.accountId = token.token;
                 }
             },
-            observeAccountId: function (principal) {
-                this.accountId = principal.token;
+            observeAccountId: function (user) {
+                this.accountId = user.id;
             },
             onLogout: function () {
                 console.log(this.is, 'logout ...');
