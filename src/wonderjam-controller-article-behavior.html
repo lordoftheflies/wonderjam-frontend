@@ -44,8 +44,7 @@
                  */
                 tocRequestParams: {
                     type: Object,
-                    notify: true,
-                    value: {}
+                    notify: true
                 },
                 /**
                  * Article information request parameters.
@@ -53,8 +52,7 @@
                  */
                 infoRequestParams: {
                     type: Object,
-                    notify: true,
-                    value: {}
+                    notify: true
                 },
                 /**
                  * Sub-route parameters for members page.
@@ -85,26 +83,27 @@
              * Ajax response handler for `childTocAjax` element.
              */
             onChildTocAjaxResponse: function (event, detail) {
-                console.log(this.is, 'fetched article child contents for', this.contentSubrouteData.contentId);
+                console.log(this.is, 'fetched article child contents for', this.contentSubrouteData);
             },
             /**
              * Ajax error handler for `childTocAjax` element.
              */
             onChildTocAjaxError: function (event, detail) {
-                console.error(this.is, 'article child contents fetching failed for', this.contentSubrouteData.contentId);
+                console.error(this.is, 'article child contents fetching failed for', this.contentSubrouteData);
             },
             /**
              * Ajax response handler for `parentTocAjax` element.
              */
             onParentTocAjaxResponse: function (event, detail) {
-                console.log(this.is, 'fetched article parent path for', this.contentSubrouteData.contentId);
+                console.log(this.is, 'fetched article parent path for', this.contentSubrouteData);
             },
             /**
              * Ajax error handler for `parentTocAjax` element.
              */
             onParentTocAjaxError: function (event, detail) {
-                console.error(this.is, 'article parent path fetching failed for', this.contentSubrouteData.contentId);
+                console.error(this.is, 'article parent path fetching failed for', this.contentSubrouteData);
                 this.selectedContentFolder = 'public';
+                this._showPage401();
             }
 
         };

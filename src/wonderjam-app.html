@@ -150,7 +150,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!--Get article info-->
         <iron-ajax id="rootModelAjax" url="[[apiUrl]]/content-management/toc/info" 
                    params="[[infoRequestParams]]" last-response="{{rootModel}}" headers="[[headers]]"
-                   handle-as="json" content-type="application/json" auto="[[accountId]]"></iron-ajax>
+                   handle-as="json" content-type="application/json" auto="[[infoRequestParams]]"></iron-ajax>
         <!--Get parent articles-->
         <iron-ajax id="parentTocAjax" url="[[apiUrl]]/content-management/toc/path" 
                    params="[[tocRequestParams]]" last-response="{{parentModel}}" on-response="onParentTocAjaxResponse" on-error="onParentTocAjaxError" headers="[[headers]]"
@@ -215,6 +215,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!--        <app-route route="{{route}}" pattern="/registrate" data="{{activationData}}"></app-route>
                 <app-route route="{{route}}" pattern="/login"></app-route>-->
         <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+        <app-route route="{{route}}" pattern="/article-section" data="{{contentSubrouteData}}"></app-route>
         <app-route route="{{route}}" pattern="/article-section/:contentId" data="{{contentSubrouteData}}"></app-route>
         <app-route route="{{route}}" pattern="/article-view/:contentId" data="{{contentSubrouteData}}"></app-route>
         <app-route route="{{route}}" pattern="/members-view/:memberId" data="{{memberSubrouteData}}"></app-route>
@@ -422,6 +423,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         share-model="{{shareModel}}"
                         selected-meta-action="{{selectedMetaAction}}">
                     </wonderjam-share-view>
+                    <wonderjam-view401 
+                        name="view401">
+                    </wonderjam-view401>
                     <wonderjam-view404 
                         name="view404">
                     </wonderjam-view404>

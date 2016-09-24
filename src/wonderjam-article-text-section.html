@@ -43,74 +43,67 @@ Example:
 
 
         </style>
-        <div hidden="[[editable]]" class="layout vertical">
-            <h2>{{model.title}}</h2>
-            <div id="modelData" class$="horizontal {{model.justification}} layout">
-                 {{model.data}}
-            </div>
-        </div>
 
-    <paper-card elevation="1" heading="{{model.title}}" class="layout vertical" hidden="[[!editable]]">
-        <p id="modelData2" class$="card-content horizontal {{model.justification}} layout">{{model.data}}</p>
-        <div class="card-actions">
-            <paper-icon-button id="moveUpButton" on-tap="onMoveUpSection" icon="expand-less" raised></paper-icon-button>
-            <paper-icon-button id="moveDownButton" on-tap="onMoveDownSection" icon="expand-more" raised></paper-icon-button>
-            <paper-icon-button id="showEditorButton" on-tap="onShowEditor" icon="create" raised></paper-icon-button>
-            <paper-icon-button id="removeSectionButton" on-tap="onRemoveSection" icon="delete"></paper-icon-button>
-        </div>
-    </paper-card>
-</template>
+        <h2>{{model.title}}</h2>
+        <p id="modelData" class="card-content horizontal {{model.justification}} layout">{{model.data}}</p>
+        <!--        <div class="card-actions">
+                    <paper-icon-button id="moveUpButton" on-tap="onMoveUpSection" icon="expand-less" raised></paper-icon-button>
+                    <paper-icon-button id="moveDownButton" on-tap="onMoveDownSection" icon="expand-more" raised></paper-icon-button>
+                    <paper-icon-button id="showEditorButton" on-tap="onShowEditor" icon="create" raised></paper-icon-button>
+                    <paper-icon-button id="removeSectionButton" on-tap="onRemoveSection" icon="delete"></paper-icon-button>
+                </div>-->
+        <!--</paper-card>-->
+    </template>
 
-<script>
-    (function () {
-        'use strict';
-        Polymer({
-            is: 'wonderjam-article-text-section',
-            behaviors: [
-                PlutoniumBehaviors.ArticleFieldBehavior
-            ],
-            properties: {
-                model: {
-                    type: Object,
-                    notify: true
+    <script>
+        (function () {
+            'use strict';
+            Polymer({
+                is: 'wonderjam-article-text-section',
+                behaviors: [
+                    PlutoniumBehaviors.ArticleFieldBehavior
+                ],
+                properties: {
+                    model: {
+                        type: Object,
+                        notify: true
+                    }
+                },
+                listeners: {
+                    'removeSection': 'removeSection',
+                },
+                observers: [
+                    'observeModel(model)',
+                    'observeModelStyles(model.*)',
+                    'observeModelData(model.data)'
+                ],
+                // Element Lifecycle
+
+                //                ready: function () {
+                //
+                //                },
+                //                attached: function () {
+                //
+                //                },
+                detached: function () {
+
+                },
+                onShowEditor: function () {
+                    console.log(this.is + '[' + this.id + '] show field editor.');
+                    this.fire('article-text-edit', this.model);
+                },
+                observeModel: function () {
+                    console.log(this.is + '[' + this.id + '] model property changed.');
+                },
+                observeModelData: function (data) {
+                    this.$.modelData.innerHTML = data;
+                },
+                observeModelStyles: function (property) {
+                    console.log(this.is + '[' + this.id + '] model changed, update styles.');
+                    this.customStyle['--section-font-size'] = this.model.fontSize + 'px';
+                    this.updateStyles();
                 }
-            },
-            listeners: {
-                'removeSection': 'removeSection',
-            },
-            observers: [
-                'observeModel(model)',
-                'observeModelStyles(model.*)',
-                'observeModelData(model.data)'
-            ],
-            // Element Lifecycle
-
-//                ready: function () {
-//
-//                },
-//                attached: function () {
-//
-//                },
-            detached: function () {
-
-            },
-            onShowEditor: function () {
-                console.log(this.is + '[' + this.id + '] show field editor.');
-                this.fire('article-text-edit', this.model);
-            },
-            observeModel: function () {
-                console.log(this.is + '[' + this.id + '] model property changed.');
-            },
-            observeModelData: function (data) {
-                this.$.modelData.innerHTML = data;
-                this.$.modelData2.innerHTML = data;
-            },
-            observeModelStyles: function (property) {
-                console.log(this.is + '[' + this.id + '] model changed, update styles.');
-                this.customStyle['--section-font-size'] = this.model.fontSize + 'px';
-                this.updateStyles();
-            }
-        });
-    })();
-</script>
+            });
+        })();
+    </script>
 </dom-module>

@@ -132,6 +132,35 @@
     "messageItemReceiverLabel": "To:",
     "emptyMailBoxFolderText": "No messages in the folder."
   },
+  "wonderjam-member-editor": {
+    "meta": {
+      "locales": [
+        "en",
+        "en-US",
+        "hu",
+        "po"
+      ]
+    },
+    "model": {
+      "newMemberNameLabel": {
+        "label": "Name",
+        "error-message": "Member name must be specified."
+      },
+      "newMemberEmailLabel": {
+        "label": "Email",
+        "error-message": "Member email must be specified."
+      },
+      "newMemberParentLabel": {
+        "label": "Parent member"
+      },
+      "preferredLanguageLabel": {
+        "label": "Preferred language"
+      }
+    },
+    "newMemberTypeUserTitle": "User",
+    "newMemberTypeGroupTitle": "Group",
+    "newMemberTypeAdminTitle": "Admin"
+  },
   "wonderjam-members-view": {
     "meta": {
       "locales": [
@@ -161,6 +190,18 @@
     "changingDeviceButton": "Changing device",
     "underDevelopmentText": "Under development ..."
   },
+  "wonderjam-recipients-view": {
+    "meta": {
+      "locales": [
+        "en",
+        "en-US",
+        "hu",
+        "po"
+      ]
+    },
+    "model": {},
+    "emptyChildrenText": "No children."
+  },
   "wonderjam-share-view": {
     "meta": {
       "locales": [
@@ -184,6 +225,20 @@
     "articleContentTabLabel": "Assemble",
     "uploadFileText": "Choose File",
     "propertiesCardTitle": " Select articles. "
+  },
+  "wonderjam-view401": {
+    "meta": {
+      "locales": [
+        "en",
+        "en-US",
+        "hu",
+        "po"
+      ]
+    },
+    "model": {},
+    "text_1": " Oops you hit a forbidden (401) page. Please ",
+    "a_2": "sign in",
+    "text_3": " as admin. "
   },
   "wonderjam-view404": {
     "meta": {

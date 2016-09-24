@@ -57,47 +57,18 @@ Example:
         <style include="iron-flex iron-flex-alignment">
             :host {
                 display: inline-block;
-                box-sizing: border-box;
                 --paper-listbox-background-color: transparent;
-/*                @apply(--layout-vertical);*/
+                @apply(--layout-flex);
             }
-
-            /*            paper-dialog {
-                            @apply(--layout-horizontal);
-                            width: 50%;
-                        }*/
-
-/*            paper-fab {
-                --paper-fab: {
-                    @apply(--layout-horizontal);
-                    @apply(--layout-end-justified);
-                }
-            }
-
-            paper-card {
-                                @apply(--layout-vertical);
-                                @apply(--layout-centered);
-            }
-
-            #publishContentFab {
-                left: 0;
-                bottom: -50%;
-                margin-bottom: 0;
-            }*/
         </style>
-<!--        <div class="card-content">
-            <paper-listbox id="assembled" selected="{{selectedSection}}">-->
-                <template is="dom-repeat" items="[[contentModel.sections]]" as="section">
-                    <wonderjam-article-field 
-                        name="[[section.name]]"
-                        model="{{section}}" 
-                        api-url="{{apiUrl}}"
-                        editable>
-                    </wonderjam-article-field>
-                    <!--<br />-->
-                </template>
-<!--            </paper-listbox>
-        </div>-->
+        <template is="dom-repeat" items="[[contentModel.sections]]" as="section">
+            <wonderjam-article-field 
+                name="[[section.name]]"
+                model="{{section}}" 
+                api-url="{{apiUrl}}"
+                editable>
+            </wonderjam-article-field>
+        </template>
     </template>
 
     <script>
@@ -105,7 +76,7 @@ Example:
             is: 'wonderjam-article-form',
             behaviors: [
                 BehaviorsStore.I18nBehavior
-                //            PlutoniumBehaviors.WidgetBehavior
+                        //            PlutoniumBehaviors.WidgetBehavior
             ],
             properties: {
                 selectedSection: {

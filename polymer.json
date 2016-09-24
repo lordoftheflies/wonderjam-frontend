@@ -12,6 +12,7 @@
     "src/wonderjam-recipients-view.html",
     "src/wonderjam-send-view.html",
     "src/wonderjam-share-view.html",
+    "src/wonderjam-view401.html",
     "src/wonderjam-view404.html"
   ],
   "sourceGlobs": [

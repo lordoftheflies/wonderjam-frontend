@@ -282,6 +282,76 @@
     "messageItemReceiverLabel": "Do",
     "emptyMailBoxFolderText": "Brak wiadomości w folderze."
   },
+  "wonderjam-member-editor": {
+    "meta": {
+      "todo": [
+        {
+          "op": "add",
+          "path": "/model/newMemberNameLabel/label",
+          "value": "Name"
+        },
+        {
+          "op": "add",
+          "path": "/model/newMemberNameLabel/error-message",
+          "value": "Member name must be specified."
+        },
+        {
+          "op": "add",
+          "path": "/model/newMemberEmailLabel/label",
+          "value": "Email"
+        },
+        {
+          "op": "add",
+          "path": "/model/newMemberEmailLabel/error-message",
+          "value": "Member email must be specified."
+        },
+        {
+          "op": "add",
+          "path": "/model/newMemberParentLabel/label",
+          "value": "Parent member"
+        },
+        {
+          "op": "add",
+          "path": "/model/preferredLanguageLabel/label",
+          "value": "Preferred language"
+        },
+        {
+          "op": "add",
+          "path": "/newMemberTypeUserTitle",
+          "value": "User"
+        },
+        {
+          "op": "add",
+          "path": "/newMemberTypeGroupTitle",
+          "value": "Group"
+        },
+        {
+          "op": "add",
+          "path": "/newMemberTypeAdminTitle",
+          "value": "Admin"
+        }
+      ]
+    },
+    "model": {
+      "newMemberNameLabel": {
+        "label": "Name",
+        "error-message": "Member name must be specified."
+      },
+      "newMemberEmailLabel": {
+        "label": "Email",
+        "error-message": "Member email must be specified."
+      },
+      "newMemberParentLabel": {
+        "label": "Parent member"
+      },
+      "preferredLanguageLabel": {
+        "label": "Preferred language"
+      }
+    },
+    "newMemberTypeUserTitle": "User",
+    "newMemberTypeGroupTitle": "Group",
+    "newMemberTypeAdminTitle": "Admin"
+  },
   "wonderjam-members-view": {
     "meta": {
       "todo": [
@@ -322,6 +392,19 @@
     },
     "changingDeviceButton": "Changing device",
     "underDevelopmentText": "Under development ..."
+  },
+  "wonderjam-recipients-view": {
+    "meta": {
+      "todo": [
+        {
+          "op": "add",
+          "path": "/emptyChildrenText",
+          "value": "No children."
+        }
+      ]
+    },
+    "model": {},
+    "emptyChildrenText": "No children."
   },
   "wonderjam-share-view": {
     "meta": {
@@ -382,6 +465,31 @@
     "articleContentTabLabel": "Assemble",
     "uploadFileText": "Choose File",
     "propertiesCardTitle": " Select articles. "
+  },
+  "wonderjam-view401": {
+    "meta": {
+      "todo": [
+        {
+          "op": "add",
+          "path": "/text_1",
+          "value": " Oops you hit a forbidden (401) page. Please "
+        },
+        {
+          "op": "add",
+          "path": "/a_2",
+          "value": "sign in"
+        },
+        {
+          "op": "add",
+          "path": "/text_3",
+          "value": " as admin. "
+        }
+      ]
+    },
+    "model": {},
+    "text_1": " Oops you hit a forbidden (401) page. Please ",
+    "a_2": "sign in",
+    "text_3": " as admin. "
   },
   "wonderjam-view404": {
     "meta": {

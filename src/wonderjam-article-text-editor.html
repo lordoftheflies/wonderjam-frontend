@@ -12,7 +12,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../bower_components/paper-input/paper-textarea.html">
-<link rel="import" href="plutonium-manageable-content-shared-styles.html">
 
 <link rel="import" href="wonderjam-article-field-editable-behavior.html">
 <link rel="import" href="wonderjam-article-field-formatable-behavior.html">
@@ -36,12 +35,14 @@ Example:
 
 <dom-module id="wonderjam-article-text-editor">
     <template>
-        <style include="iron-flex iron-flex-alignment plutonium-manageable-content-shared-styles">
-            :host {
+        <style include="iron-flex iron-flex-alignment">
+/*            :host {
                 --section-font-size: 10px;
+                @apply(--layout-flex);
+                @apply(--layout-vertical);
             }
 
-            /*            --section-start-justified {
+                        --section-start-justified {
                             @apply(--layout-horizontal);
                             @apply(--layout-start-justified);
                         }
@@ -54,7 +55,7 @@ Example:
                         --section-end-justified {
                             @apply(--layout-horizontal);
                             @apply(--layout-end-justified);
-                        }*/
+                        }
 
             :host div.preview,
             :host paper-textarea {
@@ -64,14 +65,15 @@ Example:
 
             paper-icon-button[active] {
                 color: var(--paper-icon-button-ink-color, black);
-            }
+            }*/
         </style>
-        <paper-dialog 
-            id="editorDialog" modal 
-            entry-animation="scale-up-animation"
-            exit-animation="fade-out-animation"
-            with-backdrop
-            class="editor plutonium widget">
+        <!--        <paper-dialog 
+                    id="editorDialog" modal 
+                    entry-animation="scale-up-animation"
+                    exit-animation="fade-out-animation"
+                    with-backdrop
+                    class="editor plutonium widget">-->
+        <!--<div>C-->
             <paper-toolbar>
                 <h2 id="editorDialogTitle">[[actionTitle]]</h2>
             </paper-toolbar>
@@ -94,7 +96,9 @@ Example:
                 </div>
                 <paper-fab id="editorDialogAcceptButton" icon="done" raised dialog-confirm on-tap="onApplyChanges"></paper-fab>
             </form>
-        </paper-dialog>
+        <!--</div>-->
+        
+        <!--</paper-dialog>-->
     </template>
 
     <script>
