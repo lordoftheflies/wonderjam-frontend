@@ -37,48 +37,52 @@
              */
             onAddSection: function () {
                 console.log('Add section after field[' + 'section' + this.contentModel.sections.length + ']');
-                this.$.shareView.$.sectionEditor.fire('create', {
-                    name: 'section' + this.contentModel.sections.length,
-                    type: 'plutonium-cm-editor-text',
-                    title: '',
-                    data: ''
-                });
+                this.$.shareView.$.sectionEditor.createTextSection();
+//                this.$.shareView.$.sectionEditor.fire('create', {
+//                    name: 'section' + this.contentModel.sections.length,
+//                    type: 'plutonium-cm-editor-text',
+//                    title: '',
+//                    data: ''
+//                });
             },
             /**
              * Add video-section handler.
              */
             onEmbedVideo: function () {
                 console.log('Embed video to after field[' + 'section' + this.contentModel.sections.length + ']');
-                this.$.shareView.$.sectionEditor.fire('create', {
-                    name: 'section' + this.contentModel.sections.length,
-                    type: 'plutonium-cm-editor-video',
-                    title: '',
-                    data: ''
-                });
+               this.$.shareView.$.sectionEditor.createVideoSection();
+//                 this.$.shareView.$.sectionEditor.fire('create', {
+//                    name: 'section' + this.contentModel.sections.length,
+//                    type: 'plutonium-cm-editor-video',
+//                    title: '',
+//                    data: ''
+//                });
             },
             /**
              * Add image-section handler.
              */
             onEmbedImage: function () {
                 console.log('Embed image to after field[' + 'section' + this.contentModel.sections.length + ']');
-                this.$.shareView.$.sectionEditor.fire('create', {
-                    name: this.name,
-                    type: 'plutonium-cm-editor-image',
-                    title: '',
-                    data: ''
-                });
+              this.$.shareView.$.sectionEditor.createImageSection();
+//                  this.$.shareView.$.sectionEditor.fire('create', {
+//                    name: this.name,
+//                    type: 'plutonium-cm-editor-image',
+//                    title: '',
+//                    data: ''
+//                });
             },
             /**
              * Add link-section handler.
              */
             onEmbedLink: function () {
                 console.log('Embed link to after field[' + 'section' + this.contentModel.sections.length + ']');
-                this.$.shareView.$.sectionEditor.fire('create', {
-                    name: 'section' + this.contentModel.sections.length,
-                    type: 'plutonium-cm-editor-link',
-                    title: '',
-                    data: ''
-                });
+                this.$.shareView.$.sectionEditor.createLinkSection();
+//                this.$.shareView.$.sectionEditor.fire('create', {
+//                    name: 'section' + this.contentModel.sections.length,
+//                    type: 'plutonium-cm-editor-link',
+//                    title: '',
+//                    data: ''
+//                });
             },
             /**
              * Ajax response handler for `publisherAjax` element.

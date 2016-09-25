@@ -15,6 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../bower_components/plutonium-cms/plutonium-cms.html">
 
 <link rel="import" href="wonderjam-article-field.html">
 <!--
@@ -37,6 +38,12 @@ Example:
 <dom-module id="wonderjam-article-section">
     <template>
         <style>
+            
+        </style>
+        
+        <plutonium-cms-div content-model="[[contentModel]]"></plutonium-cms-div>
+        
+<!--        <style>
             :host {
                 display: block;
                 box-sizing: border-box;
@@ -48,6 +55,8 @@ Example:
                 width: 100%;
             }
         </style>
+        
+        
         <paper-card heading="[[contentModel.title]]" hidden="[[!contentModel.leaf]]">
             <div class="card-content">
                 <template is="dom-repeat" items="{{contentModel.sections}}" as="section">
@@ -59,7 +68,7 @@ Example:
                     <br />
                 </template>
             </div>
-        </paper-card>
+        </paper-card>-->
     </template>
 
     <script>

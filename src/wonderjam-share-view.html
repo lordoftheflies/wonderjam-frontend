@@ -28,6 +28,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../bower_components/paper-menu-button/paper-menu-button.html">
 <link rel="import" href="../bower_components/paper-fab-transitions/paper-fab-morph.html">
+<link rel="import" href="../bower_components/plutonium-cms/plutonium-cms.html">
 
 <link rel="import" href="../bower_components/file-upload/file-upload.html">
 
@@ -231,7 +232,7 @@ Wham! It's all awesome now!
             </div>
             <iron-pages class="card-content" selected="{{articleContentType}}" attr-for-selected="name">
 
-                <wonderjam-article-form  
+<!--                <wonderjam-article-form  
                     id="sectionEditor"
                     name="assembled"
                     api-url="{{apiUrl}}"
@@ -242,10 +243,14 @@ Wham! It's all awesome now!
                     contacts="{{contacts}}" 
                     parent-candidates="{{parentCandidates}}"
                     editors="[[editorMap]]">
-                </wonderjam-article-form>
+                </wonderjam-article-form>-->
+                
+                <plutonium-cms-form id="sectionEditor"
+                    name="assembled"
+                    content-model="{{contentModel}}"></plutonium-cms-form>
 
                 <!--<paper-card id="propertiesCardTitle" name="embedded" class="card-content layout horizontal" elevation="1" heading="Upload article">-->
-                <div id="propertiesCardTitle" name="upload" class="layout vertical center" heading="Upload article">
+                <div id="propertiesCardTitle" name="embedded" class="layout vertical center" heading="Upload article">
                     <file-upload 
                         id="uploadFileText"
                         drop-text="Drop any PDF file here."
@@ -256,7 +261,7 @@ Wham! It's all awesome now!
                         method="POST"
                         target="{{fileUploadTarget}}">Choose File</file-upload>
                 </div>
-                <div id="propertiesCardTitle" name="embedded" class="layout vertical center" heading="Upload article">
+                <div id="propertiesCardTitle" name="linked" class="layout vertical center" heading="Upload article">
                     Select articles.
                 </div>
 

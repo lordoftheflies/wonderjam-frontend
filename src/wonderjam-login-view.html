@@ -70,7 +70,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         -->       
         <polymer-cookie
             id="rememberMeCookie"
-            name="remember-me"
+            name="REMEMBERME"
             value="{{rememberMe}}">
         </polymer-cookie>
         <!--        <polymer-cookie
@@ -240,6 +240,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             ],
             attached: function () {
                 this.xsrfToken = this.$.xsrfCookie.readCookie();
+                this.rememberMe = this.$.rememberMeCookie.readCookie();
             },
             onSignIn: function (event, detail) {
                 this.loading = true;

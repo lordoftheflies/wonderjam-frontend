@@ -77,7 +77,7 @@
             _routePageChanged: function (page) {
 //                console.log(this.is, 'navigate to', page);
 //                
-////                if (this.authenticated) {
+                if (this.authenticated) {
 //                    this.page = page || this.homePage;
 ////                } else {
 ////                    this.page = this.loginPage;
@@ -85,12 +85,12 @@
 //            },
 //            _secureRoutePageChanged: function (page, authenticated) {
                 console.log(this.is, 'navigate to', page);
-               // this.page = page || this.homePage;
+                this.page = page || this.homePage;
                 
                 
-                
-                if (this.authenticated) {
-                    this.page = page || this.homePage;
+//                
+//                if (this.authenticated) {
+//                    this.page = page || this.homePage;
                 } else {
                     this.page = this.loginPage;
                 }

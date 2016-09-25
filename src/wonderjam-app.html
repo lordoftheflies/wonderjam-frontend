@@ -46,6 +46,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="wonderjam-controller-manager-behavior.html">
 <link rel="import" href="wonderjam-controller-mailing-behavior.html">
 
+
+<link rel="import" href="../bower_components/plutonium-cms/plutonium-cms.html">
+
 <dom-module id="wonderjam-app">
     <template>
         <style include="iron-flex">
@@ -215,7 +218,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!--        <app-route route="{{route}}" pattern="/registrate" data="{{activationData}}"></app-route>
                 <app-route route="{{route}}" pattern="/login"></app-route>-->
         <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
-        <app-route route="{{route}}" pattern="/article-section" data="{{contentSubrouteData}}"></app-route>
+        <!--<app-route route="{{route}}" pattern="/article-section" data="{{contentSubrouteData}}"></app-route>-->
         <app-route route="{{route}}" pattern="/article-section/:contentId" data="{{contentSubrouteData}}"></app-route>
         <app-route route="{{route}}" pattern="/article-view/:contentId" data="{{contentSubrouteData}}"></app-route>
         <app-route route="{{route}}" pattern="/members-view/:memberId" data="{{memberSubrouteData}}"></app-route>

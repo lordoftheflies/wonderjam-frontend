@@ -37,7 +37,6 @@
                     type: Object,
                     notify: true
                 },
-                
                 /**
                  * Table of contents request parameters.
                  * @type {{pageId: String, tag: String, owner: String}}
@@ -62,11 +61,14 @@
                     type: Object,
                     notify: true
                 }
-                
+
             },
             observers: [
                 'observeContentSubrouteData(accountId, contentSubrouteData.contentId, selectedContentFolder)'
             ],
+            listeners: {
+                'article-details': 'onDetails'
+            },
             /**
              * Content page sub routing observer.
              * @param {{contentId: String}} contentSubrouteData
@@ -78,6 +80,11 @@
                 this.tocRequestParams.pageId = contentId;
                 this.tocRequestParams.tag = selectedContentFolder;
                 this.tocRequestParams.owner = accountId;
+            },
+            onDetails: function (event, contentSubrouteData) {
+                this.set('page', 'article-section');
+                this.set('contentSubrouteData.contentId', contentSubrouteData.contentId);
+
             },
             /**
              * Ajax response handler for `childTocAjax` element.
@@ -103,7 +110,7 @@
             onParentTocAjaxError: function (event, detail) {
                 console.error(this.is, 'article parent path fetching failed for', this.contentSubrouteData);
                 this.selectedContentFolder = 'public';
-                this._showPage401();
+//                this._showPage401();
             }
 
         };
