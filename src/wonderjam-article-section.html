@@ -9,15 +9,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-list/iron-list.html">
 <link rel="import" href="../bower_components/plutonium-cms/plutonium-cms.html">
 
-<link rel="import" href="wonderjam-article-field.html">
+<link rel="import" href="wonderjam-shared-styles.html">
 <!--
 An element providing a solution to no problem in particular.
 
@@ -37,38 +39,21 @@ Example:
 
 <dom-module id="wonderjam-article-section">
     <template>
-        <style>
-            
-        </style>
-        
-        <plutonium-cms-div content-model="[[contentModel]]"></plutonium-cms-div>
-        
-<!--        <style>
+        <style include="wonderjam-shared-styles">
             :host {
                 display: block;
-                box-sizing: border-box;
                 @apply(--layout-vertical);
                 padding: 10px;
             }
-
-            :host paper-card {
-                width: 100%;
-            }
         </style>
-        
-        
-        <paper-card heading="[[contentModel.title]]" hidden="[[!contentModel.leaf]]">
-            <div class="card-content">
-                <template is="dom-repeat" items="{{contentModel.sections}}" as="section">
-                    <wonderjam-article-field
-                        name="{{section.name}}" 
-                        model="{{section}}" 
-                        api-url="{{apiUrl}}">
-                    </wonderjam-article-field>
-                    <br />
-                </template>
-            </div>
-        </paper-card>-->
+        <app-route route="{{route}}" pattern="/:pageId" data="{{articleRouteData}}"></app-route>
+        <iron-ajax id="articleAjax" url="[[apiUrl]]/content-management/article" 
+                   params="[[articleAjaxParams]]" last-response="{{articleDetailsModel}}" 
+                   on-response="onArticleAjaxResponse" on-error="onArticleAjaxError" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto></iron-ajax>
+        <paper-material class="card">
+            <plutonium-cms-div content-model="{{articleDetailsModel}}"></plutonium-cms-div>
+        </paper-material>
     </template>
 
     <script>
@@ -78,19 +63,44 @@ Example:
                 /**
                  * Data-model of th form.
                  */
-                contentModel: {
+                articleDetailsModel: {
                     type: Object,
                     notify: true,
                     //                    observer: 'renderContent'
+                },
+                articleAjaxParams: {
+                    type: Object,
+                    notify: true
                 }
             },
             observers: [
-                'observeSections(contentModel.sections.splices)'
+                'observePageId(articleRouteData.pageId)',
+//                'observeArticleAjaxParameters(pageId)',
+//                'observeSections(contentModel.sections.splices)'
             ],
             //            // Element Lifecycle
+            observePageId: function (pageId) {
 
-            observeSections: function (splices) {
-                console.log(this.is + ' observe sections.');
+//            },
+//            observeSections: function (splices) {
+//                console.log(this.is + ' observe sections.');
+//            },
+//            observeArticleAjaxParameters: function (pageId) {
+                this.articleAjaxParams = {
+                    pageId: pageId
+                };
+            },
+            /**
+             * Ajax response handler for `childTocAjax` element.
+             */
+            onArticleAjaxResponse: function (event, detail) {
+                console.log(this.is, 'fetched article details for', this.articleAjaxParams);
+            },
+            /**
+             * Ajax error handler for `childTocAjax` element.
+             */
+            onArticleAjaxError: function (event, detail) {
+                console.error(this.is, 'article details fetching failed for', this.articleAjaxParams);
             }
         });
     </script>

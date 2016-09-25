@@ -57,7 +57,7 @@ Example:
         <paper-material class="layout vertical flex material-card" hidden="[[contentChildrenModel.leaf]]">
             <iron-list items="{{contentChildrenModel.sections}}" as="section"   hidden="[[isEmpty(contentChildrenModel)]]">
                 <template>
-                    <paper-item class="card-item flex layout horizontal" on-tap="onNavigate" name="[[section.name]]" leaf="[[section.leaf]]">
+                    <paper-item class="card-item flex layout horizontal" on-tap="onNavigate" name="[[section.id]]" leaf="[[section.leaf]]">
                         <span class="flex">[[section.title]]</span>
                         <div hidden="[[!isDraftSelected(selectedContentFolder)]]" class="layout horizontal">
                             <paper-icon-button name="[[section.name]]" icon="create" on-tap="onEditArticle"></paper-icon-button>
@@ -164,6 +164,9 @@ Example:
                 this.fire('article-details', {
                     contentId: event.currentTarget.name
                 });
+            },
+            json: function(data) {
+                return JSON.stringify(data);
             }
         });
     </script>

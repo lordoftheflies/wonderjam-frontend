@@ -215,14 +215,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!--<iron-ajax id="rootArticlesAjax" url="http://localhost:8081/cms/root" headers="[[headers]]" last-response="{{rootArticlesModel}}" auto="false"></iron-ajax>-->
         <!--Routing-->
         <app-location route="{{route}}" use-hash-as-path query-params="{{queryParams}}"></app-location>
+        <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
         <!--        <app-route route="{{route}}" pattern="/registrate" data="{{activationData}}"></app-route>
                 <app-route route="{{route}}" pattern="/login"></app-route>-->
-        <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
         <!--<app-route route="{{route}}" pattern="/article-section" data="{{contentSubrouteData}}"></app-route>-->
-        <app-route route="{{route}}" pattern="/article-section/:contentId" data="{{contentSubrouteData}}"></app-route>
+<!--        <app-route route="{{route}}" pattern="/article-section/:contentId" data="{{contentDetailsSubrouteData}}"></app-route>
         <app-route route="{{route}}" pattern="/article-view/:contentId" data="{{contentSubrouteData}}"></app-route>
         <app-route route="{{route}}" pattern="/members-view/:memberId" data="{{memberSubrouteData}}"></app-route>
-        <app-route route="{{route}}" pattern="/member-editor/:accountId" data="{{memberDetailsSubrouteData}}"></app-route>
+        <app-route route="{{route}}" pattern="/member-editor/:accountId" data="{{memberDetailsSubrouteData}}"></app-route>-->
+        
         <!--Cookies-->
         <!--<polymer-cookie id="rememberMeCookie" name="rememberMe" value="{{rememberMe}}" time="1" format="d"></polymer-cookie>-->
         <polymer-cookie id="rememberMeCookie" name="rememberMe" value="{{rememberMe}}" time="1" format="d"></polymer-cookie>
@@ -288,11 +289,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </app-toolbar>
                     <app-toolbar>
                         <iron-pages   hidden="{{!hasPrivileges}}"
-                            selected="[[page]]"
-                            attr-for-selected="name"
-                            fallback-selection="none"
-                            class="flex"
-                            role="header">
+                                      selected="[[page]]"
+                                      attr-for-selected="name"
+                                      fallback-selection="none"
+                                      class="flex"
+                                      role="header">
                             <div name="none"></div>
                             <!--hidden="[[!session.powerUser]]"-->
                             <paper-tabs name="article-view" data-route="content-view"  attr-for-selected="name" selected="{{selectedContentFolder}}" style="width: 100%;" autoselect>
@@ -365,9 +366,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </wonderjam-article-view>
                     <wonderjam-article-section
                         name="article-section"
+                        route="{{subroute}}"
+                        api-url="[[apiUrl]]"
+                        headers="[[headers]]"
                         parent-model="[[parentModel]]"
-                        selected-article-id="{{contentSubrouteData.contentId}}"
-                        content-model="{{editedContentModel}}">
+                        selected-article-id="{{contentDetailsSubrouteData.contentId}}"
+                        content-model="{{articleDetailsModel}}">
                     </wonderjam-article-section>
                     <wonderjam-mailbox-view 
                         name="mailbox-view"

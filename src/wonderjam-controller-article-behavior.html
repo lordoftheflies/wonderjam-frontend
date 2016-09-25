@@ -1,4 +1,5 @@
 <link rel="import" href="plutonium-widget-bound-beavior.html">
+<link rel="import" href="plutonium-app-routing-behavior.html">
 
 <script>
     (function () {
@@ -60,6 +61,14 @@
                 contentSubrouteData: {
                     type: Object,
                     notify: true
+                },
+                /**
+                 * Sub-route parameters for members page.
+                 * @type {{elements: Array<HTMLElement>, level: number}}
+                 */
+                contentDetailsSubrouteData: {
+                    type: Object,
+                    notify: true
                 }
 
             },
@@ -81,10 +90,26 @@
                 this.tocRequestParams.tag = selectedContentFolder;
                 this.tocRequestParams.owner = accountId;
             },
-            onDetails: function (event, contentSubrouteData) {
-                this.set('page', 'article-section');
-                this.set('contentSubrouteData.contentId', contentSubrouteData.contentId);
+            onDetails: function (event, details) {
+//                this.page = 'article-section';
+//                this.contentSubrouteData.contentId = contentSubrouteData.contentId;
+                this.set('route.path', '/article-section/' + details.contentId);
+//                this.set('articleRouteData.pageId', details.contentId);
+//                this.set('page', 'article-section');
+//                this.set('contentDetailsSubrouteData.contentId', contentSubrouteData.contentId);
 
+            },
+            /**
+             * Ajax response handler for `childTocAjax` element.
+             */
+            onArticleAjaxResponse: function (event, detail) {
+                console.log(this.is, 'fetched article details for', this.contentDetailsSubrouteData);
+            },
+            /**
+             * Ajax error handler for `childTocAjax` element.
+             */
+            onArticleAjaxError: function (event, detail) {
+                console.error(this.is, 'article details fetching failed for', this.contentDetailsSubrouteData);
             },
             /**
              * Ajax response handler for `childTocAjax` element.
@@ -118,6 +143,7 @@
 
         WonderjamAppBehaviors.ControllerArticleBehavior = [
             PlutoniumBehaviors.WidgetBoundBehavior,
+            PlutoniumBehaviors.AppRoutingBehavior,
             WonderjamAppBehaviors.ControllerArticleBehaviorImpl
         ];
 
