@@ -41,6 +41,11 @@
                 'observeAccountId(user)',
 //                'observeSessionSync(token)'
             ],
+            listeners: {
+              'registrate': 'onRegistrate',  
+              'registrated': 'onRegistrated',  
+              'login': 'onLogin'  
+            },
             observeAuthorizationHeaders: function (token, xsrfToken) {
                 this.headers = {};
 
@@ -82,6 +87,24 @@
                 this.fire('feedback', {
                     text: 'Logout failed.'
                 });
+            },
+            
+            onLogin: function() {
+                this.authenticated = false;
+                this.set('route.path', '/login-view');
+            },
+            onRegistrate: function() {
+                this.authenticated = false;
+                this.set('route.path', '/logon-view');
+            },
+            onRegistrated: function(event, c) {
+                this.authenticated = true;
+                
+                if (!this.headers) this.headers = {};
+                this.headers.authorization =  'Basic ' + btoa(c.userName + ':' + c.password);
+                this.$.userAjax.generateRequest();
+              
+                this.set('route.path', '/article-view/ROOT');
             }
         };
     })();

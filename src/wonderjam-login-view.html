@@ -141,7 +141,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <span id="forgottenPasswordTitle">Forgotten password</span>
                 </paper-button>
                 <br />
-                <paper-button on-tap="onSignIn" tabindex="6" raised>
+                <paper-button on-tap="onToSignOn" tabindex="6" raised>
                     <iron-icon icon="account-circle"></iron-icon>
                     <span id="signOnSubmitTitle">Sign on</span>
                 </paper-button>
@@ -294,6 +294,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     'X-XSRF-TOKEN': xsrfToken,
                     'authorization': 'Basic ' + btoa(userName + ':' + password)
                 };
+            },
+            onToSignOn: function() {
+                this.fire('registrate', {});
             }
         });
     </script>

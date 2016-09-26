@@ -172,10 +172,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-ajax id="localesAjax" url="[[apiUrl]]/localization/locales" 
                    last-response="{{locales}}" headers="[[headers]]"
                    handle-as="json" content-type="application/json" auto="[[accountId]]"></iron-ajax>
-        <!--Get profile-->
-        <iron-ajax id="profileAjax" url="[[apiUrl]]/addressbook/[[accountId]]/profile" 
-                   last-response="{{profile}}" headers="[[headers]]"
-                   handle-as="json" content-type="application/json" auto="[[accountId]]"></iron-ajax>
+        
         <!--Change language-->
         <iron-ajax id="changeLanguageAjax" url="[[apiUrl]]/localization/change" 
                    body="{{changeLanguageModel}}" on-response="handleChangeLanguageResponse" on-error="handleChangeLanguageError" headers="[[headers]]"
@@ -337,6 +334,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         user="{{user}}"
                         authentication-url="[[apiUrl]]/login">
                     </wonderjam-login-view>
+                    <wonderjam-logon-view 
+                        name="logon-view"
+                        route="{{subroute}}"
+                        api-url="[[apiUrl]]"
+                        headers="[[headers]]"
+                        signed-in="{{authenticated}}"
+                        registration-url="[[apiUrl]]/authentication/signon">
+                    </wonderjam-logon-view>
 
                     <wonderjam-about-view 
                         name="about-view">
