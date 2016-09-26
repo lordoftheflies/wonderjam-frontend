@@ -55,6 +55,21 @@ Example:
                 padding: 10px;
             }
         </style>
+        <app-route route="{{route}}" pattern="/:contentId" data="{{contentSubrouteData}}"></app-route>
+
+        <!--Get article info-->
+        <iron-ajax id="rootModelAjax" url="[[apiUrl]]/content-management/toc/info" 
+                   params="[[infoRequestParams]]" last-response="{{rootModel}}" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[infoRequestParams]]"></iron-ajax>
+        <!--Get parent articles-->
+        <iron-ajax id="parentTocAjax" url="[[apiUrl]]/content-management/toc/path" 
+                   params="[[tocRequestParams]]" last-response="{{parentModel}}" on-response="onParentTocAjaxResponse" on-error="onParentTocAjaxError" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[tocRequestParams]]"></iron-ajax>
+        <!--Get child contents of an article-->
+        <iron-ajax id="childTocAjax" url="[[apiUrl]]/content-management/toc" 
+                   params="[[tocRequestParams]]" last-response="{{contentChildrenModel}}" on-response="onChildTocAjaxResponse" on-error="onChildTocAjaxError" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[tocRequestParams]]"></iron-ajax>
+
         <paper-material class="layout vertical flex material-card" hidden="[[contentChildrenModel.leaf]]">
             <iron-list items="{{contentChildrenModel.sections}}"   hidden="[[isEmpty(contentChildrenModel)]]" as="section">
                 <template>
@@ -125,32 +140,40 @@ Example:
             },
             observers: [
                 'observeSelectedContentFolder(selectedContentFolder)',
-                'observeCurrentArticle(selectedArticleId, selectedContentFolder, ownerId)',
-                'observeContentChildrenModel(contentChildrenModel)'
+                'observeCurrentArticle(contentSubrouteData.contentId, selectedContentFolder, accountId)',
+//                'observeContentChildrenModel(contentChildrenModel)'
             ],
             ready: function () {
                 console.log(this.is + ' is ready.');
             },
             observeCurrentArticle: function (selectedArticleId, selectedContentFolder, ownerId) {
-                this.tocRequestParams.pageId = selectedArticleId;
-                this.tocRequestParams.tag = selectedContentFolder;
-                this.tocRequestParams.owner = ownerId;
-                this.infoRequestParams.pageId = selectedArticleId;
+                this.tocRequestParams = {
+                    pageId: selectedArticleId,
+                    tag: selectedContentFolder,
+                    owner: ownerId
+                };
+                this.infoRequestParams = {
+                    pageId: selectedArticleId
+                };
                 console.log(this.is, 'toc navigation request parameters updated:', JSON.stringify(this.tocRequestParams));
-                this.fire('fetch-data', {
-                    ids: ['rootModelAjax', 'childTocAjax', 'parentTocAjax']
-                });
+
+                this.$.rootModelAjax.generateRequest();
+                this.$.childTocAjax.generateRequest();
+                this.$.parentTocAjax.generateRequest();
+//                this.fire('fetch-data', {
+//                    ids: ['rootModelAjax', 'childTocAjax', 'parentTocAjax']
+//                });
             },
-            observeContentChildrenModel: function () {
-                var list = document.querySelector('iron-list')
-                if (list)
-                    list.fire('iron-resize');
-            },
+//            observeContentChildrenModel: function () {
+////                var list = document.querySelector('iron-list')
+////                if (list)
+////                    list.fire('iron-resize');
+//            },
             observeSelectedContentFolder: function (folder) {
                 if (this.tocRequestParams) {
                     console.log(this.is + ' observe selected content folder: ' + folder);
                     this.tocRequestParams.tag = folder;
-                    this.tocRequestParams.pageId = this.selectedArticleId = 'ROOT';
+                    this.selectedArticleId = 'ROOT';
                 }
             },
             isEmpty: function (data) {
@@ -166,8 +189,47 @@ Example:
                     contentId: event.currentTarget.name
                 });
             },
-            json: function(data) {
+            json: function (data) {
                 return JSON.stringify(data);
+            },
+            // AJAX HANDLER METHODS
+            /**
+             * Ajax response handler for `childTocAjax` element.
+             */
+            onArticleAjaxResponse: function (event, detail) {
+                console.log(this.is, 'fetched article details for', this.contentDetailsSubrouteData);
+            },
+            /**
+             * Ajax error handler for `childTocAjax` element.
+             */
+            onArticleAjaxError: function (event, detail) {
+                console.error(this.is, 'article details fetching failed for', this.contentDetailsSubrouteData);
+            },
+            /**
+             * Ajax response handler for `childTocAjax` element.
+             */
+            onChildTocAjaxResponse: function (event, detail) {
+                console.log(this.is, 'fetched article child contents for', this.contentSubrouteData);
+            },
+            /**
+             * Ajax error handler for `childTocAjax` element.
+             */
+            onChildTocAjaxError: function (event, detail) {
+                console.error(this.is, 'article child contents fetching failed for', this.contentSubrouteData);
+            },
+            /**
+             * Ajax response handler for `parentTocAjax` element.
+             */
+            onParentTocAjaxResponse: function (event, detail) {
+                console.log(this.is, 'fetched article parent path for', this.contentSubrouteData);
+            },
+            /**
+             * Ajax error handler for `parentTocAjax` element.
+             */
+            onParentTocAjaxError: function (event, detail) {
+                console.error(this.is, 'article parent path fetching failed for', this.contentSubrouteData);
+                this.selectedContentFolder = 'public';
+//                this._showPage401();
             }
         });
     </script>
