@@ -121,10 +121,16 @@
                 });
             },
             onNavigateToEditor: function () {
-                this.fire('page-go', {page: 'share-view'});
+                this.set('route.path', '/share-view');
+//                this.fire('page-go', {page: 'share-view'});
+            },
+            onShare: function() {
+                this.$.shareView.submit();
+                this.set('route.path', '/article-view/' + ((this.$.shareView.selectedParent !== null && this.$.shareView.selectedParent !== 'null') ? this.$.shareView.selectedParent: 'ROOT'));
             },
             onBackToContents: function () {
-                this.fire('page-go', {page: 'article-view'});
+                this.set('route.path', '/article-view');
+//                this.fire('page-go', {page: 'article-view'});
             }
         };
         WonderjamAppBehaviors.ControllerPublicherBehavior = [

@@ -162,6 +162,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-ajax id="childTocAjax" url="[[apiUrl]]/content-management/toc" 
                    params="[[tocRequestParams]]" last-response="{{contentChildrenModel}}" on-response="onChildTocAjaxResponse" on-error="onChildTocAjaxError" headers="[[headers]]"
                    handle-as="json" content-type="application/json" auto="[[tocRequestParams]]"></iron-ajax>
+        <!--Share content-->
+        <iron-ajax id="shareAjax" url="[[apiUrl]]/content-management/[[accountId]]/save"
+                   body="{{editedContentModel}}" headers="[[headers]]"
+                   method="POST" handle-as="json" content-type="application/json"></iron-ajax>
+        
         <!--Publish content-->
         <iron-ajax id="publisherAjax" url="[[apiUrl]]/content-management/publish" 
                    body="{{publisherModel}}" on-response="onPublisherAjaxResponse" on-error="onPublisherAjaxError" headers="[[headers]]"
@@ -189,10 +194,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-ajax id="parentCandidatesAjax" url="[[apiUrl]]/content-management/candidates/parent" 
                    last-response="{{parentCandidates}}" headers="[[headers]]"
                    handle-as="json" content-type="application/json" auto="[[accountId]]"></iron-ajax>
-        <!--Share content-->
-        <iron-ajax id="shareAjax" url="[[apiUrl]]/content-management/[[accountId]]/save"
-                   body="{{editedContentModel}}" headers="[[headers]]"
-                   method="POST" handle-as="json" content-type="application/json"></iron-ajax>
+        
         <!--Send message-->
         <iron-ajax id="messageSendAjax" url="[[apiUrl]]/mailbox/[[accountId]]/send"
                    body="{{messageSendModel}}" on-response="onMessageSendResponse" on-error="onMessageSendError" headers="[[headers]]"
@@ -352,13 +354,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </wonderjam-about-view>
                     <wonderjam-article-view 
                         name="article-view"
+                        route="{{subroute}}"
+                        api-url="[[apiUrl]]"
+                        headers="[[headers]]"
+                        account-id="[[accountId]]" 
+                        
                         info-request-params="{{infoRequestParams}}"
                         toc-request-params="{{tocRequestParams}}"
                         root-model="[[rootModel]]"
                         parent-model="[[parentModel]]"
                         content-children-model="{{contentChildrenModel}}"
                         publisher-model="[[publisherModel]]"
-                        account-id="[[accountId]]" 
                         admin="true" 
                         owner-id="[[accountId]]"
                         selected-article-id="{{contentSubrouteData.contentId}}"
@@ -423,11 +429,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <wonderjam-share-view 
                         id="shareView"
                         name="share-view" 
-                        parent-candidates="{{parentCandidates}}"
+                        route="{{subroute}}"
+                        api-url="[[apiUrl]]"
+                        headers="[[headers]]"
                         account-id="[[accountId]]" 
                         selected-item-ids="{{recipients}}"
-                        content-model="{{editedContentModel}}" 
-                        share-model="{{shareModel}}"
                         selected-meta-action="{{selectedMetaAction}}">
                     </wonderjam-share-view>
                     <wonderjam-view401 

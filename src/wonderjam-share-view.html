@@ -11,6 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
 <link rel="import" href="../bower_components/i18n-behavior/i18n-behavior.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
 
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
@@ -146,51 +147,19 @@ Wham! It's all awesome now!
 
             plutonium-article-form {
                 margin: 24px;
-            }
-            /*            .main-action-fab-container {
-                            position: relative;
-                        }
-                        paper-fab.main-action-fab {
-                            position: absolute;
-                            bottom: -45px;
-                            right: 0px;
-                        }
-                        paper-fab.minor-action-fab {
-                            position: absolute;
-                            top: -65px;
-                            right: 0px;
-                        }*/
+            }   
         </style>
-
-
-        <!--<iron-pages selected="{{selectedMetaAction}}" attr-for-selected="name">-->
-        <!--            <paper-card elevation="1" name="share" heading="Share with others" class="layout vertical main-action-fab-container">
-                        <div class="card-content layout horizontal">
-                            <div class="flex layout vertical">
-                                <div class="layout horizontal">
-                                    <paper-input-container id="recipientsInput" class="flex" always-float-label="true">
-                                        <label>Recipients</label>
-                                        <div class="paper-input-input layout horizontal wrap">
-                                            <template is="dom-repeat" items="[[selectedItemIds]]">
-                                                <paper-chip member="[[item]]" style="margin-right: 10px; background-color: white; z-index: 2000;" removable>
-                                                    TODO: #45
-                                                    <div class="icon">[[getRoleIcon(item)]]</div>
-                                                    <h1>[[getUserName(item)]]</h1>
-                                                    <h2>[[getUserEmail(item)]]</h2>
-                                                </paper-chip>
-                                            </template>
-                                        </div>
-                                    </paper-input-container>
-        
-                                    <paper-input label="Recipients" class="flex" name="recipients" value="{{_recipients}}"></paper-input>
-                                    <paper-icon-button icon="supervisor-account" title="Choose contacts." on-tap="onOpenRecipientsDialog"></paper-icon-button>
-                                    <paper-icon-button icon="clear" title="Clear recipients input." on-tap="onClearRecipients"></paper-icon-button>
-                                </div>
-                                <paper-input id="messageInput" class="bottom title" label="Message" value="{{message}}"></paper-input>
-                            </div>
-                        </div>
-        
-                    </paper-card>-->
+        <app-route route="{{route}}" pattern="/:articleId" data="{{articleEditorRouteData}}"></app-route>
+        <iron-ajax id="articleAjax" url="[[apiUrl]]/content-management/article" 
+                   params="[[articleAjaxParams]]" last-response="{{contentModel}}" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[edit]]"></iron-ajax>
+        <iron-ajax id="parentCandidatesAjax" url="[[apiUrl]]/content-management/candidates/parent" 
+                   last-response="{{parentCandidates}}" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto></iron-ajax>
+        <!--Share content-->
+        <iron-ajax id="shareAjax" url="[[apiUrl]]/content-management/[[accountId]]/save"
+                   body="{{contentModel}}" headers="[[headers]]"
+                   method="POST" handle-as="json" content-type="application/json"></iron-ajax>
 
         <paper-material id="propertiesCardTitle" elevation="1" heading="Properties"  name="props" class="layout vertical main-action-fab-container">
             <div class="card-header layout horizontal">
@@ -203,7 +172,7 @@ Wham! It's all awesome now!
                         label="Parent">
                         <paper-listbox id="parentCandidatesList"
                                        class="dropdown-content"
-                                       attr-for-selected="{{attrForSelected}}"
+                                       attr-for-selected="id"
                                        items="[[parentCandidates]]"
                                        as="parent"
                                        selected="{{selectedParent}}">
@@ -223,8 +192,8 @@ Wham! It's all awesome now!
                     <paper-fab icon="wonderjam-icons:[[articleContentType]]" class="dropdown-trigger"></paper-fab>
                     <paper-toolbar class="dropdown-content">
                         <paper-tabs attr-for-selected="name" selected="{{articleContentType}}" class="flex" autoselect>
-                            <paper-tab text-id="fileContentTabLabel" name="upload">Upload</paper-tab>
-                            <paper-tab text-id="folderContentTabLabel" name="embedded">Folder</paper-tab>
+                            <paper-tab text-id="fileContentTabLabel" name="embedded">Upload</paper-tab>
+                            <paper-tab text-id="folderContentTabLabel" name="linked">Folder</paper-tab>
                             <paper-tab text-id="articleContentTabLabel" name="assembled">Assemble</paper-tab>
                         </paper-tabs>
                     </paper-toolbar>
@@ -232,22 +201,9 @@ Wham! It's all awesome now!
             </div>
             <iron-pages class="card-content" selected="{{articleContentType}}" attr-for-selected="name">
 
-<!--                <wonderjam-article-form  
-                    id="sectionEditor"
-                    name="assembled"
-                    api-url="{{apiUrl}}"
-                    id="pcf"
-                    editable
-                    style="width: 100%;"
-                    content-model="{{contentModel}}"
-                    contacts="{{contacts}}" 
-                    parent-candidates="{{parentCandidates}}"
-                    editors="[[editorMap]]">
-                </wonderjam-article-form>-->
-                
                 <plutonium-cms-form id="sectionEditor"
-                    name="assembled"
-                    content-model="{{contentModel}}"></plutonium-cms-form>
+                                    name="assembled"
+                                    content-model="{{contentModel}}"></plutonium-cms-form>
 
                 <!--<paper-card id="propertiesCardTitle" name="embedded" class="card-content layout horizontal" elevation="1" heading="Upload article">-->
                 <div id="propertiesCardTitle" name="embedded" class="layout vertical center" heading="Upload article">
@@ -279,6 +235,15 @@ Wham! It's all awesome now!
                 PlutoniumBehaviors.WidgetBoundBehavior
             ],
             properties: {
+                edit: {
+                    type: Boolean,
+                    notify: true,
+                    value: false
+                },
+                articleAjaxParams: {
+                    type: Object,
+                    notify: true
+                },
                 shareAjaxRequest: {
                 },
                 pageDto: {
@@ -330,6 +295,7 @@ Wham! It's all awesome now!
                 }
             },
             observers: [
+                'observePageId(articleEditorRouteData.articleId)',
                 'itemsAddedOrRemoved(selectedItemIds.splices)'
             ],
             listeners: {
@@ -339,8 +305,32 @@ Wham! It's all awesome now!
 //                'shareAjax.error': 'onShareError',
 //                'shareAjax.response': 'onShareResponse'
             },
+            observePageId: function (pageId) {
+
+//            },
+//            observeSections: function (splices) {
+//                console.log(this.is + ' observe sections.');
+//            },
+//            observeArticleAjaxParameters: function (pageId) {
+                if (pageId) {
+                    this.edit = true;
+                    this.articleAjaxParams = {
+                        pageId: pageId
+                    };
+                } else {
+                    this.edit = false;
+                    this.contentModel = {
+                        sections: [
+                        ]
+                    };
+                }
+            },
             ready: function () {
                 console.log(this.is + ' is ready.');
+            },
+            submit: function () {
+                console.log('Share article ...');
+                this.$.shareAjax.generateRequest();
             },
 //            updateModel: function (sections) {
 //                this.pageDto = {

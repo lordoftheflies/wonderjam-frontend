@@ -18,6 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-list/iron-list.html">
 <!--Paper components-->
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 
@@ -55,7 +56,7 @@ Example:
             }
         </style>
         <paper-material class="layout vertical flex material-card" hidden="[[contentChildrenModel.leaf]]">
-            <iron-list items="{{contentChildrenModel.sections}}" as="section"   hidden="[[isEmpty(contentChildrenModel)]]">
+            <iron-list items="{{contentChildrenModel.sections}}"   hidden="[[isEmpty(contentChildrenModel)]]" as="section">
                 <template>
                     <paper-item class="card-item flex layout horizontal" on-tap="onNavigate" name="[[section.id]]" leaf="[[section.leaf]]">
                         <span class="flex">[[section.title]]</span>
