@@ -150,12 +150,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-ajax id="memberDetailsAjax" url="[[apiUrl]]/addressbook/[[memberDetailsSubrouteData.accountId]]/profile" 
                    last-response="{{memberDetailsModel}}" headers="[[headers]]" 
                    auto="[[memberDetailsSubrouteData.accountId]]"></iron-ajax>
-        
+
         <!--Share content-->
         <iron-ajax id="shareAjax" url="[[apiUrl]]/content-management/[[accountId]]/save"
                    body="{{editedContentModel}}" headers="[[headers]]"
                    method="POST" handle-as="json" content-type="application/json"></iron-ajax>
-        
+
         <!--Publish content-->
         <iron-ajax id="publisherAjax" url="[[apiUrl]]/content-management/publish" 
                    body="{{publisherModel}}" on-response="onPublisherAjaxResponse" on-error="onPublisherAjaxError" headers="[[headers]]"
@@ -164,15 +164,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-ajax id="unpublisherAjax" url="[[apiUrl]]/content-management/unpublish" 
                    body="{{publisherModel}}" on-response="onUnpublisherAjaxResponse" on-error="onUnpublisherAjaxError" headers="[[headers]]"
                    method="POST" handle-as="json" content-type="application/json"></iron-ajax>
-        <!--Get mailbox folder-->
-        <iron-ajax id="mailBoxAjax" url="[[apiUrl]]/mailbox/[[accountId]]/[[selectedMailBoxFolder]]" 
-                   last-response="{{mailBoxModel}}" headers="[[headers]]"
-                   handle-as="json" content-type="application/json" auto="[[accountId]]"></iron-ajax>
         <!--Get locales-->
         <iron-ajax id="localesAjax" url="[[apiUrl]]/localization/locales" 
                    last-response="{{locales}}" headers="[[headers]]"
                    handle-as="json" content-type="application/json" auto="[[accountId]]"></iron-ajax>
-        
+
         <!--Change language-->
         <iron-ajax id="changeLanguageAjax" url="[[apiUrl]]/localization/change" 
                    body="{{changeLanguageModel}}" on-response="handleChangeLanguageResponse" on-error="handleChangeLanguageError" headers="[[headers]]"
@@ -180,7 +176,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-ajax id="parentCandidatesAjax" url="[[apiUrl]]/content-management/candidates/parent" 
                    last-response="{{parentCandidates}}" headers="[[headers]]"
                    handle-as="json" content-type="application/json" auto="[[accountId]]"></iron-ajax>
-        
+
         <!--Send message-->
         <iron-ajax id="messageSendAjax" url="[[apiUrl]]/mailbox/[[accountId]]/send"
                    body="{{messageSendModel}}" on-response="onMessageSendResponse" on-error="onMessageSendError" headers="[[headers]]"
@@ -207,11 +203,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!--        <app-route route="{{route}}" pattern="/registrate" data="{{activationData}}"></app-route>
                 <app-route route="{{route}}" pattern="/login"></app-route>-->
         <!--<app-route route="{{route}}" pattern="/article-section" data="{{contentSubrouteData}}"></app-route>-->
-<!--        <app-route route="{{route}}" pattern="/article-section/:contentId" data="{{contentDetailsSubrouteData}}"></app-route>
-        <app-route route="{{route}}" pattern="/article-view/:contentId" data="{{contentSubrouteData}}"></app-route>
-        <app-route route="{{route}}" pattern="/members-view/:memberId" data="{{memberSubrouteData}}"></app-route>
-        <app-route route="{{route}}" pattern="/member-editor/:accountId" data="{{memberDetailsSubrouteData}}"></app-route>-->
-        
+        <!--        <app-route route="{{route}}" pattern="/article-section/:contentId" data="{{contentDetailsSubrouteData}}"></app-route>
+                <app-route route="{{route}}" pattern="/article-view/:contentId" data="{{contentSubrouteData}}"></app-route>
+                <app-route route="{{route}}" pattern="/members-view/:memberId" data="{{memberSubrouteData}}"></app-route>
+                <app-route route="{{route}}" pattern="/member-editor/:accountId" data="{{memberDetailsSubrouteData}}"></app-route>-->
+
         <!--Cookies-->
         <!--<polymer-cookie id="rememberMeCookie" name="rememberMe" value="{{rememberMe}}" time="1" format="d"></polymer-cookie>-->
         <polymer-cookie id="rememberMeCookie" name="rememberMe" value="{{rememberMe}}" time="1" format="d"></polymer-cookie>
@@ -239,7 +235,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <app-toolbar text-id="main-menu-label">Menu</app-toolbar>
                 <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
                     <a text-id="article-menu-label" name="article-view" href="#/article-view/ROOT">Articles</a>
-                    <a text-id="mailbox-menu-label" name="mailbox-view" href="#/mailbox-view">Mailbox</a>
+                    <a text-id="mailbox-menu-label" name="mailbox-view" href="#/mailbox-view/[[selectedMailBoxFolder]]">Mailbox</a>
                     <a text-id="members-menu-label" name="members-view" href="#/members-view/[[accountId]]" hidden="{{!hasPrivileges}}">Network</a>
                     <a text-id="about-menu-label" name="about-view" href="#/about-view">About</a>
                 </iron-selector>
@@ -291,8 +287,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                             </paper-tabs>
 
                             <paper-tabs name="mailbox-view" data-route="mailbox-view"  attr-for-selected="name" selected="{{selectedMailBoxFolder}}" style="width: 100%;" autoselect>
-                                <paper-tab text-id="mailBoxPageInboxFolderTitle" name="inbox">Inbox</paper-tab> 
-                                <paper-tab text-id="sentItemsPageInboxFolderTitle" name="outbox">Sent items</paper-tab>
+                                <paper-tab text-id="mailBoxPageInboxFolderTitle" name="inbox" link>
+                                    <a href="#/mailbox-view/inbox" class="link" tabindex="-1">Inbox</a>
+                                </paper-tab> 
+                                <paper-tab text-id="sentItemsPageInboxFolderTitle" name="outbox" link>
+                                    <a href="#/mailbox-view/outbox" class="link" tabindex="-1">Sent items</a>
+                                </paper-tab>
                             </paper-tabs>
 
                             <paper-tabs selected="{{memberSubrouteData.memberId}}" class="flex" scrollable attr-for-selected="name" name="members-view" href="#/members-view/[[accountId]]">
@@ -362,9 +362,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </wonderjam-article-section>
                     <wonderjam-mailbox-view 
                         name="mailbox-view"
-                        mail-box-model="[[mailBoxModel]]"
+                        route="{{subroute}}"
+                        api-url="[[apiUrl]]"
+                        headers="[[headers]]"
                         account-id="[[accountId]]"
-                        selected-mail-box-folder="[[selectedMailBoxFolder]]">
+                        selected-mail-box-folder="{{selectedMailBoxFolder}}">
+                        
+                        <!---->
                     </wonderjam-mailbox-view>
                     <wonderjam-members-view 
                         id="membersView"

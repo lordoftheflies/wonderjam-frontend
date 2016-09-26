@@ -35,6 +35,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
         </style>
+        <app-route route="{{route}}" pattern="/:mailBoxFolder" data="{{subrouteData}}" active="{{mailBoxActive}}"></app-route>
+
+        <!--Get mailbox folder-->
+        <iron-ajax id="mailBoxAjax" url="[[apiUrl]]/mailbox/[[accountId]]/[[subrouteData.mailBoxFolder]]" 
+                   last-response="{{mailBoxModel}}" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[mailBoxActive]]"></iron-ajax>
+        
+        
         <paper-material class="material-card">
             <!--<template is="dom-if" if="{{!isEmpty(data)}}">-->
             <iron-list items="[[mailBoxModel]]" as="message" hidden="[[isEmpty(mailBoxModel)]]" class="layout vertical">
@@ -83,7 +91,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 selectedMailBoxFolder: {
                     type: String,
                     notify: true,
-//                    reflectToAttribute: true
+                    reflectToAttribute: true
                     //                    value: 'inbox'
                 },
                 accountId: {
@@ -109,9 +117,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             },
             computeMailboxFolderRequest: function (accountId, selectedMailBoxFolder) {
                 console.log(this.is + ' fetch ' + selectedMailBoxFolder + ' from ' + accountId + '\'s mailbox.');
-                this.fire('fetch-data', {
-                    ids: ['mailBoxAjax']
-                });
+//                this.selectedMailBoxFolder = selectedMailBoxFolder;
+                this.set('subrouteData.mailBoxFolder', selectedMailBoxFolder);
+                this.$.mailBoxAjax.generateRequest();
+//                this.fire('fetch-data', {
+//                    ids: ['mailBoxAjax']
+//                });
             },
             isOutbox: function (selectedMailBoxFolder) {
                 return selectedMailBoxFolder === 'outbox';

@@ -9,14 +9,26 @@
         },
         {
           "op": "add",
+          "path": "/authors-card:div:paper-item_1:paper-item-body:div",
+          "value": "Péczely Balázs"
+        },
+        {
+          "op": "add",
+          "path": "/authors-card:div:paper-item_1:paper-item-body:div_1",
+          "value": "peczely.balazs@digitaldefense.hu"
+        },
+        {
+          "op": "replace",
           "path": "/authors-card:div:paper-item:paper-item-body:div_1",
-          "value": "heglas11@gmail.com"
+          "value": "laszlo.hegedus@cherubits.hu"
         }
       ]
     },
     "model": {},
     "authors-card:div:paper-item:paper-item-body:div": "Hegedűs László",
-    "authors-card:div:paper-item:paper-item-body:div_1": "heglas11@gmail.com"
+    "authors-card:div:paper-item:paper-item-body:div_1": "laszlo.hegedus@cherubits.hu",
+    "authors-card:div:paper-item_1:paper-item-body:div": "Péczely Balázs",
+    "authors-card:div:paper-item_1:paper-item-body:div_1": "peczely.balazs@digitaldefense.hu"
   },
   "wonderjam-app": {
     "meta": {
@@ -145,6 +157,26 @@
           "op": "add",
           "path": "/model/openMemberEditorFab/title",
           "value": "Edit member."
+        },
+        {
+          "op": "replace",
+          "path": "/mailBoxPageInboxFolderTitle/0",
+          "value": " {1} "
+        },
+        {
+          "op": "replace",
+          "path": "/mailBoxPageInboxFolderTitle/1",
+          "value": "Inbox"
+        },
+        {
+          "op": "replace",
+          "path": "/sentItemsPageInboxFolderTitle/0",
+          "value": " {1} "
+        },
+        {
+          "op": "replace",
+          "path": "/sentItemsPageInboxFolderTitle/1",
+          "value": "Sent items"
         }
       ]
     },
@@ -185,8 +217,14 @@
     "messagesPagePublicFolderTitle": "Publikus",
     "messagesPageMyContentsFolderTitle": "Piszkozat",
     "messagesPagePublishedFolderTitle": "Publikált",
-    "mailBoxPageInboxFolderTitle": "Beérkező",
-    "sentItemsPageInboxFolderTitle": "Elküldött",
+    "mailBoxPageInboxFolderTitle": [
+      " {1} ",
+      "Inbox"
+    ],
+    "sentItemsPageInboxFolderTitle": [
+      " {1} ",
+      "Sent items"
+    ],
     "headerLayout:app-header:app-toolbar_1:iron-pages:paper-tabs_4:paper-tab": "Person",
     "headerLayout:app-header:app-toolbar_1:iron-pages:paper-tabs_4:paper-tab_1": "Group"
   },
