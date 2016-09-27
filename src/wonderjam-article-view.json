@@ -1,10 +1,5 @@
 {
   "meta": {},
   "model": {},
-  "div_1:template:paper-item:span_1": [
-    "({1} {2})",
-    "[[section.contentType]]",
-    "[[section.id]]"
-  ],
   "emptyChildrenText": "No content in the folder."
 }

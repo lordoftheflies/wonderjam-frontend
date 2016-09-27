@@ -247,30 +247,10 @@
           "op": "add",
           "path": "/emptyChildrenText",
           "value": "No content in the folder."
-        },
-        {
-          "op": "add",
-          "path": "/div_1:template:paper-item:span_1/1",
-          "value": "[[section.contentType]]"
-        },
-        {
-          "op": "replace",
-          "path": "/div_1:template:paper-item:span_1/0",
-          "value": "({1} {2})"
-        },
-        {
-          "op": "add",
-          "path": "/div_1:template:paper-item:span_1/2",
-          "value": "[[section.id]]"
         }
       ]
     },
     "model": {},
-    "div_1:template:paper-item:span_1": [
-      "({1} {2})",
-      "[[section.contentType]]",
-      "[[section.id]]"
-    ],
     "emptyChildrenText": "A mappában nincs tartalom."
   },
   "wonderjam-login-view": {
