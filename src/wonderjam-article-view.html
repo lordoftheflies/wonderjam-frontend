@@ -61,7 +61,7 @@ Example:
 
         <div class="card-content" hidden="[[isEmpty(contentChildrenModel)]]">
             <template is="dom-repeat" items="{{contentChildrenModel.sections}}" as="section">
-                <paper-item class="card-item flex layout horizontal" on-tap="onNavigate" name="[[section.id]]" leaf="[[section.leaf]]">
+                <paper-item class="card-item flex layout horizontal" on-tap="onNavigate" name="[[section.id]]" type="[[section.contentType]]">
                     <span class="flex">[[section.title]]</span>
                     <div hidden="[[!isDraftSelected(selectedContentFolder)]]" class="layout horizontal">
                         <paper-icon-button name="[[section.name]]" icon="create" on-tap="onEditArticle"></paper-icon-button>
@@ -178,7 +178,8 @@ Example:
                 console.log('Navigate to ', event.currentTarget.name);
                 this.selectedArticleId = event.currentTarget.name;
                 this.fire('article-details', {
-                    contentId: event.currentTarget.name
+                    contentId: event.currentTarget.name,
+                    type: event.currentTarget.type
                 });
             },
             json: function (data) {
