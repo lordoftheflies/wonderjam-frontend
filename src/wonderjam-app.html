@@ -158,7 +158,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!--Get mailbox folder-->
         <iron-ajax id="mailBoxAjax" url="[[apiUrl]]/mailbox/[[accountId]]/[[selectedMailBoxFolder]]" 
                    last-response="{{mailBoxModel}}" headers="[[headers]]"
-                   handle-as="json" content-type="application/json" auto="[[mailBoxActive]]"></iron-ajax>
+                   handle-as="json" content-type="application/json" auto="[[accountId]]"></iron-ajax>
 
         <iron-ajax id="articleAjax" url="[[apiUrl]]/content-management/article" 
                    params="[[articleAjaxParams]]" last-response="{{articleDetailsModel}}" 
@@ -391,10 +391,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </wonderjam-article-section>
                     <wonderjam-mailbox-view 
                         name="mailbox-view"
-                        route="{{subroute}}"
-                        api-url="[[apiUrl]]"
-                        headers="[[headers]]"
                         account-id="[[accountId]]"
+                        mail-box-model="{{mailBoxModel}}"
                         selected-mail-box-folder="{{selectedMailBoxFolder}}">
 
                         <!---->

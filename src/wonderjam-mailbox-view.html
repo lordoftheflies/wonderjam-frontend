@@ -35,39 +35,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
         </style>
-        
-        
-        
-        <paper-material class="material-card">
-            <!--<template is="dom-if" if="{{!isEmpty(data)}}">-->
-            <iron-list items="[[mailBoxModel]]" as="message" hidden="[[isEmpty(mailBoxModel)]]" class="layout vertical">
-                <template>
-                    <paper-item class="card-item layout horizontal" tabindex="[[tabIndex]]">
-                        <!--<paper-material class="layout horizontal">-->
-                        <div class="flex">
-                            <div class="layout horizontal">
-                                <div class="flex">
-                                    <label hidden="[[isOutbox(selectedMailBoxFolder)]]">
-                                        <span id="messageItemSenderLabel">From:</span>
-                                        <span id="messageItemSenderValue">[[message.fromName]]</span>
-                                    </label>
-                                    <label hidden="[[isInbox(selectedMailBoxFolder)]]">
-                                        <span  id="messageItemReceiverLabel">To:</span> 
-                                        <span id="messageItemReceiverValue">[[message.toName]]</span>
-                                    </label>
-                                </div>
-                                <div class="flex"></div>
-                                <span>[[message.ts]]</span>
+        <div class="card-content" hidden="[[isEmpty(mailBoxModel)]]">
+            <template is="dom-repeat" items="[[mailBoxModel]]" as="message"  class="layout vertical">
+                <paper-item class="card-item layout horizontal" tabindex="[[tabIndex]]">
+                    <!--<paper-material class="layout horizontal">-->
+                    <div class="flex">
+                        <div class="layout horizontal">
+                            <div class="flex">
+                                <label hidden="[[isOutbox(selectedMailBoxFolder)]]">
+                                    <span id="messageItemSenderLabel">From:</span>
+                                    <span id="messageItemSenderValue">[[message.fromName]]</span>
+                                </label>
+                                <label hidden="[[isInbox(selectedMailBoxFolder)]]">
+                                    <span  id="messageItemReceiverLabel">To:</span> 
+                                    <span id="messageItemReceiverValue">[[message.toName]]</span>
+                                </label>
                             </div>
-                            <div class="secondary">
-                                <span>[[message.message]]</span>
-                            </div>
+                            <div class="flex"></div>
+                            <span>[[message.ts]]</span>
                         </div>
-                        <!--</paper-material>-->
-                    </paper-item>
-                </template>
-            </iron-list>
-
+                        <div class="secondary">
+                            <span>[[message.message]]</span>
+                        </div>
+                    </div>
+                    <!--</paper-material>-->
+                </paper-item>
+            </template>
+        </div>
+        <paper-material class="material-card">
             <div class="card-content" hidden="[[!isEmpty(mailBoxModel)]]">
                 <span id="emptyMailBoxFolderText">No messages in the folder.</span>
             </div>
@@ -87,7 +82,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     type: String,
                     notify: true,
                     reflectToAttribute: true
-                    //                    value: 'inbox'
+                            //                    value: 'inbox'
                 },
                 accountId: {
                     type: String,

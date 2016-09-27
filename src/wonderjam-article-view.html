@@ -59,7 +59,7 @@ Example:
             
         </style>
 
-        <div items="{{contentChildrenModel.sections}}" class="card-content" hidden="[[isEmpty(contentChildrenModel)]]">
+        <div class="card-content" hidden="[[isEmpty(contentChildrenModel)]]">
             <template is="dom-repeat" items="{{contentChildrenModel.sections}}" as="section">
                 <paper-item class="card-item flex layout horizontal" on-tap="onNavigate" name="[[section.id]]" leaf="[[section.leaf]]">
                     <span class="flex">[[section.title]]</span>

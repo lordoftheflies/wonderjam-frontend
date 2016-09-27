@@ -34,20 +34,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 @apply(--layout-flex);
                 padding: 10px;
             }
+            
+            span.item-title {
+                margin-left: 4px;
+            }
 
 
         </style>
 
-        <paper-material class="material-card">
-            <iron-list id="childrenIronList" items="[[memberChildren]]" as="item" hidden="[[isEmpty(memberChildren)]]" class="layout vertical">
-                <template>
-                    <paper-item class="card-item flex layout horizontal" nodename="[[item.name]]"  nodeid="[[item.id]]" role="[[item.role]]" on-tap="onNavigateToChildren" tabindex="[[tabIndex]]">
+        <div class="card-content">
+            <template is="dom-repeat"  items="[[memberChildren]]" as="item">
+                <paper-item class="card-item flex layout horizontal" nodename="[[item.name]]"  nodeid="[[item.id]]" role="[[item.role]]" on-tap="onNavigateToChildren" tabindex="[[tabIndex]]">
                         <iron-icon icon="wonderjam-icons:[[getIcon(item.role)]]"></iron-icon>
-                        <span >[[item.name]]</span>
+                        <span class="item-title">[[item.name]]</span>
                     </paper-item>
-                </template>
-            </iron-list>
-
+            </template>
+        </div>
+        
+        <paper-material class="material-card">
 
             <div class="card-content" hidden="[[!isEmpty(memberChildren)]]">
                 <div id="emptyChildrenText">No children.</div>
