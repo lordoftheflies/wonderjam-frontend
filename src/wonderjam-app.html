@@ -120,6 +120,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 text-align: center;
             }
         </style>
+        <!--Get profile-->
+        <iron-ajax id="profileIronAjax" url="[[apiUrl]]/addressbook/[[registrationSubrouteData.activationCode]]/profile" 
+                   last-response="{{profile}}" headers="[[headers]]" on-response="onProfileIronAjaxResponse" on-error="onProfileIronAjaxError"
+                   handle-as="json" content-type="application/json"></iron-ajax>
+
         <!--Get all members.-->
         <iron-ajax id="recipientsAjax" url="[[apiUrl]]/addressbook/[[accountId]]/contacts" 
                    last-response="{{recipientsModel}}" headers="[[headers]]"
@@ -137,6 +142,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                    body="{{memberModel}}" headers="[[headers]]"
                    method="POST" handle-as="json" content-type="application/json"></iron-ajax>
 
+        <!--Get article info-->
+        <iron-ajax id="rootTocAjax" url="[[apiUrl]]/content-management/toc/info" 
+                   params="[[infoRequestParams]]" last-response="{{rootTocModel}}" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[infoRequestParams]]"></iron-ajax>
+        <!--Get parent articles-->
+        <iron-ajax id="parentTocAjax" url="[[apiUrl]]/content-management/toc/path" 
+                   params="[[tocRequestParams]]" last-response="{{parentTocModel}}" on-response="onParentTocAjaxResponse" on-error="onParentTocAjaxError" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[tocRequestParams]]"></iron-ajax>
+        <!--Get child contents of an article-->
+        <iron-ajax id="childTocAjax" url="[[apiUrl]]/content-management/toc" 
+                   params="[[tocRequestParams]]" last-response="{{childTocModel}}" on-response="onChildTocAjaxResponse" on-error="onChildTocAjaxError" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[tocRequestParams]]"></iron-ajax>
+
+        <!--Get mailbox folder-->
+        <iron-ajax id="mailBoxAjax" url="[[apiUrl]]/mailbox/[[accountId]]/[[selectedMailBoxFolder]]" 
+                   last-response="{{mailBoxModel}}" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[mailBoxActive]]"></iron-ajax>
+
+        <iron-ajax id="articleAjax" url="[[apiUrl]]/content-management/article" 
+                   params="[[articleAjaxParams]]" last-response="{{articleDetailsModel}}" 
+                   on-response="onArticleAjaxResponse" on-error="onArticleAjaxError" headers="[[headers]]"
+                   handle-as="json" content-type="application/json" auto="[[articleDetailsActive]]"></iron-ajax>
 
         <!--Get member parents.-->
         <iron-ajax id="genocideIronAjax" url="[[apiUrl]]/addressbook/genocide" 
@@ -200,8 +227,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!--Routing-->
         <app-location route="{{route}}" use-hash-as-path query-params="{{queryParams}}"></app-location>
         <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+                
+        
+        <app-route route="{{route}}" pattern="/article-view/:contentId" data="{{pageRouteData}}"></app-route>
+        <app-route route="{{route}}" pattern="/article-section/:pageId" data="{{articleSectionRouteData}}"></app-route>
         <!--        <app-route route="{{route}}" pattern="/registrate" data="{{activationData}}"></app-route>
-                <app-route route="{{route}}" pattern="/login"></app-route>-->
+                <app-route route="{{route}}" pattern="/login"></app-route>
         <!--<app-route route="{{route}}" pattern="/article-section" data="{{contentSubrouteData}}"></app-route>-->
         <!--        <app-route route="{{route}}" pattern="/article-section/:contentId" data="{{contentDetailsSubrouteData}}"></app-route>
                 <app-route route="{{route}}" pattern="/article-view/:contentId" data="{{contentSubrouteData}}"></app-route>
@@ -348,17 +379,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </wonderjam-about-view>
                     <wonderjam-article-view 
                         name="article-view"
-                        route="{{subroute}}"
-                        api-url="[[apiUrl]]"
-                        headers="[[headers]]"
                         account-id="[[accountId]]"
-                        selected-content-folder="{{selectedContentFolder}}">
+                        selected-content-folder="[[selectedContentFolder]]"
+                        content-children-model="{{childTocModel}}">
                     </wonderjam-article-view>
                     <wonderjam-article-section
                         name="article-section"
-                        route="{{subroute}}"
-                        api-url="[[apiUrl]]"
-                        headers="[[headers]]">
+                        article-details-model="[[articleDetailsModel]]"
+                        page-id="{{articleSectionRouteData.pageId}}"
+                        article-ajax-params="{{articleAjaxParams}}">
                     </wonderjam-article-section>
                     <wonderjam-mailbox-view 
                         name="mailbox-view"
@@ -367,7 +396,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         headers="[[headers]]"
                         account-id="[[accountId]]"
                         selected-mail-box-folder="{{selectedMailBoxFolder}}">
-                        
+
                         <!---->
                     </wonderjam-mailbox-view>
                     <wonderjam-members-view 

@@ -46,11 +46,7 @@ Example:
                 padding: 10px;
             }
         </style>
-        <app-route route="{{route}}" pattern="/:pageId" data="{{articleRouteData}}"></app-route>
-        <iron-ajax id="articleAjax" url="[[apiUrl]]/content-management/article" 
-                   params="[[articleAjaxParams]]" last-response="{{articleDetailsModel}}" 
-                   on-response="onArticleAjaxResponse" on-error="onArticleAjaxError" headers="[[headers]]"
-                   handle-as="json" content-type="application/json" auto></iron-ajax>
+        
         <paper-material class="card">
             <plutonium-cms-div content-model="{{articleDetailsModel}}"></plutonium-cms-div>
         </paper-material>
@@ -71,10 +67,14 @@ Example:
                 articleAjaxParams: {
                     type: Object,
                     notify: true
+                },
+                pageId: {
+                    type: String,
+                    notify: true
                 }
             },
             observers: [
-                'observePageId(articleRouteData.pageId)',
+                'observePageId(pageId)',
 //                'observeArticleAjaxParameters(pageId)',
 //                'observeSections(contentModel.sections.splices)'
             ],
