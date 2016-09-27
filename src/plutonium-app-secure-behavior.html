@@ -56,6 +56,7 @@
                 }
 //                this.headers['X-XSRF-TOKEN'] = this.$.xsrfCookie.readCookie();
                 this.headers['X-XSRF-TOKEN'] = xsrfToken;
+                this.headers['X-Requested-With'] = 'XMLHttpRequest';
 
                 console.log(this.is, 'X-XSRF-TOKEN', xsrfToken);
                 console.log(this.is, 'X-Auth-Token', token);

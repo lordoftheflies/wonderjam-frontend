@@ -42,7 +42,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         </style>
 
-        <div class="card-content">
+        <div class="card-content" hidden="[[isEmpty(memberChildren)]]">
             <template is="dom-repeat"  items="[[memberChildren]]" as="item">
                 <paper-item class="card-item flex layout horizontal" nodename="[[item.name]]"  nodeid="[[item.id]]" role="[[item.role]]" on-tap="onNavigateToChildren" tabindex="[[tabIndex]]">
                         <iron-icon icon="wonderjam-icons:[[getIcon(item.role)]]"></iron-icon>
